@@ -84,7 +84,8 @@ public class AddCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new InputException("Please ensure that you enter the full command.\n"
                     + "Duke.Tasks.Deadline: deadline <task name> /by <DD/MM/YYYY HH:MM>\n"
-                    + "Duke.Tasks.Event: event <task name> /at <start as DD/MM/YYYY HH:MM> to <end as DD/MM/YYYY HH:MM>");
+                    + "Duke.Tasks.Event: event <task name> /at <start as DD/MM/YYYY HH:MM> "
+                    + "to <end as DD/MM/YYYY HH:MM>");
         }
         formattedOutput.add("You currently have " + taskList.getTasks().size()
                 + ((taskList.getTasks().size() == 1) ? " task in the list." : " tasks in the list."));
