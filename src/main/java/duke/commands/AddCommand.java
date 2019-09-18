@@ -5,12 +5,7 @@ import duke.exceptions.InputException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.tasks.After;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Fixed;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import duke.tasks.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +35,8 @@ public class AddCommand extends Command {
             throw new InputException("☹ OOPS!!! The description of an event cannot be empty.");
         } else if (this.type.equals("fixed") && components[1].equals("/needs")) {
             throw new InputException("☹ OOPS!!! The description of a fixed duration task cannot be empty.");
+        } else if (this.type.equals("within") && components[1].equals("/between")) {
+            throw new InputException("☹ OOPS!!! The description of a within task cannot be empty.");
         }
     }
 
@@ -58,6 +55,9 @@ public class AddCommand extends Command {
         List dates;
         String fixedDuration;
         String doAfter;
+        String doWithin;
+        Date start;
+        Date end;
 
         try {
             switch (this.type) {
@@ -96,11 +96,23 @@ public class AddCommand extends Command {
                 formattedOutput.add(added.toString());
                 break;
 
+            case "do-within":
+                parser = new com.joestelmach.natty.Parser();
+                dates = parser.parse(fullCommand.split("/between ")[1]).get(0).getDates();
+                start = (Date) dates.get(0);
+                end = (Date) dates.get(1);
+                added = taskList.addTask(new Within(fullCommand.substring(0, fullCommand.lastIndexOf(" /between"))
+                        .replaceFirst("do-within ", ""),
+                        start, end));
+                formattedOutput.add("Got it. I've added this do-within task:");
+                formattedOutput.add(added.toString());
+                break;
+
             default:
                 parser = new com.joestelmach.natty.Parser();
                 dates = parser.parse(fullCommand.split("/at ")[1]).get(0).getDates();
-                Date start = (Date) dates.get(0);
-                Date end = (Date) dates.get(1);
+                start = (Date) dates.get(0);
+                end = (Date) dates.get(1);
                 added = taskList.addTask(new Event(fullCommand.substring(0, fullCommand.lastIndexOf(" /at"))
                         .replaceFirst("event ", ""),
                         start, end));
@@ -113,7 +125,9 @@ public class AddCommand extends Command {
                     + "Duke.Tasks.Do-After: do-after <task name> /needs <do-after event or time>\n"
                     + "Duke.Tasks.Event: event <task name> /at <start as MM/DD/YYYY HH:MM> "
                     + "to <end as DD/MM/YYYY HH:MM>\n"
-                    + "Duke.Tasks.Fixed: fixed <task name> /needs <fixed task duration>");
+                    + "Duke.Tasks.Fixed: fixed <task name> /needs <fixed task duration>\n"
+                    + "Duke.Tasks.Within: do-within <task name> /between <start as MM/DD/YYYY HH:MM> "
+                    + "to <end as DD/MM/YYYY HH:MM>");
         }
         formattedOutput.add("You currently have " + taskList.getTasks().size()
                 + ((taskList.getTasks().size() == 1) ? " task in the list." : " tasks in the list."));
