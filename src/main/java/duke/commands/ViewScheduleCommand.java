@@ -17,10 +17,10 @@ public class ViewScheduleCommand extends Command {
     private Date inputDate;
 
     /**
-     * Constructor for viewing schedule for a day
-     * @param components Components of the full command
-     * @param fullCommand the full command
-     * @throws InputException if input format is incorrect
+     * Constructor for viewing schedule for a day.
+     * @param components Components of the full command.
+     * @param fullCommand the full command.
+     * @throws InputException if input format is incorrect.
      */
     public ViewScheduleCommand(String[] components, String fullCommand) throws InputException {
         if (components.length == 1) {
@@ -39,10 +39,10 @@ public class ViewScheduleCommand extends Command {
     }
 
     /**
-     * Searches for tasks on the same day as the given day
-     * @param taskList TaskList instance
-     * @param storage Storage instance
-     * @param ui Ui instance
+     * Searches for tasks on the same day as the given day.
+     * @param taskList TaskList instance.
+     * @param storage Storage instance.
+     * @param ui Ui instance.
      */
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
