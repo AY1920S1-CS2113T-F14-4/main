@@ -52,4 +52,22 @@ public class Event extends Task {
     private String getEnd() {
         return this.end.toString();
     }
+
+    /**
+     * Check if date given is before the event, during event, or after event
+     * @param inputDate the date to be compared
+     * @return -1 if given date is before, 0 if given data is same, 1 if given date is after
+     */
+    public int compareDate(Date inputDate) {
+        boolean isAfterStartDate = (start.compareDate(inputDate) >= 0);
+        boolean isBeforeEndDate = (end.compareDate(inputDate) <= 0);
+
+        if (!isAfterStartDate) {
+            return -1;
+        } else if (!isBeforeEndDate) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }

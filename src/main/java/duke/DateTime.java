@@ -25,4 +25,19 @@ public class DateTime {
         String dateString = dateFormat.format(dateTime);
         return dateString;
     }
+
+    /**
+     * Compares DateTime object to a java.util.Date object
+     * @param date a java.util.Date object to be compared against
+     * @return -1 if given date is before, 0 if given data is same, 1 if given date is after
+     */
+    public int compareDate(Date date) {
+        if (date.before(dateTime)) {
+            return -1;
+        } else if (date == dateTime) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 }
