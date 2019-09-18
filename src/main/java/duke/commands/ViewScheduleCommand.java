@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.DateTime;
 import duke.exceptions.InputException;
 import duke.Storage;
 import duke.TaskList;
@@ -53,9 +54,9 @@ public class ViewScheduleCommand extends Command {
         for (Task task : tasks) {
             boolean check = false;
             if (task instanceof Deadline) {
-                check = ((Deadline) task).compareDate(inputDate) == 0;
+                check = ((Deadline) task).compareDate(new DateTime(inputDate)) == 0;
             } else if (task instanceof Event) {
-                check = ((Event) task).compareDate(inputDate) == 0;
+                check = ((Event) task).compareDate(new DateTime(inputDate)) == 0;
             }
 
             if (check) {
