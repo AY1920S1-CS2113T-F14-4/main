@@ -4,7 +4,7 @@ import duke.DateTime;
 
 import java.util.Date;
 
-public class Within extends Task{
+public class Within extends Task {
     private DateTime endDate;
 
     /**
@@ -40,7 +40,9 @@ public class Within extends Task{
 
     @Override
     public String toString() {
-        return "[W]" + super.toString() + " (between: " + this.getStartDateString() + " and " + this.getEndDateString() + ")";
+        return "[W]" + super.toString() +
+                " (between: " + this.getStartDateString() +
+                " and " + this.getEndDateString() + ")";
     }
 
     private String getStartDateString() {
