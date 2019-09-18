@@ -6,6 +6,7 @@ import duke.commands.FindCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
 import duke.commands.UnknownCommand;
+import duke.commands.ReminderCommand;
 import duke.commands.ListCommand;
 import duke.commands.DoneCommand;
 import duke.commands.ViewScheduleCommand;
@@ -31,6 +32,10 @@ public class Parser {
 
             case "list":
                 command = new ListCommand();
+                break;
+
+            case "remind":
+                command = new ReminderCommand();
                 break;
 
             case "delete":
