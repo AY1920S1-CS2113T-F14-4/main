@@ -49,7 +49,6 @@ public class ReminderCommandTest {
         Ui testUi = new Ui();
         Storage testStorage = new Storage("data/dukeTest.txt");
         ReminderCommand command = new ReminderCommand();
-        assertEquals(command.execute(testTaskList, testStorage, testUi).contains("2030-01-01"), true);
         assertNotEquals(command.execute(testTaskList, testStorage, testUi).contains("2030-01-01 (Overdue)"),
                 true);
     }
