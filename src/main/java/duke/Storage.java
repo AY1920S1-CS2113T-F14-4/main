@@ -3,11 +3,13 @@ package duke;
 import com.joestelmach.natty.Parser;
 import duke.exceptions.DukeException;
 import duke.exceptions.StorageException;
+import duke.tasks.After;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Fixed;
 import duke.tasks.Task;
 import duke.tasks.Todo;
+import duke.tasks.Within;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -45,6 +47,9 @@ public class Storage {
         Vector<Task> tasks = new Vector<>();
         com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
         try {
+            Date start;
+            Date end;
+
             BufferedReader inputStream = new BufferedReader(new FileReader(dukeFile));
             while (true) {
                 String currentLine = inputStream.readLine();
@@ -63,9 +68,17 @@ public class Storage {
                     case "F":
                         tasks.addElement(new Fixed(Integer.parseInt(arguments[1]), arguments[2], arguments[3]));
                         break;
+                    case "A":
+                        tasks.addElement(new After(Integer.parseInt(arguments[1]), arguments[2], arguments[3]));
+                        break;
+                    case "W":
+                        start = parser.parse(arguments[3]).get(0).getDates().get(0);
+                        end = parser.parse(arguments[4]).get(0).getDates().get(0);
+                        tasks.addElement(new Within(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                        break;
                     default:
-                        Date start = parser.parse(arguments[3]).get(0).getDates().get(0);
-                        Date end = parser.parse(arguments[4]).get(0).getDates().get(0);
+                        start = parser.parse(arguments[3]).get(0).getDates().get(0);
+                        end = parser.parse(arguments[4]).get(0).getDates().get(0);
                         tasks.addElement(new Event(Integer.parseInt(arguments[1]), arguments[2], start, end));
                     }
                 }
