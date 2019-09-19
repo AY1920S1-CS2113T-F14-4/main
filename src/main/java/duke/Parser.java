@@ -6,8 +6,10 @@ import duke.commands.FindCommand;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
 import duke.commands.UnknownCommand;
+import duke.commands.ReminderCommand;
 import duke.commands.ListCommand;
 import duke.commands.DoneCommand;
+import duke.commands.ViewScheduleCommand;
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
 
@@ -32,6 +34,10 @@ public class Parser {
                 command = new ListCommand();
                 break;
 
+            case "remind":
+                command = new ReminderCommand();
+                break;
+
             case "delete":
                 command = new DeleteCommand(Integer.parseInt(components[1]) - 1);
                 break;
@@ -40,9 +46,17 @@ public class Parser {
                 command = new FindCommand(components, input);
                 break;
 
+            case "view-schedule":
+                command = new ViewScheduleCommand(components, input);
+                break;
+
             case "todo":
             case "deadline":
+            case "do-within":
+            case "do-after":
             case "event":
+            case "fixed":
+            case "recurring":
                 command = new AddCommand(components, input);
                 break;
 
@@ -56,6 +70,8 @@ public class Parser {
             return command;
         } catch (NumberFormatException e) {
             throw new InputException("Invalid index entered. Type 'list' to see your list.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InputException("Please provide an index. Eg. 'done 5' or 'delete 3'");
         }
     }
 }
