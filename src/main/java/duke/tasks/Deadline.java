@@ -45,7 +45,6 @@ public class Deadline extends Task {
      */
     @Override
     public boolean compareEquals(DateTime inputDate) {
-        System.out.println(this.startDate.compareTo(inputDate));
         return (this.startDate.compareTo(inputDate) == 0);
     }
 }
