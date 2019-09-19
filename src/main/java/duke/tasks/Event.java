@@ -53,20 +53,15 @@ public class Event extends Task {
     }
 
     /**
-     * Check if date given is before the event, during event, or after event.
+     * Check if date given is within event period.
      * @param inputDate the date to be compared.
-     * @return -1 if given date is before, 0 if given data is same, 1 if given date is after.
+     * @return true if within, false if not.
      */
-    public int compareDate(DateTime inputDate) {
+    @Override
+    public boolean compareEquals(DateTime inputDate) {
         boolean isAfterStartDate = (this.startDate.compareTo(inputDate) <= 0);
         boolean isBeforeEndDate = (this.endDate.compareTo(inputDate) >= 0);
 
-        if (!isAfterStartDate) {
-            return -1;
-        } else if (!isBeforeEndDate) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return (isAfterStartDate && isBeforeEndDate);
     }
 }

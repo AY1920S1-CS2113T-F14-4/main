@@ -39,11 +39,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * Check if given date is before, during, or after deadline.
+     * Check if given date is equal to deadline date.
      * @param inputDate the date to be compared.
-     * @return -1 if given date is before, 0 if given data is same, 1 if given date is after.
+     * @return true if equal, false if not equal.
      */
-    public int compareDate(DateTime inputDate) {
-        return -(this.startDate.compareTo(inputDate));
+    @Override
+    public boolean compareEquals(DateTime inputDate) {
+        System.out.println(this.startDate.compareTo(inputDate));
+        return (this.startDate.compareTo(inputDate) == 0);
     }
 }

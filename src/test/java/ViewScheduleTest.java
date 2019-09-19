@@ -14,9 +14,9 @@ public class ViewScheduleTest {
     void testDateCheckDeadline() {
         Date inputDate = new Date(2019, 9,20);
         Task task = new Deadline("Test", inputDate);
-        assertEquals(0, ((Deadline) task).compareDate(new DateTime(inputDate)));
+        assertEquals(0, task.compareEquals(new DateTime(inputDate)));
         Date inputDateTwo = new Date(2019, 9,21);
-        assertNotEquals(0, ((Deadline) task).compareDate(new DateTime(inputDateTwo)));
+        assertNotEquals(0, task.compareEquals(new DateTime(inputDateTwo)));
     }
 
     @org.junit.jupiter.api.Test
@@ -26,10 +26,10 @@ public class ViewScheduleTest {
         Date endDate = new Date(2019, 9,21);
 
         Task task = new Event("Test", startDate, endDate);
-        assertEquals(0, ((Event) task).compareDate(new DateTime(inputDate)));
-        assertEquals(0, ((Event) task).compareDate(new DateTime(startDate)));
-        assertEquals(0, ((Event) task).compareDate(new DateTime(endDate)));
+        assertEquals(0, task.compareEquals(new DateTime(inputDate)));
+        assertEquals(0, task.compareEquals(new DateTime(startDate)));
+        assertEquals(0, task.compareEquals(new DateTime(endDate)));
         Date inputDateTwo = new Date(2019, 9,23);
-        assertNotEquals(0, ((Event) task).compareDate(new DateTime(inputDateTwo)));
+        assertNotEquals(0, task.compareEquals(new DateTime(inputDateTwo)));
     }
 }
