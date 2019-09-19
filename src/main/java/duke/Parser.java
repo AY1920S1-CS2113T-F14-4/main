@@ -10,6 +10,7 @@ import duke.commands.ReminderCommand;
 import duke.commands.ListCommand;
 import duke.commands.DoneCommand;
 import duke.commands.SetCommand;
+import duke.commands.ViewScheduleCommand;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
@@ -47,12 +48,18 @@ public class Parser {
                 command = new FindCommand(components, input);
                 break;
 
+            case "view-schedule":
+                command = new ViewScheduleCommand(components, input);
+                break;
+
             case "todo":
             case "deadline":
             case "do-within":
             case "do-after":
             case "event":
             case "tentative":
+            case "fixed":
+            case "recurring":
                 command = new AddCommand(components, input);
                 break;
 
