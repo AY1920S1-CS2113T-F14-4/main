@@ -160,7 +160,7 @@ public class AddCommand extends Command {
                 List<Task> tasks = taskList.getTasks();
                 for (int i = 0; i < tasks.size(); i++) {
                     Task currentTask = tasks.get(i);
-                    if(currentTask.isOverlapping(start, end)) {
+                    if (currentTask.isOverlapping(start, end)) {
                         throw new InputException("Time conflicting with:\n"
                                 + "    " + (i + 1) + "." + currentTask.toString() + "\n"
                                 + "Please choose another time interval.");

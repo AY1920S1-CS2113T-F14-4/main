@@ -57,18 +57,9 @@ public abstract class Task {
         return false;
     }
 
-    /**
-     * return a new list after it takes away free time from
-     * the original list by comparing it to startDate and endDate.
-     * @param FreeTime A list with the interval of Free Time.
-     * @return default to return original list, only implemented in event task.
-     */
-    public List newFreeTime(List<Pair<Date,Date>> FreeTime) {
-        return FreeTime;
-    }
 
     /**
-     * Compare if time interval overlaps
+     * Compare if time interval overlaps.
      * @param startTime the start of the interval
      * @param endTime the end of the interval
      * @return default to return false, only implemented in event task.
