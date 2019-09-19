@@ -77,6 +77,7 @@ public class SetCommand extends Command {
         formattedOutput.add(tentativeTask.toString());
         formattedOutput.add("With event:");
         formattedOutput.add(addTask.toString());
+        storage.setData(taskList.getTasks());
 
         return ui.showFormatted(formattedOutput);
     }
