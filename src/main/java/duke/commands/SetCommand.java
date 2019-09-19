@@ -64,7 +64,6 @@ public class SetCommand extends Command {
         String firstComponent = tentativeTask.toString().split(" ")[0];
         String taskType = firstComponent.substring(0, firstComponent.lastIndexOf("["));
         if (!taskType.equals("[TE]")) {
-            System.out.println(taskType);
             throw new InputException("The index given is not a tentative task.");
         }
 
