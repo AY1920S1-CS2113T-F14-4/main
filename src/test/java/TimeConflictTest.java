@@ -22,12 +22,12 @@ public class TimeConflictTest {
         Command addEventOne = new Parser().parse("event eventOne /at today at 2pm to 5pm");
         addEventOne.execute(tasks, storage, ui);
         Command addEventTwo = new Parser().parse("event eventTwo /at today at 3pm to 5pm");
-        try{
+        try {
             addEventTwo.execute(tasks, storage, ui);
         } catch (InputException e) {
             assertEquals(e.getMessage(),
                     "Invalid Input\n\n"
-                    +"Time conflicting with:\n"
+                    + "Time conflicting with:\n"
                     + "    " + "1.[E][✗] eventOne (at: 09/19/2019 14:00 to 09/19/2019 17:00)\n"
                     + "Please choose another time interval.");
         }
@@ -43,12 +43,12 @@ public class TimeConflictTest {
         Command addEventOne = new Parser().parse("event eventOne /at today at 2pm to 5pm");
         addEventOne.execute(tasks, storage, ui);
         Command addEventTwo = new Parser().parse("event eventTwo /at today at 1pm to 6pm");
-        try{
+        try {
             addEventTwo.execute(tasks, storage, ui);
         } catch (InputException e) {
             assertEquals(e.getMessage(),
                     "Invalid Input\n\n"
-                            +"Time conflicting with:\n"
+                            + "Time conflicting with:\n"
                             + "    " + "1.[E][✗] eventOne (at: 09/19/2019 14:00 to 09/19/2019 17:00)\n"
                             + "Please choose another time interval.");
         }
@@ -64,12 +64,12 @@ public class TimeConflictTest {
         Command addEventOne = new Parser().parse("event eventOne /at today at 2pm to 5pm");
         addEventOne.execute(tasks, storage, ui);
         Command addEventTwo = new Parser().parse("event eventTwo /at today at 2pm to 3pm");
-        try{
+        try {
             addEventTwo.execute(tasks, storage, ui);
         } catch (InputException e) {
             assertEquals(e.getMessage(),
                     "Invalid Input\n\n"
-                            +"Time conflicting with:\n"
+                            + "Time conflicting with:\n"
                             + "    " + "1.[E][✗] eventOne (at: 09/19/2019 14:00 to 09/19/2019 17:00)\n"
                             + "Please choose another time interval.");
         }
