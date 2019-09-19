@@ -11,6 +11,7 @@ import duke.commands.ListCommand;
 import duke.commands.ViewScheduleCommand;
 import duke.commands.FindCommand;
 import duke.commands.SnoozeCommand;
+import duke.commands.SetCommand;
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
 
@@ -56,9 +57,14 @@ public class Parser {
             case "do-within":
             case "do-after":
             case "event":
+            case "tentative":
             case "fixed":
             case "recurring":
                 command = new AddCommand(components, input);
+                break;
+
+            case "set-tentative":
+                command = new SetCommand(components, input);
                 break;
 
             case "bye":
