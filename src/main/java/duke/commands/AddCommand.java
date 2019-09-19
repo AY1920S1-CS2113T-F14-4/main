@@ -130,10 +130,10 @@ public class AddCommand extends Command {
                     + "Duke.Tasks.Deadline: deadline <task name> /by <MM/DD/YYYY HH:MM>\n"
                     + "Duke.Tasks.Do-After: do-after <task name> /needs <do-after event or time>\n"
                     + "Duke.Tasks.Event: event <task name> /at <start as MM/DD/YYYY HH:MM> "
-                    + "to <end as DD/MM/YYYY HH:MM>\n"
+                    + "to <end as MM/DD/YYYY HH:MM>\n"
                     + "Duke.Tasks.Fixed: fixed <task name> /needs <fixed task duration>\n"
                     + "Duke.Tasks.Within: do-within <task name> /between <start as MM/DD/YYYY HH:MM> "
-                    + "to <end as DD/MM/YYYY HH:MM>");
+                    + "and <end as MM/DD/YYYY HH:MM>");
         }
         formattedOutput.add("You currently have " + taskList.getTasks().size()
                 + ((taskList.getTasks().size() == 1) ? " task in the list." : " tasks in the list."));
