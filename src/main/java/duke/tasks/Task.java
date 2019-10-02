@@ -1,11 +1,7 @@
 package duke.tasks;
 
 import duke.DateTime;
-import javafx.util.Pair;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public abstract class Task {
     private String taskName;
@@ -63,13 +59,9 @@ public abstract class Task {
         return isDone;
     }
 
-    String getStartDateString() {
-        return this.startDate.toString();
-    }
+    abstract String getStartDateString();
 
-    String getEndDateString() {
-        return this.endDate.toString();
-    }
+    abstract String getEndDateString();
 
     /**
      * Compare if input date is equals.

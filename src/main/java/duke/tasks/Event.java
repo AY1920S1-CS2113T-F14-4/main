@@ -37,6 +37,16 @@ public class Event extends Task {
     }
 
     @Override
+    String getStartDateString() {
+        return this.startDate.toString();
+    }
+
+    @Override
+    String getEndDateString() {
+        return this.endDate.toString();
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + this.getStartDateString() + " to " + this.getEndDateString() + ")";
     }

@@ -38,6 +38,16 @@ public class Within extends Task {
     }
 
     @Override
+    String getStartDateString() {
+        return this.startDate.toString();
+    }
+
+    @Override
+    String getEndDateString() {
+        return this.endDate.toString();
+    }
+
+    @Override
     public String toString() {
         return "[W]" + super.toString() + " (between: " + this.getStartDateString()
                 + " and " + this.getEndDateString() + ")";

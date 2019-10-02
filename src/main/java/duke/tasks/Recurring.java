@@ -63,6 +63,16 @@ public class Recurring extends Task {
     }
 
     @Override
+    String getStartDateString() {
+        return this.startDate.toString();
+    }
+
+    @Override
+    String getEndDateString() {
+        return this.endDate.toString();
+    }
+
+    @Override
     protected String getStatusIcon() {
         return Long.toString(instanceCount);
     }

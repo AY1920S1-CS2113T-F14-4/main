@@ -39,6 +39,16 @@ public class Tentative extends Task {
     }
 
     @Override
+    String getStartDateString() {
+        return this.startDate.toString();
+    }
+
+    @Override
+    String getEndDateString() {
+        return this.endDate.toString();
+    }
+
+    @Override
     public String toString() {
         return "[TE]" + super.toString() + " (around: "
                 + this.getStartDateString() + " to " + this.getEndDateString()

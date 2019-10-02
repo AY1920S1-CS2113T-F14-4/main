@@ -25,16 +25,22 @@ public class Deadline extends Task {
 
     @Override
     public String storeString() {
-        return "D | " + super.storeString() + " | " + this.getByString();
+        return "D | " + super.storeString() + " | " + this.getStartDateString();
+    }
+
+    @Override
+    String getStartDateString() {
+        return this.startDate.toString();
+    }
+
+    @Override
+    String getEndDateString() {
+        return null;
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.startDate + ")";
-    }
-
-    private String getByString() {
-        return this.startDate.toString();
     }
 
     /**
