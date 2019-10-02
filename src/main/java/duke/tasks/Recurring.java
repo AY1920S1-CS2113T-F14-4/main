@@ -4,7 +4,6 @@ import duke.DateTime;
 import java.util.Date;
 
 public class Recurring extends Task {
-    private DateTime endDate;
     private long intervalMinutes;
     private long instanceCount;
 
@@ -72,28 +71,8 @@ public class Recurring extends Task {
         return this.getIntervalMinutes() * 60 * 1000;
     }
 
-    private String getStartDateString() {
-        return this.startDate.toString();
-    }
-
-    private String getEndDateString() {
-        return this.endDate.toString();
-    }
-
     public long getIntervalMinutes() {
         return intervalMinutes;
-    }
-
-    public DateTime getEndDate() {
-        return endDate;
-    }
-
-    public void setStartDate(DateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(DateTime endDate) {
-        this.endDate = endDate;
     }
 
     public long getInstanceCount() {

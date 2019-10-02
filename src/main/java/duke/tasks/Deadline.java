@@ -6,7 +6,6 @@ import duke.exceptions.DukeException;
 import java.util.Date;
 
 public class Deadline extends Task {
-
     public Deadline(String description, Date startDate) {
         super(description);
         this.startDate = new DateTime(startDate);
@@ -46,9 +45,5 @@ public class Deadline extends Task {
     @Override
     public boolean compareEquals(DateTime inputDate) {
         return (this.startDate.compareTo(inputDate) == 0);
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = new DateTime(startDate);
     }
 }

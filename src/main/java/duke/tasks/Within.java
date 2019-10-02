@@ -6,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Within extends Task {
-    private DateTime endDate;
-
     /**
      * Constructor for Duke.Tasks.Within object.
      * @param description name of the task.
@@ -43,13 +41,5 @@ public class Within extends Task {
     public String toString() {
         return "[W]" + super.toString() + " (between: " + this.getStartDateString()
                 + " and " + this.getEndDateString() + ")";
-    }
-
-    private String getStartDateString() {
-        return this.startDate.toString();
-    }
-
-    private String getEndDateString() {
-        return this.endDate.toString();
     }
 }

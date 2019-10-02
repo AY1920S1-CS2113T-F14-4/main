@@ -11,6 +11,7 @@ public abstract class Task {
     private String taskName;
     Boolean isDone;
     DateTime startDate;
+    DateTime endDate;
 
     /**
      * Constructor to initialize default values of any instances of children of Task.
@@ -19,6 +20,7 @@ public abstract class Task {
         this.taskName = taskName;
         this.isDone = false;
         this.startDate = null;
+        this.endDate = null;
     }
 
     protected String getStatusIcon() {
@@ -41,12 +43,32 @@ public abstract class Task {
         return startDate;
     }
 
+    public DateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(DateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setStartDate(DateTime startDate) {
+        this.startDate = startDate;
+    }
+
     public void markDone() {
         this.isDone = true;
     }
 
     public Boolean getDone() {
         return isDone;
+    }
+
+    String getStartDateString() {
+        return this.startDate.toString();
+    }
+
+    String getEndDateString() {
+        return this.endDate.toString();
     }
 
     /**
