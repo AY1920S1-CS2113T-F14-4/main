@@ -1,6 +1,13 @@
 import duke.Storage;
 import duke.exceptions.DukeException;
-import duke.tasks.*;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Within;
+import duke.tasks.Tentative;
+import duke.tasks.Recurring;
+import duke.tasks.FileTask;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.ArrayList;
@@ -18,10 +25,16 @@ public class StorageTest {
     private static final String SPECIAL_CHARACTER = "~!@#$%^&*()_+~[]{},./;'<>?\\`-=";
     private static final String CHARACTER_STRING = UPPER_CASE_CHARACTER
             + LOWER_CASE_CHARACTER + NUMBERS + SPECIAL_CHARACTER;
+
+    /**
+     * Generates Random String for JUnit testing.
+     * @param count String Length
+     * @return Random String
+     */
     public String randomString(int count) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < count; i++) {
-            int character = (int)(Math.random()*CHARACTER_STRING.length());
+            int character = (int)(Math.random() * CHARACTER_STRING.length());
             builder.append(CHARACTER_STRING.charAt(character));
         }
         return builder.toString();
@@ -67,6 +80,8 @@ public class StorageTest {
             case 6:
                 testTasks.add(new FileTask(randomDone, randomTaskName));
                 break;
+            default:
+                break;
             }
         }
         test.setData(testTasks);
@@ -77,5 +92,5 @@ public class StorageTest {
             assertTrue(testTasksString.equals(testTasksCopyString));
         }
     }
-    
+
 }
