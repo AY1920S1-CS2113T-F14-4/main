@@ -3,12 +3,14 @@ package duke;
 import duke.commands.AddCommand;
 import duke.commands.Command;
 import duke.commands.DeleteCommand;
+import duke.commands.DeleteMultipleCommand;
 import duke.commands.DoneCommand;
 import duke.commands.ExitCommand;
 import duke.commands.UnknownCommand;
 import duke.commands.ReminderCommand;
 import duke.commands.ListCommand;
 import duke.commands.ViewScheduleCommand;
+import duke.commands.FileCommand;
 import duke.commands.FindCommand;
 import duke.commands.SnoozeCommand;
 import duke.commands.SetCommand;
@@ -43,6 +45,10 @@ public class Parser {
 
             case "delete":
                 command = new DeleteCommand(Integer.parseInt(components[1]) - 1);
+                break;
+
+            case "delete-multiple":
+                command = new DeleteMultipleCommand(components[1], components.length);
                 break;
 
             case "find":
@@ -80,6 +86,10 @@ public class Parser {
                 command = new FindFreeCommand(components[1]);
                 break;
 
+            case "file":
+                command = new FileCommand(components[1], input);
+                break;
+
             default:
                 command = new UnknownCommand();
             }
@@ -87,7 +97,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new InputException("Invalid index entered. Type 'list' to see your list.");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InputException("Please provide an index. Eg. 'done 5' or 'delete 3'");
+            throw new InputException("Please provide an index or action. Eg. 'done 5', 'delete 3', 'file view'");
         }
     }
 }
