@@ -61,7 +61,7 @@ public class GradedComponentTest {
     }
 
     @Test
-    public void gradeUpdateUnweighted_gradedEssayScoredInvalidInput_ExceptionThrown() throws InputException {
+    public void gradeUpdateUnweighted_gradedEssayScoredZeroMaximumScore_ExceptionThrown() throws InputException {
         GradedComponent testGradeOne = new GradedComponent("Essay", 20);
         assertThrows(DukeException.class, () -> testGradeOne.updateWeightedScore(15, 0));
 

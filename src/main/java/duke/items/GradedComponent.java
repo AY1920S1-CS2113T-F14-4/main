@@ -37,8 +37,8 @@ public class GradedComponent extends Item {
 
     /**
      * Converts a previously entered weighted score into a human-readable String to be displayed to user.
-     * If the score was not previously entered, returns a dash to indicate that it does not exist.
-     * @return String containing weighted score to 2 decimal places, if it exists, or the String '-'
+     * If the score was not previously entered, returns dashes to indicate that it does not exist.
+     * @return String containing weighted score to 2 decimal places, if it exists, or the String '----'
      */
     public String getWeightedScoreAsString() {
         if (this.isScoreKnown()) {
