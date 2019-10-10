@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class GradeTest {
+public class GradedComponentTest {
 
     @Test
     public void gradeCreation_variousGradedComponents_successfulCreationAndWorkingGetters() {
