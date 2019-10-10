@@ -33,7 +33,8 @@ public class FileList extends SpinBoxList<FileTask> {
         @Override
         public int compare(FileTask a, FileTask b) {
             return -1;
-        }};
+        }
+    }
 
     public void sort() {
         Collections.sort(list, new FileComparator());

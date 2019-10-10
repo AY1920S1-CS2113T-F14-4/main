@@ -34,8 +34,17 @@ public class TaskList extends SpinBoxList<Task> {
             DateTime startDateA = a.getStartDate();
             DateTime startDateB = b.getStartDate();
 
-            return startDateA.compareTo(startDateB);
-        }};
+            if (startDateA == null && startDateB == null) {
+                return 0;
+            } else if (startDateA == null) {
+                return 1;
+            } else if (startDateB == null) {
+                return -1;
+            } else {
+                return startDateA.compareTo(startDateB);
+            }
+        }
+    }
 
     public void sort() {
         Collections.sort(list, new StartDateComparator());

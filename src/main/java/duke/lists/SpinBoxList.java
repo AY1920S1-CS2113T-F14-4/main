@@ -35,7 +35,7 @@ public abstract class SpinBoxList<T> {
      * Remove element at index from list.
      * @param index index of element.
      * @return element removed.
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException if index is invalid.
      */
     public T remove(int index) throws IndexOutOfBoundsException {
         return list.remove(index);
@@ -62,7 +62,7 @@ public abstract class SpinBoxList<T> {
      * Mark the element.
      * @param index index of element to be marked.
      * @return element marked.
-     * @throws IndexOutOfBoundsException
+     * @throws IndexOutOfBoundsException if index is invalid.
      */
     public abstract T mark(int index) throws IndexOutOfBoundsException;
 

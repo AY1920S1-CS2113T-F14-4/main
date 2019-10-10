@@ -16,7 +16,7 @@ public class GradeList extends SpinBoxList<GradedComponent> {
     }
 
     /**
-     * Invalid Command
+     * Invalid Command.
      */
     public GradedComponent mark(int index) throws IndexOutOfBoundsException {
         return null;
@@ -29,11 +29,10 @@ public class GradeList extends SpinBoxList<GradedComponent> {
         @Override
         public int compare(GradedComponent a, GradedComponent b) {
             return (a.getWeight() > b.getWeight()) ? -1 : 0;
-        }};
+        }
+    }
 
     public void sort() {
         Collections.sort(list, new GradedComponentComparator());
     }
-
-
 }
