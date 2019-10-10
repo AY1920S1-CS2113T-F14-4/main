@@ -1,5 +1,5 @@
-import duke.tasks.Recurring;
-import duke.tasks.Task;
+import duke.items.tasks.Recurring;
+import duke.items.tasks.Task;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
