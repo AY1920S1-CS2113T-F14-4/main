@@ -17,6 +17,18 @@ public abstract class Item {
         return isDone;
     }
 
+    protected String getStatusIcon() {
+        return (this.getDone() ? "✓" : "✗");
+    }
+
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.getName();
+    }
+
+    public String storeString() {
+        return Integer.toString((this.getDone() ? 1 : 0)) + " | " + this.getName();
+    }
+
     protected void setDone(Boolean done) {
         isDone = done;
     }

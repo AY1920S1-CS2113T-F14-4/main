@@ -18,16 +18,9 @@ public abstract class Task extends Item {
         this.endDate = null;
     }
 
-    protected String getStatusIcon() {
-        return (this.getDone() ? "✓" : "✗");
-    }
-
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.getName();
-    }
-
+    @Override
     public String storeString() {
-        return Integer.toString((this.getDone() ? 1 : 0)) + " | " + this.getName();
+        return super.storeString();
     }
 
     public DateTime getStartDate() {
