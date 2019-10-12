@@ -77,13 +77,7 @@ public class AddCommand extends Command {
                 break;
 
             case "deadline":
-<<<<<<< HEAD
-                parser = new com.joestelmach.natty.Parser();
-                dates = parser.parse(fullCommand.split("/by ")[1]).get(0).getDates();
-                Date by = (Date) dates.get(0);
-=======
                 start = new DateTime(fullCommand.split("/by ")[1]);
->>>>>>> 3d141ea8e35037ac3c80a5acbb40d1ef3e369ebd
                 added = taskList.add(new Deadline(fullCommand.substring(0, fullCommand.lastIndexOf(" /by"))
                         .replaceFirst("deadline ", ""),
                         start));
@@ -110,16 +104,8 @@ public class AddCommand extends Command {
                 break;
 
             case "do-within":
-<<<<<<< HEAD
-                parser = new com.joestelmach.natty.Parser();
-                dates = parser.parse(fullCommand.split("/between ")[1]).get(0).getDates();
-                start = (Date) dates.get(0);
-                end = (Date) dates.get(1);
-=======
-
                 start = new DateTime(fullCommand.split("/between ")[1], 0);
                 end = new DateTime(fullCommand.split("/between ")[1], 1);
->>>>>>> 3d141ea8e35037ac3c80a5acbb40d1ef3e369ebd
                 added = taskList.add(new Within(fullCommand.substring(0, fullCommand.lastIndexOf(" /between"))
                         .replaceFirst("do-within ", ""),
                         start, end));
@@ -128,15 +114,8 @@ public class AddCommand extends Command {
                 break;
 
             case "tentative":
-<<<<<<< HEAD
-                parser = new com.joestelmach.natty.Parser();
-                dates = parser.parse(fullCommand.split("/around ")[1]).get(0).getDates();
-                start = (Date) dates.get(0);
-                end = (Date) dates.get(1);
-=======
                 start = new DateTime(fullCommand.split("/around ")[1], 0);
                 end = new DateTime(fullCommand.split("/around ")[1], 1);
->>>>>>> 3d141ea8e35037ac3c80a5acbb40d1ef3e369ebd
                 added = taskList.add(new Tentative(fullCommand.substring(0, fullCommand.lastIndexOf(" /around"))
                         .replaceFirst("tentative ", ""),
                         start, end));
