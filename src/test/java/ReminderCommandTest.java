@@ -1,10 +1,10 @@
-import duke.DateTime;
-import duke.Storage;
-import duke.lists.TaskList;
-import duke.Ui;
-import duke.commands.ReminderCommand;
-import duke.exceptions.DukeException;
-import duke.items.tasks.Deadline;
+import spinbox.DateTime;
+import spinbox.Storage;
+import spinbox.lists.TaskList;
+import spinbox.Ui;
+import spinbox.commands.ReminderCommand;
+import spinbox.exceptions.DukeException;
+import spinbox.items.tasks.Deadline;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

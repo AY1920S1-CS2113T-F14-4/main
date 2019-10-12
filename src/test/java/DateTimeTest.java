@@ -1,9 +1,6 @@
-import duke.DateTime;
-import duke.exceptions.DukeException;
+import spinbox.DateTime;
+import spinbox.exceptions.DukeException;
 import org.junit.jupiter.api.Test;
-
-import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

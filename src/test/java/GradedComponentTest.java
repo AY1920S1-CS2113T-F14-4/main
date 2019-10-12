@@ -1,7 +1,6 @@
-import duke.Duke;
-import duke.exceptions.DukeException;
-import duke.exceptions.InputException;
-import duke.items.GradedComponent;
+import spinbox.exceptions.DukeException;
+import spinbox.exceptions.InputException;
+import spinbox.items.GradedComponent;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

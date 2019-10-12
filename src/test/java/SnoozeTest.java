@@ -1,10 +1,10 @@
-import duke.Parser;
-import duke.Storage;
-import duke.lists.TaskList;
-import duke.Ui;
-import duke.commands.Command;
-import duke.exceptions.DukeException;
-import duke.items.tasks.Event;
+import spinbox.Parser;
+import spinbox.Storage;
+import spinbox.lists.TaskList;
+import spinbox.Ui;
+import spinbox.commands.Command;
+import spinbox.exceptions.DukeException;
+import spinbox.items.tasks.Event;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
