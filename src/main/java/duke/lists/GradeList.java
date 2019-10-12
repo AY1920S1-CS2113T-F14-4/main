@@ -19,7 +19,8 @@ public class GradeList extends SpinBoxList<GradedComponent> {
      * Invalid Command.
      */
     public GradedComponent mark(int index) throws IndexOutOfBoundsException {
-        return null;
+        list.get(index).markDone();
+        return list.get(index);
     }
 
     /**
