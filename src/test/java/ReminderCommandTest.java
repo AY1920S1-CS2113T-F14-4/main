@@ -3,7 +3,7 @@ import spinbox.Storage;
 import spinbox.lists.TaskList;
 import spinbox.Ui;
 import spinbox.commands.ReminderCommand;
-import spinbox.exceptions.DukeException;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.items.tasks.Deadline;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +13,7 @@ import java.util.Date;
 public class ReminderCommandTest {
 
     @Test
-    public void reminderCommand_showReminders_ShouldShowPastRemindersWithOverdueTag() throws DukeException {
+    public void reminderCommand_showReminders_ShouldShowPastRemindersWithOverdueTag() throws SpinBoxException {
         TaskList testTaskList = new TaskList();
         long overdueDate = 656740800000L;
 
@@ -26,7 +26,7 @@ public class ReminderCommandTest {
     }
 
     @Test
-    public void reminderCommand_CompleteTaskAndShowReminders_ShouldNotShowDoneReminders() throws DukeException {
+    public void reminderCommand_CompleteTaskAndShowReminders_ShouldNotShowDoneReminders() throws SpinBoxException {
         TaskList testTaskList = new TaskList();
         long overdueDate = 656740800000L;
 
@@ -41,7 +41,7 @@ public class ReminderCommandTest {
     }
 
     @Test
-    public void reminderCommand_showReminders_ShouldShowDistantFutureRemindersWithoutTag() throws DukeException {
+    public void reminderCommand_showReminders_ShouldShowDistantFutureRemindersWithoutTag() throws SpinBoxException {
         TaskList testTaskList = new TaskList();
         long distantFutureDate = 1893427200000L;
 

@@ -1,6 +1,6 @@
 import spinbox.DateTime;
 import spinbox.Storage;
-import spinbox.exceptions.DukeException;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.items.tasks.Task;
 import spinbox.items.tasks.Todo;
 import spinbox.items.tasks.Deadline;
@@ -42,7 +42,7 @@ public class StorageTest {
     }
 
     @Test
-    public void setAndLoadData() throws DukeException {
+    public void setAndLoadData() throws SpinBoxException {
         File file = new File("data/storageTest.txt");
         file.delete();
 
