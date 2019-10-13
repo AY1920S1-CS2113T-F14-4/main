@@ -1,6 +1,6 @@
 package spinbox.commands;
 
-import spinbox.exceptions.DukeException;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Storage;
 import spinbox.lists.TaskList;
@@ -22,10 +22,10 @@ public class DeleteCommand extends Command {
      * @param taskList TaskList instance.
      * @param storage Storage instance.
      * @param ui Ui instance.
-     * @throws DukeException Invalid index or storage error.
+     * @throws SpinBoxException Invalid index or storage error.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Storage storage, Ui ui) throws SpinBoxException {
         try {
             List<String> formattedOutput = new ArrayList<>();
             List<Task> tasks = taskList.getList();

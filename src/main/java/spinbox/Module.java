@@ -1,8 +1,8 @@
-package duke;
+package spinbox;
 
-import duke.lists.FileList;
-import duke.lists.GradeList;
-import duke.lists.TaskList;
+import spinbox.lists.FileList;
+import spinbox.lists.GradeList;
+import spinbox.lists.TaskList;
 
 public class Module {
     private FileList files;

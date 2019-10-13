@@ -1,6 +1,6 @@
 package spinbox.commands;
 
-import spinbox.exceptions.DukeException;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Storage;
 import spinbox.lists.TaskList;
@@ -57,10 +57,10 @@ public class FileCommand extends Command {
      * @param fileTaskList fileTaskList instance.
      * @param fileStorage fileStorage instance.
      * @param ui Ui instance.
-     * @throws DukeException invalid index or storage error.
+     * @throws SpinBoxException invalid index or storage error.
      */
     @Override
-    public String execute(TaskList fileTaskList, Storage fileStorage, Ui ui) throws DukeException {
+    public String execute(TaskList fileTaskList, Storage fileStorage, Ui ui) throws SpinBoxException {
         List<String> formattedOutput = new ArrayList<>();
         List<Task> files;
 

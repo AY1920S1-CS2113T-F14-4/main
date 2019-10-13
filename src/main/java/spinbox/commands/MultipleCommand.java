@@ -1,6 +1,6 @@
 package spinbox.commands;
 
-import spinbox.exceptions.DukeException;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Storage;
 import spinbox.items.tasks.Task;
@@ -34,10 +34,10 @@ public class MultipleCommand extends Command {
      * @param taskList TaskList instance.
      * @param storage Storage instance.
      * @param ui Ui instance.
-     * @throws DukeException Invalid index or storage error.
+     * @throws SpinBoxException Invalid index or storage error.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Storage storage, Ui ui) throws SpinBoxException {
         if (inputSize > 2) {
             throw new InputException("Ensure that the indexes are separated by ',' without any spacing. "
                     + "E.g. delete-multiple 2,3,4 or done-multiple 2,3,4");

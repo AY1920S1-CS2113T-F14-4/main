@@ -4,7 +4,7 @@ import spinbox.DateTime;
 import spinbox.Storage;
 import spinbox.lists.TaskList;
 import spinbox.Ui;
-import spinbox.exceptions.DukeException;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.items.tasks.Event;
 import spinbox.items.tasks.Task;
@@ -45,10 +45,10 @@ public class SetCommand extends Command {
      * @param storage Storage instance.
      * @param ui Ui instance.
      * @return Output for this command.
-     * @throws DukeException if task at index is not tentative task.
+     * @throws SpinBoxException if task at index is not tentative task.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Storage storage, Ui ui) throws SpinBoxException {
         Task tentativeTask;
 
         try {

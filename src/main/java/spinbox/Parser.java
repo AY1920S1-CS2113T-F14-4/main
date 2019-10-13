@@ -15,7 +15,7 @@ import spinbox.commands.FindCommand;
 import spinbox.commands.SnoozeCommand;
 import spinbox.commands.SetCommand;
 import spinbox.commands.FindFreeCommand;
-import spinbox.exceptions.DukeException;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 
 public class Parser {
@@ -23,9 +23,9 @@ public class Parser {
      * Parses an input string into a workable command.
      * @param input user typed in this string.
      * @return a Command that can executed.
-     * @throws DukeException Storage errors or input errors.
+     * @throws SpinBoxException Storage errors or input errors.
      */
-    public static Command parse(String input) throws DukeException {
+    public static Command parse(String input) throws SpinBoxException {
         Command command;
         String[] components = input.split(" ");
 

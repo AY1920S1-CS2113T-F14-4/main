@@ -1,6 +1,6 @@
 package spinbox;
 
-import spinbox.exceptions.DukeException;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.StorageException;
 import spinbox.items.tasks.After;
 import spinbox.items.tasks.Deadline;
@@ -29,7 +29,7 @@ public class Storage {
      * This constructor creates the file if needed.
      * @param fileLocation relative path of the text file to store data in.
      */
-    public Storage(String fileLocation) throws DukeException {
+    public Storage(String fileLocation) throws SpinBoxException {
         try {
             dukeFile = new File(fileLocation);
             if (dukeFile.getParentFile().mkdir()) {
@@ -44,7 +44,7 @@ public class Storage {
      * This method retrieves data from the text file, and constructs objects to insert back into the list.
      * @return tasks
      */
-    public List<Task> loadData() throws DukeException {
+    public List<Task> loadData() throws SpinBoxException {
         Vector<Task> tasks = new Vector<>();
         try {
             DateTime start;
@@ -108,7 +108,7 @@ public class Storage {
      * This method takes in a vector and calls each task's storeString method to store its data in the correct format.
      * @param tasks A vector of tasks currently in the program.
      */
-    public void setData(List<Task> tasks) throws DukeException {
+    public void setData(List<Task> tasks) throws SpinBoxException {
         try {
             BufferedWriter outputStream = new BufferedWriter(new FileWriter(dukeFile));
             for (Task task : tasks) {

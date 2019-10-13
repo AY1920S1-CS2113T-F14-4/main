@@ -1,7 +1,7 @@
 package spinbox.commands;
 
 import spinbox.DateTime;
-import spinbox.exceptions.DukeException;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Storage;
 import spinbox.Ui;
@@ -27,9 +27,9 @@ public class AddCommand extends Command {
      * Constructor for creation of Task objects, does some input checking.
      * @param components Components of the full command
      * @param fullCommand the full command
-     * @throws DukeException Can throw from invalid input or storage errors
+     * @throws SpinBoxException Can throw from invalid input or storage errors
      */
-    public AddCommand(String[] components, String fullCommand) throws DukeException {
+    public AddCommand(String[] components, String fullCommand) throws SpinBoxException {
         this.type = components[0];
         this.fullCommand = fullCommand;
 
@@ -55,10 +55,10 @@ public class AddCommand extends Command {
      * @param taskList TaskList instance.
      * @param storage Storage instance.
      * @param ui Ui instance.
-     * @throws DukeException invalid input or storage error.
+     * @throws SpinBoxException invalid input or storage error.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
+    public String execute(TaskList taskList, Storage storage, Ui ui) throws SpinBoxException {
         List<String> formattedOutput = new ArrayList<>();
         Task added;
         List dates;
