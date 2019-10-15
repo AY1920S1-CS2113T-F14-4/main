@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SpinBoxItemList<T extends Item> {
+    static final String DIRECTORY_NAME = "SpinBoxData/";
     protected List<T> list;
     private String parentCode;
     Storage localStorage;
@@ -94,4 +95,14 @@ public abstract class SpinBoxItemList<T extends Item> {
      * Sort the list.
      */
     public abstract void sort();
+
+    /**
+     * To populate data into this list from the list's localStorage
+     */
+    public abstract void loadData();
+
+    /**
+     * To save current list data into the list's localStorage
+     */
+    public abstract void saveData();
 }
