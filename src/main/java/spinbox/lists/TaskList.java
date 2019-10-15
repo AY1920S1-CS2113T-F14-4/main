@@ -16,12 +16,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class TaskList extends SpinBoxList<Task> {
-    private static final String TASK_LIST_FILE_NAME = "tasks.txt";
+    private static final String TASK_LIST_FILE_NAME = "/tasks.txt";
     private static final String DELIMITER_FILTER = " \\| ";
 
     public TaskList(String parentName) throws FileCreationException {
         super(parentName);
-        localStorage = new Storage(this.getParentCode() + TASK_LIST_FILE_NAME);
+        localStorage = new Storage(DIRECTORY_NAME + this.getParentCode() + TASK_LIST_FILE_NAME);
     }
 
     static class StartDateComparator implements Comparator<Task> {

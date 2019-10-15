@@ -25,9 +25,9 @@ public class Module {
     public Module(String moduleCode, String moduleName) throws FileCreationException {
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
-        files = new FileList(moduleCode);
-        tasks = new TaskList(moduleCode);
-        grades = new GradeList(moduleCode);
+        this.files = new FileList(moduleCode);
+        this.tasks = new TaskList(moduleCode);
+        this.grades = new GradeList(moduleCode);
     }
 
     /**
@@ -63,6 +63,30 @@ public class Module {
      */
     public String getModuleCode() {
         return this.moduleCode;
+    }
+
+    /**
+     * Get the FileList.
+     * @return FileList instance.
+     */
+    public FileList getFiles() {
+        return files;
+    }
+
+    /**
+     * Get the GradeList.
+     * @return GradeList instance.
+     */
+    public GradeList getGrades() {
+        return grades;
+    }
+
+    /**
+     * Get the TaskList.
+     * @return TaskList instance.
+     */
+    public TaskList getTasks() {
+        return tasks;
     }
 
     private void setModuleCode(String moduleCode) {

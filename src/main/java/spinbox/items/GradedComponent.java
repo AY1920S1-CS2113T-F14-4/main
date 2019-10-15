@@ -49,6 +49,10 @@ public class GradedComponent extends Item {
 
     }
 
+    /**
+     * This is to create a stringified version of a GradedComponent instance for storage purposes.
+     * @return String version of GradedComponent, ready for storage.
+     */
     @Override
     public String storeString() {
         return super.storeString() + STORE_DELIMITER + (this.isScoreKnown() ? 1 : 0)
@@ -124,6 +128,10 @@ public class GradedComponent extends Item {
         this.weight = weight;
     }
 
+    /**
+     * Returns the relative weight in % of the graded component across 100% of module assessment.
+     * @return a double, stating the relative weight of the graded component.
+     */
     public double getWeight() {
         return weight;
     }

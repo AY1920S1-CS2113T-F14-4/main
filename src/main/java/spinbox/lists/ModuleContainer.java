@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ModuleContainer {
-    private static final String DIRECTORY_NAME = "SpinBoxData/";
+    private static final String DIRECTORY_NAME = "./SpinBoxData/";
     private static final String MODULES_FILE_NAME = "modules.txt";
 
     private HashMap<String, Module> modules;

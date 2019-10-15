@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SpinBoxList<T extends Item> {
-    static final String DIRECTORY_NAME = "SpinBoxData/";
+    static final String DIRECTORY_NAME = "./SpinBoxData/";
     protected List<T> list;
     private String parentCode;
     Storage localStorage;
@@ -50,9 +50,11 @@ public abstract class SpinBoxList<T extends Item> {
      * Add element into list.
      * @param element to be added.
      * @return added element.
+     * @throws StorageException saveData fail due to I/O Error.
      */
-    public T add(T element) {
+    public T add(T element) throws StorageException {
         list.add(element);
+        this.saveData();
         return element;
     }
 
@@ -61,8 +63,10 @@ public abstract class SpinBoxList<T extends Item> {
      * @param index index of element.
      * @return element removed.
      * @throws IndexOutOfBoundsException if index is invalid.
+     * @throws StorageException saveData fail due to I/O Error.
      */
-    public T remove(int index) throws IndexOutOfBoundsException {
+    public T remove(int index) throws IndexOutOfBoundsException, StorageException {
+        this.saveData();
         return list.remove(index);
     }
 
@@ -79,16 +83,24 @@ public abstract class SpinBoxList<T extends Item> {
      * Replace element at index with element.
      * @param index index of element to be replaced.
      * @param element new element to be inserted.
-     * @return old element.
+     * @return new element.
+     * @throws StorageException saveData fail due to I/O Error.
      */
-
-    public T replace(int index, T element) {
+    public T replace(int index, T element) throws StorageException {
         list.set(index, element);
+        this.saveData();
         return element;
     }
 
-    public T mark(int index) {
+    /**
+     * Marks an item as done.
+     * @param index index of element to be marked done.
+     * @return element marked done.
+     * @throws StorageException saveData fail due to I/O Error.
+     */
+    public T mark(int index) throws StorageException {
         list.get(index).markDone();
+        this.saveData();
         return list.get(index);
     }
 
