@@ -3,11 +3,11 @@ package spinbox;
 import spinbox.commands.Command;
 import spinbox.commands.ExitCommand;
 import spinbox.commands.ViewCommand;
+
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 
 import java.util.ArrayDeque;
-import java.util.function.IntUnaryOperator;
 
 public class Parser {
     private static ArrayDeque<String> pageTrace;
@@ -123,6 +123,5 @@ public class Parser {
         //        } catch (NumberFormatException e) {
         //            throw new InputException("Please enter an integer for index");
         //        }
-
     }
 }
