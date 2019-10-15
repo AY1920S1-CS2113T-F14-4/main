@@ -1,29 +1,24 @@
 package spinbox.lists;
 
+import spinbox.Storage;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.items.File;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class FileList extends SpinBoxList<File> {
-    public FileList() {
-        super();
+public class FileList extends SpinBoxItemList<File> {
+    private static final String FILE_LIST_FILE_NAME = "files.txt";
+
+    public FileList(String parentName) throws SpinBoxException {
+        super(parentName);
+        localStorage = new Storage(this.getParentCode() + FILE_LIST_FILE_NAME);
     }
 
-    public FileList(List<File> files) {
-        super(files);
-    }
-
-    /**
-     * Mark the file at index as downloaded.
-     * @param index index of element to be marked.
-     * @return task that was marked as downloaded.
-     * @throws IndexOutOfBoundsException if index is invalid.
-     */
-    public File mark(int index) throws IndexOutOfBoundsException {
-        list.get(index).markDone();
-        return list.get(index);
+    public FileList(List<File> files, String parentName) throws SpinBoxException {
+        super(files, parentName);
+        localStorage = new Storage(this.getParentCode() + FILE_LIST_FILE_NAME);
     }
 
     /**

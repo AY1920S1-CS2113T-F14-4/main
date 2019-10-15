@@ -1,5 +1,6 @@
 package spinbox;
 
+import spinbox.exceptions.SpinBoxException;
 import spinbox.lists.FileList;
 import spinbox.lists.GradeList;
 import spinbox.lists.TaskList;
@@ -19,9 +20,9 @@ public class Module {
     public Module(String moduleCode, String moduleName) {
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
-        files = new FileList();
-        tasks = new TaskList();
-        grades = new GradeList();
+        files = new FileList(moduleCode);
+        tasks = new TaskList(moduleCode);
+        grades = new GradeList(moduleCode);
     }
 
     /**

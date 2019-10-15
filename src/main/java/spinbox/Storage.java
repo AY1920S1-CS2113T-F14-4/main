@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Vector;
 
 public class Storage {
-    private java.io.File dukeFile;
+    private java.io.File spinBoxFile;
 
     /**
      * This constructor creates the file if needed.
@@ -24,9 +24,9 @@ public class Storage {
      */
     public Storage(String fileLocation) throws SpinBoxException {
         try {
-            dukeFile = new java.io.File(fileLocation);
-            if (dukeFile.getParentFile().mkdir()) {
-                dukeFile.createNewFile();
+            spinBoxFile = new java.io.File(fileLocation);
+            if (spinBoxFile.getParentFile().mkdir()) {
+                spinBoxFile.createNewFile();
             }
         } catch (IOException e) {
             throw new StorageException(e.getMessage());
@@ -43,7 +43,7 @@ public class Storage {
             DateTime start;
             DateTime end;
 
-            BufferedReader inputStream = new BufferedReader(new FileReader(dukeFile));
+            BufferedReader inputStream = new BufferedReader(new FileReader(spinBoxFile));
             while (true) {
                 String currentLine = inputStream.readLine();
                 if (currentLine == null) {
@@ -78,7 +78,7 @@ public class Storage {
      */
     public void setData(List<Task> tasks) throws SpinBoxException {
         try {
-            BufferedWriter outputStream = new BufferedWriter(new FileWriter(dukeFile));
+            BufferedWriter outputStream = new BufferedWriter(new FileWriter(spinBoxFile));
             for (Task task : tasks) {
                 outputStream.write(task.storeString());
                 outputStream.newLine();

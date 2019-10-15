@@ -14,7 +14,7 @@ public class ReminderCommandTest {
 
     @Test
     public void reminderCommand_showReminders_ShouldShowPastRemindersWithOverdueTag() throws SpinBoxException {
-        TaskList testTaskList = new TaskList();
+        TaskList testTaskList = new TaskList("CS1010");
         long overdueDate = 656740800000L;
 
         testTaskList.add(new Deadline("overdue", new DateTime(new Date(overdueDate))));
@@ -27,7 +27,7 @@ public class ReminderCommandTest {
 
     @Test
     public void reminderCommand_CompleteTaskAndShowReminders_ShouldNotShowDoneReminders() throws SpinBoxException {
-        TaskList testTaskList = new TaskList();
+        TaskList testTaskList = new TaskList("CS1010");
         long overdueDate = 656740800000L;
 
         testTaskList.add(new Deadline("overdue", new DateTime(new Date(overdueDate))));
@@ -42,7 +42,7 @@ public class ReminderCommandTest {
 
     @Test
     public void reminderCommand_showReminders_ShouldShowDistantFutureRemindersWithoutTag() throws SpinBoxException {
-        TaskList testTaskList = new TaskList();
+        TaskList testTaskList = new TaskList("CS1010");
         long distantFutureDate = 1893427200000L;
 
         testTaskList.add(new Deadline("future", new DateTime(new Date(distantFutureDate))));

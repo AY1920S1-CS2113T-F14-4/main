@@ -1,6 +1,8 @@
 package spinbox.lists;
 
 import spinbox.DateTime;
+import spinbox.Storage;
+import spinbox.exceptions.SpinBoxException;
 import spinbox.items.tasks.Schedulable;
 import spinbox.items.tasks.Task;
 
@@ -8,24 +10,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class TaskList extends SpinBoxList<Task> {
-    public TaskList() {
-        super();
+public class TaskList extends SpinBoxItemList<Task> {
+    private static final String TASK_LIST_FILE_NAME = "tasks.txt";
+
+    public TaskList(String parentName) throws SpinBoxException {
+        super(parentName);
+        localStorage = new Storage(this.getParentCode() + TASK_LIST_FILE_NAME);
     }
 
-    public TaskList(List<Task> tasks) {
-        super(tasks);
-    }
-
-    /**
-     * Mark the task at index as done.
-     * @param index index of element to be marked.
-     * @return task that was marked as done.
-     * @throws IndexOutOfBoundsException if index is invalid.
-     */
-    public Task mark(int index) throws IndexOutOfBoundsException {
-        list.get(index).markDone();
-        return list.get(index);
+    public TaskList(List<Task> tasks, String parentName) throws SpinBoxException {
+        super(tasks, parentName);
+        localStorage = new Storage(this.getParentCode() + TASK_LIST_FILE_NAME);
     }
 
     static class StartDateComparator implements Comparator<Task> {
