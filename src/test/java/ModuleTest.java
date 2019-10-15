@@ -6,6 +6,7 @@ import spinbox.items.File;
 import spinbox.items.GradedComponent;
 import spinbox.items.tasks.Todo;
 import spinbox.lists.FileList;
+import spinbox.lists.ModuleContainer;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ public class ModuleTest {
 
     @Test
     public void moduleCreation_variousModules_successfulCreationWithWorkingGetters() throws FileCreationException {
+        ModuleContainer testContainer = new ModuleContainer();
         Module testModuleOne = new Module("CG1111", "Engineering Principles & Practice I");
 
         assertEquals(testModuleOne.getModuleCode(), "CG1111");
@@ -36,6 +38,7 @@ public class ModuleTest {
 
     @Test
     public void storageStringRecreation_oneModule_expectedRecreatedObject() throws StorageException {
+        ModuleContainer testContainer = new ModuleContainer();
         Module testModuleOne = new Module("CG1111", "Engineering Principles & Practice I");
 
         assertEquals(testModuleOne.getModuleCode(), "CG1111");
@@ -49,6 +52,7 @@ public class ModuleTest {
 
     @Test
     public void addToStorage_oneModule_expectedFilesCreated() throws StorageException {
+        ModuleContainer testContainer = new ModuleContainer();
         Module testModuleOne = new Module("CG1111", "Engineering Principles & Practice I");
 
         testModuleOne.getFiles().add(new File(0, "testFile1"));
@@ -58,6 +62,7 @@ public class ModuleTest {
 
     @Test
     public void addToStorage_oneModule_expectedFilesLoaded() throws StorageException {
+        ModuleContainer testContainer = new ModuleContainer();
         Module testModuleOne = new Module("CG1113", "Engineering Principles & Practice III");
 
         testModuleOne.getFiles().add(new File(0, "testFile1"));

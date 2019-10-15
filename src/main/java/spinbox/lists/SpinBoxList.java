@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SpinBoxList<T extends Item> {
-    static final String DIRECTORY_NAME = "./SpinBoxData/";
+    static final String DIRECTORY_NAME = "SpinBoxData/";
     protected List<T> list;
     private String parentCode;
     Storage localStorage;
