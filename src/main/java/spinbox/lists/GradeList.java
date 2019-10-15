@@ -1,24 +1,21 @@
 package spinbox.lists;
 
 import spinbox.Storage;
-import spinbox.exceptions.SpinBoxException;
+import spinbox.exceptions.FileCreationException;
+import spinbox.exceptions.StorageException;
 import spinbox.items.GradedComponent;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class GradeList extends SpinBoxItemList<GradedComponent> {
-    private static final String GRADE_LIST_FILE_NAME = "grades.txt";
+public class GradeList extends SpinBoxList<GradedComponent> {
+    private static final String GRADE_LIST_FILE_NAME = "/grades.txt";
 
-    public GradeList(String parentName) throws SpinBoxException {
+    public GradeList(String parentName) throws FileCreationException {
         super(parentName);
-        localStorage = new Storage(this.getParentCode() + GRADE_LIST_FILE_NAME);
-    }
-
-    public GradeList(List<GradedComponent> grades, String parentName) throws SpinBoxException {
-        super(grades, parentName);
-        localStorage = new Storage(this.getParentCode() + GRADE_LIST_FILE_NAME);
+        localStorage = new Storage(DIRECTORY_NAME + this.getParentCode() + GRADE_LIST_FILE_NAME);
     }
 
     /**
@@ -31,7 +28,25 @@ public class GradeList extends SpinBoxItemList<GradedComponent> {
         }
     }
 
+    @Override
     public void sort() {
         Collections.sort(list, new GradedComponentComparator());
+    }
+
+    @Override
+    public void loadData() throws StorageException {
+        List<String> savedData = localStorage.loadData();
+        for (String datum : savedData) {
+            this.add(new GradedComponent(datum));
+        }
+    }
+
+    @Override
+    public void saveData() throws StorageException {
+        List<String> dataToSave = new ArrayList<>();
+        for (GradedComponent gradedComponent: this.getList()) {
+            dataToSave.add(gradedComponent.storeString());
+        }
+        localStorage.saveData(dataToSave);
     }
 }

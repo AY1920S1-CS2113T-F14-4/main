@@ -1,11 +1,16 @@
 package spinbox;
 
-import spinbox.exceptions.SpinBoxException;
+import spinbox.exceptions.CorruptedDataException;
+import spinbox.exceptions.FileCreationException;
 import spinbox.lists.FileList;
 import spinbox.lists.GradeList;
 import spinbox.lists.TaskList;
 
 public class Module {
+    private static final String CORRUPTED_MODULES_DATA = "Corrupted modules data.";
+    private static final String STORE_DELIMITER = " | ";
+    private static final String DELIMITER_FILTER = " \\| ";
+
     private String moduleCode;
     private String moduleName;
     private FileList files;
@@ -17,12 +22,31 @@ public class Module {
     /**
      * Constructor for module.
      */
-    public Module(String moduleCode, String moduleName) {
+    public Module(String moduleCode, String moduleName) throws FileCreationException {
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
         files = new FileList(moduleCode);
         tasks = new TaskList(moduleCode);
         grades = new GradeList(moduleCode);
+    }
+
+    /**
+     * Parses a string extracted from storage back into a Module object.
+     * @param fromStorage This String is provided directly from the localStorage instance.
+     * @throws CorruptedDataException Thrown when a user manually edits the .txt file incorrectly.
+     */
+    public Module(String fromStorage) throws CorruptedDataException {
+        try {
+            String[] components = fromStorage.split(DELIMITER_FILTER);
+            this.setModuleCode(components[0]);
+            this.setModuleName(components[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new CorruptedDataException(CORRUPTED_MODULES_DATA);
+        }
+    }
+
+    public String storeString() {
+        return this.getModuleCode() + STORE_DELIMITER + this.getModuleName();
     }
 
     /**
@@ -39,5 +63,13 @@ public class Module {
      */
     public String getModuleCode() {
         return this.moduleCode;
+    }
+
+    private void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
+    }
+
+    private void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
     }
 }

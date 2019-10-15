@@ -1,12 +1,13 @@
 package spinbox.lists;
 
 import spinbox.Storage;
+import spinbox.exceptions.StorageException;
 import spinbox.items.Item;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SpinBoxItemList<T extends Item> {
+public abstract class SpinBoxList<T extends Item> {
     static final String DIRECTORY_NAME = "SpinBoxData/";
     protected List<T> list;
     private String parentCode;
@@ -15,7 +16,7 @@ public abstract class SpinBoxItemList<T extends Item> {
     /**
      * Constructor.
      */
-    SpinBoxItemList(String parentCode) {
+    SpinBoxList(String parentCode) {
         this.list = new ArrayList<T>();
         this.parentCode = parentCode;
     }
@@ -24,7 +25,7 @@ public abstract class SpinBoxItemList<T extends Item> {
      * Constructor if already have list.
      * @param list list to be made into SpinBoxList.
      */
-    SpinBoxItemList(List<T> list, String parentCode) {
+    SpinBoxList(List<T> list, String parentCode) {
         this.list = list;
         this.parentCode = parentCode;
     }
@@ -97,12 +98,12 @@ public abstract class SpinBoxItemList<T extends Item> {
     public abstract void sort();
 
     /**
-     * To populate data into this list from the list's localStorage
+     * To populate data into this list from the list's localStorage.
      */
-    public abstract void loadData();
+    public abstract void loadData() throws StorageException;
 
     /**
-     * To save current list data into the list's localStorage
+     * To save current list data into the list's localStorage.
      */
-    public abstract void saveData();
+    public abstract void saveData() throws StorageException;
 }
