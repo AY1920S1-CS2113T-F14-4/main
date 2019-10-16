@@ -51,6 +51,8 @@ public class ViewCommand extends Command {
                     throw new InputException("Please specify module before tab.\n"
                         + "E.g. 'view : <moduleCode> <tab>'");
                 }
+                page = "modules";
+                moduleCode = pageDataComponents[1];
                 tab = contentComponents[0];
                 break;
             // content is module code
