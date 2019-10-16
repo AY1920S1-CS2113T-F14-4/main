@@ -1,11 +1,11 @@
-package spinbox;
+package spinbox.entities;
 
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
-import spinbox.lists.FileList;
-import spinbox.lists.GradeList;
-import spinbox.lists.TaskList;
+import spinbox.containers.lists.FileList;
+import spinbox.containers.lists.GradeList;
+import spinbox.containers.lists.TaskList;
 
 public class Module {
     private static final String CORRUPTED_MODULES_DATA = "Corrupted modules data.";

@@ -1,10 +1,10 @@
-package spinbox.lists;
+package spinbox.containers.lists;
 
 import spinbox.Storage;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.DataReadWriteException;
-import spinbox.items.File;
+import spinbox.entities.items.File;
 
 import java.util.ArrayList;
 import java.util.Collections;

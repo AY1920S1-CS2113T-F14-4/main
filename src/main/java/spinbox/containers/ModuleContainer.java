@@ -1,6 +1,6 @@
-package spinbox.lists;
+package spinbox.containers;
 
-import spinbox.Module;
+import spinbox.entities.Module;
 import spinbox.Storage;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;

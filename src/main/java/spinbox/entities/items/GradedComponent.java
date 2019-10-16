@@ -1,4 +1,4 @@
-package spinbox.items;
+package spinbox.entities.items;
 
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.InputException;

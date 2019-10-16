@@ -3,7 +3,7 @@ package spinbox;
 import spinbox.commands.Command;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.StorageException;
-import spinbox.lists.ModuleContainer;
+import spinbox.containers.ModuleContainer;
 
 import java.util.ArrayDeque;
 

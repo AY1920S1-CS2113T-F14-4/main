@@ -1,16 +1,13 @@
 import org.junit.jupiter.api.Test;
-import spinbox.Module;
+import spinbox.entities.Module;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.StorageException;
-import spinbox.items.File;
-import spinbox.items.GradedComponent;
-import spinbox.items.tasks.Todo;
-import spinbox.lists.FileList;
-import spinbox.lists.ModuleContainer;
-
-import java.util.ArrayList;
+import spinbox.entities.items.File;
+import spinbox.entities.items.GradedComponent;
+import spinbox.entities.items.tasks.Todo;
+import spinbox.containers.ModuleContainer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

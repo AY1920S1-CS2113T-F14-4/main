@@ -1,14 +1,14 @@
-package spinbox.lists;
+package spinbox.containers.lists;
 
 import spinbox.DateTime;
 import spinbox.Storage;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
-import spinbox.items.tasks.Deadline;
-import spinbox.items.tasks.Task;
-import spinbox.items.tasks.Schedulable;
-import spinbox.items.tasks.Event;
-import spinbox.items.tasks.Todo;
+import spinbox.entities.items.tasks.Deadline;
+import spinbox.entities.items.tasks.Task;
+import spinbox.entities.items.tasks.Schedulable;
+import spinbox.entities.items.tasks.Event;
+import spinbox.entities.items.tasks.Todo;
 
 import java.util.ArrayList;
 import java.util.Collections;
