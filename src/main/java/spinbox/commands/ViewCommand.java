@@ -57,6 +57,7 @@ public class ViewCommand extends Command {
             default:
                 // check that you are on modules page first
                 if (pageDataComponents[0].equals("modules")) {
+                    page = "modules";
                     moduleCode = contentComponents[0];
                 } else {
                     throw new InputException("Please be on modules page first.\n"
