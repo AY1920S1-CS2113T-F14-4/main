@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 import spinbox.Module;
+import spinbox.exceptions.CorruptedDataException;
+import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.StorageException;
 import spinbox.items.File;
@@ -15,7 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ModuleTest {
 
     @Test
-    public void moduleCreation_variousModules_successfulCreationWithWorkingGetters() throws FileCreationException {
+    public void moduleCreation_variousModules_successfulCreationWithWorkingGetters() throws FileCreationException,
+            CorruptedDataException, DataReadWriteException {
         ModuleContainer testContainer = new ModuleContainer();
         Module testModuleOne = new Module("CG1111", "Engineering Principles & Practice I");
 

@@ -1,6 +1,7 @@
 package spinbox;
 
 import spinbox.exceptions.CorruptedDataException;
+import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.lists.FileList;
 import spinbox.lists.GradeList;
@@ -16,18 +17,21 @@ public class Module {
     private FileList files;
     private TaskList tasks;
     private GradeList grades;
-    // private Storage storage;
+    private Notepad notepad;
     // private Event exam;
 
     /**
      * Constructor for module.
      */
-    public Module(String moduleCode, String moduleName) throws FileCreationException {
+    public Module(String moduleCode, String moduleName) throws FileCreationException,
+            DataReadWriteException, CorruptedDataException {
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
         this.files = new FileList(moduleCode);
         this.tasks = new TaskList(moduleCode);
         this.grades = new GradeList(moduleCode);
+        this.notepad = new Notepad(moduleCode);
+        this.loadData();
     }
 
     /**
@@ -35,13 +39,18 @@ public class Module {
      * @param fromStorage This String is provided directly from the localStorage instance.
      * @throws CorruptedDataException Thrown when a user manually edits the .txt file incorrectly.
      */
-    public Module(String fromStorage) throws CorruptedDataException {
+    public Module(String fromStorage) throws CorruptedDataException, DataReadWriteException, FileCreationException {
         try {
             String[] components = fromStorage.split(DELIMITER_FILTER);
             this.setModuleCode(components[0]);
             this.setModuleName(components[1]);
+            this.files = new FileList(moduleCode);
+            this.tasks = new TaskList(moduleCode);
+            this.grades = new GradeList(moduleCode);
+            this.notepad = new Notepad(moduleCode);
+            this.loadData();
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CorruptedDataException(CORRUPTED_MODULES_DATA);
+            throw new CorruptedDataException();
         }
     }
 
@@ -95,5 +104,17 @@ public class Module {
 
     private void setModuleName(String moduleName) {
         this.moduleName = moduleName;
+    }
+
+    /**
+     * To be used upon once Module object has been constructed to populate pre-existing data.
+     * @throws DataReadWriteException I/O error.
+     * @throws CorruptedDataException Data has been modified incorrectly within the .txt files.
+     */
+    public void loadData() throws DataReadWriteException, CorruptedDataException {
+        this.files.loadData();
+        this.tasks.loadData();
+        this.grades.loadData();
+        this.notepad.loadData();
     }
 }

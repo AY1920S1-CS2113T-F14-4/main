@@ -1,7 +1,9 @@
 package spinbox.lists;
 
 import spinbox.Storage;
-import spinbox.exceptions.StorageException;
+import spinbox.exceptions.CorruptedDataException;
+import spinbox.exceptions.DataReadWriteException;
+import spinbox.exceptions.InvalidIndexException;
 import spinbox.items.Item;
 
 import java.util.ArrayList;
@@ -18,15 +20,6 @@ public abstract class SpinBoxList<T extends Item> {
      */
     SpinBoxList(String parentCode) {
         this.list = new ArrayList<T>();
-        this.parentCode = parentCode;
-    }
-
-    /**
-     * Constructor if already have list.
-     * @param list list to be made into SpinBoxList.
-     */
-    SpinBoxList(List<T> list, String parentCode) {
-        this.list = list;
         this.parentCode = parentCode;
     }
 
@@ -50,9 +43,9 @@ public abstract class SpinBoxList<T extends Item> {
      * Add element into list.
      * @param element to be added.
      * @return added element.
-     * @throws StorageException saveData fail due to I/O Error.
+     * @throws DataReadWriteException saveData fail due to I/O Error.
      */
-    public T add(T element) throws StorageException {
+    public T add(T element) throws DataReadWriteException {
         list.add(element);
         this.saveData();
         return element;
@@ -62,21 +55,31 @@ public abstract class SpinBoxList<T extends Item> {
      * Remove element at index from list.
      * @param index index of element.
      * @return element removed.
-     * @throws IndexOutOfBoundsException if index is invalid.
-     * @throws StorageException saveData fail due to I/O Error.
+     * @throws InvalidIndexException provided Index is out range.
+     * @throws DataReadWriteException saveData fail due to I/O Error.
      */
-    public T remove(int index) throws IndexOutOfBoundsException, StorageException {
-        this.saveData();
-        return list.remove(index);
+    public T remove(int index) throws DataReadWriteException, InvalidIndexException {
+        try {
+            T removedItem = list.remove(index);
+            this.saveData();
+            return removedItem;
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidIndexException();
+        }
     }
 
     /**
      * Return element at index.
      * @param index index of element.
      * @return element at index.
+     * @throws InvalidIndexException provided Index is out range.
      */
-    public T get(int index) {
-        return list.get(index);
+    public T get(int index) throws InvalidIndexException {
+        try {
+            return list.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidIndexException();
+        }
     }
 
     /**
@@ -84,10 +87,15 @@ public abstract class SpinBoxList<T extends Item> {
      * @param index index of element to be replaced.
      * @param element new element to be inserted.
      * @return new element.
-     * @throws StorageException saveData fail due to I/O Error.
+     * @throws DataReadWriteException saveData fail due to I/O Error.
+     * @throws InvalidIndexException provided Index is out range.
      */
-    public T replace(int index, T element) throws StorageException {
-        list.set(index, element);
+    public T replace(int index, T element) throws DataReadWriteException, InvalidIndexException {
+        try {
+            list.set(index, element);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidIndexException();
+        }
         this.saveData();
         return element;
     }
@@ -96,10 +104,15 @@ public abstract class SpinBoxList<T extends Item> {
      * Marks an item as done.
      * @param index index of element to be marked done.
      * @return element marked done.
-     * @throws StorageException saveData fail due to I/O Error.
+     * @throws DataReadWriteException saveData fail due to I/O Error.
+     * @throws InvalidIndexException provided Index is out range.
      */
-    public T mark(int index) throws StorageException {
-        list.get(index).markDone();
+    public T mark(int index) throws DataReadWriteException, InvalidIndexException {
+        try {
+            list.get(index).markDone();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidIndexException();
+        }
         this.saveData();
         return list.get(index);
     }
@@ -112,10 +125,10 @@ public abstract class SpinBoxList<T extends Item> {
     /**
      * To populate data into this list from the list's localStorage.
      */
-    public abstract void loadData() throws StorageException;
+    public abstract void loadData() throws DataReadWriteException, CorruptedDataException;
 
     /**
      * To save current list data into the list's localStorage.
      */
-    public abstract void saveData() throws StorageException;
+    public abstract void saveData() throws DataReadWriteException;
 }
