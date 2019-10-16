@@ -5,6 +5,7 @@ import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.InvalidIndexException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Notepad {
@@ -15,6 +16,7 @@ public class Notepad {
     List<String> notes;
 
     public Notepad(String parentName) throws FileCreationException {
+        notes = new ArrayList<>();
         localStorage = new Storage(DIRECTORY_NAME + parentName + NOTEPAD_FILE_NAME);
     }
 

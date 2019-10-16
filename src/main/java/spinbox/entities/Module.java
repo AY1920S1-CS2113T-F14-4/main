@@ -98,6 +98,10 @@ public class Module {
         return tasks;
     }
 
+    public Notepad getNotepad() {
+        return notepad;
+    }
+
     private void setModuleCode(String moduleCode) {
         this.moduleCode = moduleCode;
     }
