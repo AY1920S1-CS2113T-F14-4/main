@@ -3,8 +3,8 @@ package spinbox.commands;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Storage;
-import spinbox.lists.TaskList;
-import spinbox.items.tasks.Task;
+import spinbox.containers.lists.TaskList;
+import spinbox.entities.items.tasks.Task;
 import spinbox.Ui;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
             List<Task> tasks = taskList.getList();
 
             Task removed = taskList.remove(index);
-            storage.setData(tasks);
+            taskList.saveData();
             formattedOutput.add("Noted. I've removed this task:\n" + removed.toString());
             formattedOutput.add("You currently have " + tasks.size()
                     + ((tasks.size() == 1) ? " task in the list." : " tasks in the list."));

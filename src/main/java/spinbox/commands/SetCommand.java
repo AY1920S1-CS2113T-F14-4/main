@@ -2,12 +2,12 @@ package spinbox.commands;
 
 import spinbox.DateTime;
 import spinbox.Storage;
-import spinbox.lists.TaskList;
+import spinbox.containers.lists.TaskList;
 import spinbox.Ui;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
-import spinbox.items.tasks.Event;
-import spinbox.items.tasks.Task;
+import spinbox.entities.items.tasks.Event;
+import spinbox.entities.items.tasks.Task;
 
 import java.util.ArrayList;
 
@@ -72,7 +72,7 @@ public class SetCommand extends Command {
         formattedOutput.add(tentativeTask.toString());
         formattedOutput.add("With event:");
         formattedOutput.add(addTask.toString());
-        storage.setData(taskList.getList());
+        taskList.saveData();
         taskList.sort();
 
         return ui.showFormatted(formattedOutput);

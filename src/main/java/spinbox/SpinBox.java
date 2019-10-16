@@ -2,13 +2,14 @@ package spinbox;
 
 import spinbox.commands.Command;
 import spinbox.exceptions.SpinBoxException;
+import spinbox.exceptions.StorageException;
+import spinbox.containers.ModuleContainer;
 
 import java.util.ArrayDeque;
-import java.util.HashMap;
 
 public class SpinBox {
     private Ui userInterface;
-    private HashMap<String, Module> modules;
+    private ModuleContainer modules;
     private ArrayDeque<String> pageTrace;
     private boolean shutdown = false;
 
@@ -17,9 +18,15 @@ public class SpinBox {
      */
     public SpinBox(boolean cliMode) {
         userInterface = new Ui();
-        modules = new HashMap<>();
         pageTrace = new ArrayDeque<>();
         pageTrace.add("main");
+
+        try {
+            modules = new ModuleContainer();
+        } catch (StorageException e) {
+            userInterface.showFormatted(e.getMessage());
+        }
+
         if (cliMode) {
             this.startSpinBoxCli();
         }
@@ -61,7 +68,7 @@ public class SpinBox {
         try {
             Parser.setPageTrace(pageTrace);
             Command command = Parser.parse(input);
-            String response = command.execute(modules, pageTrace, userInterface);
+            String response = command.execute(modules.getModules(), pageTrace, userInterface);
             this.setShutdown(command.isExit());
             return response;
         } catch (SpinBoxException e) {

@@ -3,9 +3,9 @@ package spinbox.commands;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Storage;
-import spinbox.items.tasks.Task;
+import spinbox.entities.items.tasks.Task;
 import spinbox.Ui;
-import spinbox.lists.TaskList;
+import spinbox.containers.lists.TaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,7 +77,7 @@ public class MultipleCommand extends Command {
                 }
             }
             List<Task> tasks = taskList.getList();
-            storage.setData(tasks);
+            taskList.saveData();
             formattedOutput.add("You currently have " + tasks.size()
                     + ((tasks.size() == 1) ? " task in the list." : " tasks in the list."));
             return ui.showFormatted(formattedOutput);
