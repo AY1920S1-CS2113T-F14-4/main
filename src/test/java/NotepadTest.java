@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
+import spinbox.containers.ModuleContainer;
 import spinbox.entities.Notepad;
+import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.InvalidIndexException;
@@ -10,14 +12,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class NotepadTest {
 
     @Test
-    public void notepadCreation_oneNewNotepad_successfulCreationAndWorkingGetters() throws FileCreationException {
+    public void notepadCreation_oneNewNotepad_successfulCreationAndWorkingGetters() throws
+            FileCreationException, CorruptedDataException, DataReadWriteException {
+        ModuleContainer testContainer = new ModuleContainer();
         Notepad testPad = new Notepad("testModule");
         assertEquals(testPad.getNotes().size(),0);
     }
 
     @Test
     public void notepadAddLine_addNewLineToNewNotepad_successfulAddition() throws FileCreationException,
-            DataReadWriteException {
+            DataReadWriteException, CorruptedDataException {
+        ModuleContainer testContainer = new ModuleContainer();
         Notepad testPad = new Notepad("testModule");
         testPad.addLine("test line");
         assertEquals(testPad.getNotes().get(0), "test line");
@@ -25,7 +30,8 @@ public class NotepadTest {
 
     @Test
     public void notepadUpdateLine_AddThenUpdateLineInNewNotepad_successfulUpdateAndIndexException() throws
-            DataReadWriteException, InvalidIndexException, FileCreationException {
+            DataReadWriteException, InvalidIndexException, FileCreationException, CorruptedDataException {
+        ModuleContainer testContainer = new ModuleContainer();
         Notepad testPad = new Notepad("testModule");
         testPad.addLine("test line");
 
@@ -39,7 +45,8 @@ public class NotepadTest {
 
     @Test
     public void notepadRemoveLine_AddMultipleLinesThenRemoveOne_successfulRemoveAndIndexException() throws
-            InvalidIndexException, DataReadWriteException, FileCreationException {
+            InvalidIndexException, DataReadWriteException, FileCreationException, CorruptedDataException {
+        ModuleContainer testContainer = new ModuleContainer();
         Notepad testPad = new Notepad("testModule");
         testPad.addLine("test line0");
         testPad.addLine("test line1");
@@ -56,7 +63,8 @@ public class NotepadTest {
 
     @Test
     public void loadDataSuccessful_AddLinesThenManualClear_successfulRepopulationOfData() throws
-            DataReadWriteException, FileCreationException {
+            DataReadWriteException, FileCreationException, CorruptedDataException {
+        ModuleContainer testContainer = new ModuleContainer();
         Notepad testPad = new Notepad("testModule");
         testPad.addLine("test line0");
         testPad.addLine("test line1");
