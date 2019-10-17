@@ -74,7 +74,7 @@ public class ViewCommand extends Command {
                 page = "modules";
                 moduleCode = contentComponents[1];
             } else if (contentComponents[1].equals("tasks") || contentComponents[1].equals("files")
-                    || contentComponents[1].equals("grades")) {
+                    || contentComponents[1].equals("grades") || contentComponents[1].equals("notes")) {
                 page = "modules";
                 moduleCode = contentComponents[0];
                 tab = contentComponents[1];
@@ -130,7 +130,7 @@ public class ViewCommand extends Command {
                 for (HashMap.Entry<String, Module> entry : moduleContainer.getModules().entrySet()) {
                     currentModules = currentModules.concat(entry.getKey() + "\n");
                 }
-                throw new InputException("Sorry, that module does not exist. These are the current modules\n"
+                throw new InputException("Sorry, that module does not exist. These are the current modules:\n"
                     + currentModules);
             }
         }
@@ -154,9 +154,13 @@ public class ViewCommand extends Command {
                 newPageTrace.addFirst(tab);
                 outputList = module.getGrades().viewList();
                 break;
+            case "notes":
+                newPageTrace.addFirst(tab);
+                outputList = module.getNotepad().viewList();
+                break;
             default:
                 throw new InputException("Sorry, that tab does not exist."
-                        + " Please choose 'tasks', 'files', or 'grades'.");
+                        + " Please choose 'tasks', 'files', 'notes' or 'grades'.");
             }
         }
 
