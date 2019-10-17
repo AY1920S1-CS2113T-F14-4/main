@@ -39,8 +39,7 @@ public class DateTime implements Comparable<DateTime> {
     public int getDayOfMonth() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateTime);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        return day;
+        return calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     /**
@@ -50,8 +49,7 @@ public class DateTime implements Comparable<DateTime> {
     public int getDayOfWeek() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateTime);
-        int day =  calendar.get(Calendar.DAY_OF_WEEK);
-        return day;
+        return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
     /**
@@ -61,8 +59,7 @@ public class DateTime implements Comparable<DateTime> {
     public int getHour() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateTime);
-        int hour =  calendar.get(Calendar.HOUR_OF_DAY);
-        return hour;
+        return calendar.get(Calendar.HOUR_OF_DAY);
     }
 
     /**
@@ -72,8 +69,7 @@ public class DateTime implements Comparable<DateTime> {
      */
     public String toString() {
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-        String dateString = dateFormat.format(dateTime);
-        return dateString;
+        return dateFormat.format(dateTime);
     }
 
     public boolean before(DateTime dateTime) {

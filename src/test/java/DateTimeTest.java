@@ -42,47 +42,47 @@ public class DateTimeTest {
     }
 
     @Test
-    public void getDayOfMonthFromDateString() {
+    public void getDayOfMonthOfDateTimeStringShouldReturnCorrectDayInteger() {
         DateTime test = new DateTime("10/16/2019 12:33");
         assertEquals(16, test.getDayOfMonth());
     }
 
     @Test
-    public void getDayOfWeekFromDateString() {
+    public void getDayOfWeekOfDateTimeStringShouldReturnCorrectDayInteger() {
         DateTime test = new DateTime("10/16/2019 12:33");
         assertEquals(4, test.getDayOfWeek());
     }
 
     @Test
-    public void getHourFromDateString() {
+    public void getHourFromDateTimeStringShouldReturnCorrectHourInteger() {
         String date = "10/16/2019 12:33";
         DateTime test = new DateTime(date);
         assertEquals(12, test.getHour());
     }
 
     @Test
-    public void getStartOfTheWeekFromDateString() {
+    public void getStartOfTheWeekFromDateTimeStringShouldReturnCorrectDateTimeString() {
         String date = "10/16/2019";
         DateTime test = new DateTime(date + " 00:00");
         assertEquals("10/13/2019 00:00", test.getStartOfTheWeek().toString());
     }
 
     @Test
-    public void getEndOfTheWeekFromDateString() {
+    public void getEndOfTheWeekFromDateTimeStringShouldReturnCorrectDateTimeString() {
         String date = "10/16/2019";
         DateTime test = new DateTime(date + " 23:59");
         assertEquals("10/19/2019 23:59", test.getEndOfTheWeek().toString());
     }
 
     @Test
-    public void getStartOfTheMonthFromDateString() {
+    public void getStartOfTheMonthFromDateTimeStringShouldReturnCorrectDateTimeString() {
         String date = "10/16/2019";
         DateTime test = new DateTime(date + " 00:00");
         assertEquals("10/01/2019 00:00", test.getStartOfTheMonth().toString());
     }
 
     @Test
-    public void getEndOfTheMonthFromDateString() {
+    public void getEndOfTheMonthFromDateTimeStringShouldReturnCorrectDateTimeString() {
         String date = "10/16/2019";
         DateTime test = new DateTime(date + " 23:59");
         assertEquals("10/31/2019 23:59", test.getEndOfTheMonth().toString());

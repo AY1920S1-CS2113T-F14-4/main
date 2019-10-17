@@ -7,6 +7,8 @@ import spinbox.exceptions.CalendarSelectorException;
 import java.util.List;
 
 public class Calendar {
+    private static final String MIDNIGHT = " 00:00";
+    private static final String BEFORE_MIDNIGHT = " 23:59";
     DateTime startDate;
     DateTime endDate;
     int modifier;
@@ -19,16 +21,16 @@ public class Calendar {
     private void setDates(String date) throws CalendarSelectorException {
         switch (modifier) {
         case 1:
-            startDate = new DateTime(date + " 00:00");
-            endDate = new DateTime(date + " 23:59");
+            startDate = new DateTime(date + MIDNIGHT);
+            endDate = new DateTime(date + BEFORE_MIDNIGHT);
             break;
         case 2:
-            startDate = new DateTime(date + " 00:00").getStartOfTheWeek();
-            endDate = new DateTime(date + " 23:59").getEndOfTheWeek();
+            startDate = new DateTime(date + MIDNIGHT).getStartOfTheWeek();
+            endDate = new DateTime(date + BEFORE_MIDNIGHT).getEndOfTheWeek();
             break;
         case 3:
-            startDate = new DateTime(date + " 00:00").getStartOfTheMonth();
-            endDate = new DateTime(date + " 23:59").getEndOfTheMonth();
+            startDate = new DateTime(date + MIDNIGHT).getStartOfTheMonth();
+            endDate = new DateTime(date + BEFORE_MIDNIGHT).getEndOfTheMonth();
             break;
         default:
             throw new CalendarSelectorException();
