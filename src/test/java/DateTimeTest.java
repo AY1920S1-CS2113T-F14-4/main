@@ -2,6 +2,8 @@ import spinbox.DateTime;
 import spinbox.exceptions.SpinBoxException;
 import org.junit.jupiter.api.Test;
 
+import java.time.DayOfWeek;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DateTimeTest {
@@ -37,5 +39,52 @@ public class DateTimeTest {
         DateTime santaVacationEndDate = new DateTime("from christmas 2019 6am to christmas eve 2020 23:59", 1);
         assertEquals("12/25/2019 06:00", santaVacationStartDate.toString());
         assertEquals("12/24/2020 23:59", santaVacationEndDate.toString());
+    }
+
+    @Test
+    public void getDayOfMonthFromDateString() {
+        DateTime test = new DateTime("10/16/2019 12:33");
+        assertEquals(16, test.getDayOfMonth());
+    }
+
+    @Test
+    public void getDayOfWeekFromDateString() {
+        DateTime test = new DateTime("10/16/2019 12:33");
+        assertEquals(4, test.getDayOfWeek());
+    }
+
+    @Test
+    public void getHourFromDateString() {
+        String date = "10/16/2019 12:33";
+        DateTime test = new DateTime(date);
+        assertEquals(12, test.getHour());
+    }
+
+    @Test
+    public void getStartOfTheWeekFromDateString() {
+        String date = "10/16/2019";
+        DateTime test = new DateTime(date + " 00:00");
+        assertEquals("10/13/2019 00:00", test.getStartOfTheWeek().toString());
+    }
+
+    @Test
+    public void getEndOfTheWeekFromDateString() {
+        String date = "10/16/2019";
+        DateTime test = new DateTime(date + " 23:59");
+        assertEquals("10/19/2019 23:59", test.getEndOfTheWeek().toString());
+    }
+
+    @Test
+    public void getStartOfTheMonthFromDateString() {
+        String date = "10/16/2019";
+        DateTime test = new DateTime(date + " 00:00");
+        assertEquals("10/01/2019 00:00", test.getStartOfTheMonth().toString());
+    }
+
+    @Test
+    public void getEndOfTheMonthFromDateString() {
+        String date = "10/16/2019";
+        DateTime test = new DateTime(date + " 23:59");
+        assertEquals("10/31/2019 23:59", test.getEndOfTheMonth().toString());
     }
 }

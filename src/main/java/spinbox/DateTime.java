@@ -4,6 +4,7 @@ import com.joestelmach.natty.Parser;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateTime implements Comparable<DateTime> {
@@ -29,6 +30,39 @@ public class DateTime implements Comparable<DateTime> {
 
     public Date getDateTime() {
         return dateTime;
+    }
+
+    /**
+     * Return the day of the month.
+     * @return day of the month
+     */
+    public int getDayOfMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTime);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return day;
+    }
+
+    /**
+     * Return the day of the week.
+     * @return day of the week
+     */
+    public int getDayOfWeek() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTime);
+        int day =  calendar.get(Calendar.DAY_OF_WEEK);
+        return day;
+    }
+
+    /**
+     * Return hour.
+     * @return hour
+     */
+    public int getHour() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTime);
+        int hour =  calendar.get(Calendar.HOUR_OF_DAY);
+        return hour;
     }
 
     /**
@@ -59,5 +93,55 @@ public class DateTime implements Comparable<DateTime> {
         return this.getDateTime().compareTo(dateTimeTwo.getDateTime());
     }
 
+    /**
+     * Return another DateTime with date
+     * set as start of the week relative to this DateTime.
+     * @return start of the week
+     */
+    public DateTime getStartOfTheWeek() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTime);
+        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+            calendar.add(Calendar.DATE, -1);
+        }
+        return new DateTime(calendar.getTime());
+    }
 
+    /**
+     * Return another DateTime with date
+     * set as end of the week relative to this DateTime.
+     * @return end of the week
+     */
+    public DateTime getEndOfTheWeek() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTime);
+        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
+            calendar.add(Calendar.DATE, 1);
+        }
+        return new DateTime(calendar.getTime());
+    }
+
+    /**
+     * Return another DateTime with date
+     * set as start of the month relative to this DateTime.
+     * @return start of the month
+     */
+    public DateTime getStartOfTheMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTime);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return new DateTime(calendar.getTime());
+    }
+
+    /**
+     * Return another DateTime with date
+     * set as end of the month relative to this DateTime.
+     * @return end of the month
+     */
+    public DateTime getEndOfTheMonth() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateTime);
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return new DateTime(calendar.getTime());
+    }
 }
