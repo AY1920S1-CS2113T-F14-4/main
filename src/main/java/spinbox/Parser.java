@@ -1,9 +1,6 @@
 package spinbox;
 
-import spinbox.commands.AddCommand;
-import spinbox.commands.Command;
-import spinbox.commands.ExitCommand;
-import spinbox.commands.ViewCommand;
+import spinbox.commands.*;
 
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
@@ -112,6 +109,9 @@ public class Parser {
             break;
         case "add":
             command = new AddCommand(pageDataComponents[1], content);
+            break;
+        case "remove":
+            command = new RemoveCommand(pageDataComponents[1], content);
             break;
         default:
         }
