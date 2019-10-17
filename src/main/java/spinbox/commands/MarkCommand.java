@@ -12,7 +12,8 @@ import java.util.ArrayDeque;
 import java.util.HashMap;
 
 public class MarkCommand extends Command {
-    private static final String MODULE_NOT_EXISTS = "This module does not exist.";
+    private static final String NON_EXISTENT_MODULE = "This module does not exist.";
+    private static final String FILE_MARKED = "Marked file: ";
     private String type;
 
     private String moduleCode;
@@ -34,7 +35,6 @@ public class MarkCommand extends Command {
             SpinBoxException {
 
         switch (type) {
-        // mark files
         case "file":
             if (moduleContainer.checkModuleExists(moduleCode)) {
                 try {
@@ -44,12 +44,12 @@ public class MarkCommand extends Command {
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
                     File fileMarked = files.get(index);
                     files.mark(index);
-                    return "Marked file: " + fileMarked.toString();
+                    return FILE_MARKED + fileMarked.toString();
                 } catch (NumberFormatException e) {
                     throw new InputException("Please enter a valid index.");
                 }
             } else {
-                return MODULE_NOT_EXISTS;
+                return NON_EXISTENT_MODULE;
             }
         default:
             throw new InputException("Please use valid remove format:\n"
