@@ -11,7 +11,7 @@ import spinbox.Ui;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 
-public class RemoveCommand extends Command {
+public class MarkCommand extends Command {
     private static final String MODULE_NOT_EXISTS = "This module does not exist.";
     private String type;
 
@@ -19,11 +19,11 @@ public class RemoveCommand extends Command {
     private String content;
 
     /**
-     * Constructor for initialization of variables to support removal of entities.
+     * Constructor for initialization of variables to support marking of entities.
      * @param moduleCode A String denoting the module code.
      * @param content A string containing the content of the processed user input.
      */
-    public RemoveCommand(String moduleCode, String content) {
+    public MarkCommand(String moduleCode, String content) {
         this.moduleCode = moduleCode;
         this.content = content;
         this.type = content.split(" ")[0];
@@ -34,7 +34,7 @@ public class RemoveCommand extends Command {
             SpinBoxException {
 
         switch (type) {
-        // remove files
+        // mark files
         case "file":
             if (moduleContainer.checkModuleExists(moduleCode)) {
                 try {
@@ -42,9 +42,9 @@ public class RemoveCommand extends Command {
                     Module module = modules.get(moduleCode);
                     FileList files = module.getFiles();
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
-                    File fileRemoved = files.get(index);
-                    files.remove(index);
-                    return "Removed file: " + fileRemoved.toString();
+                    File fileMarked = files.get(index);
+                    files.mark(index);
+                    return "Marked file: " + fileMarked.toString();
                 } catch (NumberFormatException e) {
                     throw new InputException("Please enter a valid index.");
                 }
@@ -53,7 +53,7 @@ public class RemoveCommand extends Command {
             }
         default:
             throw new InputException("Please use valid remove format:\n"
-                + "remove <pageContent> : <type> <index>");
+                    + "remove <pageContent> : <type> <index>");
         }
     }
 }
