@@ -45,26 +45,26 @@ public class RemoveCommand extends Command {
             SpinBoxException {
 
         switch (type) {
-            // add files
-            case "file":
-                if (moduleContainer.checkModuleExists(moduleCode)) {
-                    try {
-                        HashMap<String, Module> modules = moduleContainer.getModules();
-                        Module module = modules.get(moduleCode);
-                        FileList files = module.getFiles();
-                        int index = Integer.parseInt(content.split(" ")[1]) - 1;
-                        File fileRemoved = files.get(index);
-                        files.remove(index);
-                        return "Removed file: " + fileRemoved.toString();
-                    } catch (NumberFormatException e) {
-                        throw new InputException("Please enter a valid index.");
-                    }
-                } else {
-                    return MODULE_NOT_EXISTS;
+        // remove files
+        case "file":
+            if (moduleContainer.checkModuleExists(moduleCode)) {
+                try {
+                    HashMap<String, Module> modules = moduleContainer.getModules();
+                    Module module = modules.get(moduleCode);
+                    FileList files = module.getFiles();
+                    int index = Integer.parseInt(content.split(" ")[1]) - 1;
+                    File fileRemoved = files.get(index);
+                    files.remove(index);
+                    return "Removed file: " + fileRemoved.toString();
+                } catch (NumberFormatException e) {
+                    throw new InputException("Please enter a valid index.");
                 }
-            default:
-                throw new InputException("Please use valid remove format:\n"
-                    + "remove <pageContent> : <type> <index>");
+            } else {
+                return MODULE_NOT_EXISTS;
+            }
+        default:
+            throw new InputException("Please use valid remove format:\n"
+                + "remove <pageContent> : <type> <index>");
         }
     }
 }

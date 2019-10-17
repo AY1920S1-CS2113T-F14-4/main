@@ -1,6 +1,10 @@
 package spinbox;
 
-import spinbox.commands.*;
+import spinbox.commands.AddCommand;
+import spinbox.commands.Command;
+import spinbox.commands.ExitCommand;
+import spinbox.commands.RemoveCommand;
+import spinbox.commands.ViewCommand;
 
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
