@@ -59,14 +59,8 @@ public class ViewCommand extends Command {
                 break;
             // content is module code
             default:
-                // check that you are on modules page first
-                if (pageDataComponents[0].equals("modules")) {
-                    page = "modules";
-                    moduleCode = contentComponents[0];
-                } else {
-                    throw new InputException("Please be on modules page first.\n"
-                        + "E.g. 'view : modules <moduleCode>'");
-                }
+                page = "modules";
+                moduleCode = contentComponents[0];
             }
         // can be 'modules <moduleCode>' or '<moduleCode> tab'
         } else if (contentComponents.length == 2) {
