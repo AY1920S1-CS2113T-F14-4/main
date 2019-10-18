@@ -64,7 +64,6 @@ public class Parser {
                 throw new InputException("Please input a valid command.");
             }
         }
-        System.out.println(pageData);
         return pageData;
     }
 
