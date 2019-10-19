@@ -23,7 +23,7 @@ public class ViewCommand extends Command {
      * @throws InputException if invalid view command.
      */
     public ViewCommand(String[] pageDataComponents, String content) throws InputException {
-        String[] contentComponents = content.split(" ");
+        String[] contentComponents = content.toLowerCase().split(" ");
 
         if (contentComponents.length == 0) {
             throw new InputException("Please input the page you want to change to.");

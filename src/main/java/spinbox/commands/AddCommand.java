@@ -21,12 +21,34 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.ToDoubleBiFunction;
 
 public class AddCommand extends Command {
     private static final String MODULE_ADDED = "The following module has been added to SpinBox: ";
     private static final String MODULE_NOT_ADDED = "A module with this code already exists in SpinBox.";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String NOTE_ADDED = "A new note has been successfully added to ";
+    private static final String UNKNOWN_ITEM_TYPE = "Sorry, we do not recognize the type of item you want to add.";
+    private static final String FILE_ERROR_MESSAGE = "Please ensure that you enter "
+            + "the full command for adding files:\n";
+    private static final String NOTE_ERROR_MESSAGE = "Please ensure that you enter "
+            + "the full command for adding notes:\n";
+    private static final String TODO_ERROR_MESSAGE = "Please ensure that you enter "
+            + "the full command for adding todo:\n";
+    private static final String DEADLINE_ERROR_MESSAGE = "Please ensure that you enter "
+            + "the full command for adding deadlines:\n";
+    private static final String EVENT_ERROR_MESSAGE = "Please ensure that you enter "
+            + "the full command for adding events:\n";
+    private static final String MODULE_ERROR_MESSAGE = "Please ensure that you enter "
+            + "the full command for adding modules:\n";
+    private static final String FILE_FORMAT = "add <moduleCode> / file <fileName>";
+    private static final String NOTE_FORMAT = "add <moduleCode> / note <fileName>";
+    private static final String TODO_FORMAT = "add <moduleCode> / todo <fileName>";
+    private static final String DEADLINE_FORMAT = "add <moduleCode> / deadline <taskName> by: <MM/DD/YYYY HH:MM";
+    private static final String EVENT_FORMAT = "add <moduleCode> / <eventType> <taskName> at: "
+        + "<start as MM/DD/YYYY HH:MM> to <end as MM/DD/YYYY HH:MM>";
+    private static final String MODULE_FORMAT = "add / module <moduleCode> <moduleName>";
+
     private String type;
 
     private String moduleCode;
@@ -60,7 +82,7 @@ public class AddCommand extends Command {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     FileList files = module.getFiles();
-                    String fileName = content.replace(type.concat(" "), "");
+                    String fileName = content.replace(type, "").trim();
                     fileAdded = files.add(new File(0, fileName));
                     return "Added into " + module.toString() + " file: " + fileAdded.toString() + "\n"
                             + "You currently have " + files.getList().size()
@@ -69,9 +91,7 @@ public class AddCommand extends Command {
                     return NON_EXISTENT_MODULE;
                 }
             } catch (IndexOutOfBoundsException e) {
-                throw new InputException("Please ensure that you enter the full command"
-                        + " for adding file:\n"
-                        + "add <moduleCode> / file <fileName>");
+                throw new InputException(FILE_ERROR_MESSAGE + FILE_FORMAT);
             }
 
         case "note":
@@ -81,16 +101,14 @@ public class AddCommand extends Command {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     Notepad notepad = module.getNotepad();
-                    String noteContent = content.replace(type.concat(" "), "");
+                    String noteContent = content.replace(type, "").trim();
                     notepad.addLine(noteContent);
                     return NOTE_ADDED + moduleCode;
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
             } catch (IndexOutOfBoundsException e) {
-                throw new InputException("Please ensure that you enter the full command"
-                        + " for adding notes:\n"
-                        + "add <moduleCode> / note <content>");
+                throw new InputException(NOTE_ERROR_MESSAGE + NOTE_FORMAT);
             }
 
         case "todo":
@@ -100,7 +118,7 @@ public class AddCommand extends Command {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     TaskList tasks = module.getTasks();
-                    String taskDescription = content.replace(type.concat(" "), "");
+                    String taskDescription = content.replace(type, "").trim();
                     if (taskDescription.equals("todo")) {
                         throw new InputException("☹ OOPS!!! The description of a task cannot be empty.");
                     }
@@ -112,9 +130,7 @@ public class AddCommand extends Command {
                     return NON_EXISTENT_MODULE;
                 }
             } catch (IndexOutOfBoundsException e) {
-                throw new InputException("Please ensure that you enter the full command"
-                        + " for adding todo:\n"
-                        + "add <moduleCode> / todo <taskName>");
+                throw new InputException(TODO_ERROR_MESSAGE + TODO_FORMAT);
             }
 
         case "deadline":
@@ -124,7 +140,7 @@ public class AddCommand extends Command {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     TaskList tasks = module.getTasks();
-                    String taskDescription = content.replace(type.concat(" "), "");
+                    String taskDescription = content.replace(type, "").trim();
                     if (taskDescription.split(" ")[0].equals("by:")) {
                         throw new InputException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
@@ -138,9 +154,7 @@ public class AddCommand extends Command {
                     return NON_EXISTENT_MODULE;
                 }
             } catch (IndexOutOfBoundsException e) {
-                throw new InputException("Please ensure that you enter the full command"
-                        + " for adding deadline:\n"
-                        + "add <moduleCode> / deadline <taskName> by: <MM/DD/YYYY HH:MM");
+                throw new InputException(DEADLINE_ERROR_MESSAGE + DEADLINE_FORMAT);
             }
 
         case "exam":
@@ -152,7 +166,7 @@ public class AddCommand extends Command {
                 if (moduleContainer.checkModuleExists(moduleCode)) {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
-                    String taskDescription = content.replace(type.concat(" "), "");
+                    String taskDescription = content.replace(type, "").trim();
                     if (taskDescription.split(" ")[0].equals("at:")) {
                         if (this.type.equals("exam")) {
                             throw new InputException("☹ OOPS!!! The description of an exam cannot be empty.");
@@ -187,10 +201,7 @@ public class AddCommand extends Command {
                     return NON_EXISTENT_MODULE;
                 }
             } catch (IndexOutOfBoundsException e) {
-                throw new InputException("Please ensure that you enter the full command"
-                        + " for adding events:\n"
-                        + "add <moduleCode> / <eventType> <taskName> at: <start as MM/DD/YYYY HH:MM> "
-                        + "to <end as MM/DD/YYYY HH:MM>\n");
+                throw new InputException(EVENT_ERROR_MESSAGE + EVENT_FORMAT);
             }
 
         case "module":
@@ -206,13 +217,11 @@ public class AddCommand extends Command {
                     return MODULE_NOT_ADDED;
                 }
             } catch (IndexOutOfBoundsException e) {
-                throw new InputException("Please ensure that you enter the full command"
-                    + " for adding modules:\n"
-                    + "add / module <moduleCode> <moduleName>");
+                throw new InputException(MODULE_ERROR_MESSAGE + MODULE_FORMAT);
             }
 
         default:
-            throw new InputException("Sorry, we do not recognize the type of item you want to add.");
+            throw new InputException(UNKNOWN_ITEM_TYPE);
         }
     }
 }
