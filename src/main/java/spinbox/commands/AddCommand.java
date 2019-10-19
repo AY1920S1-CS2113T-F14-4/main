@@ -28,7 +28,7 @@ public class AddCommand extends Command {
     private static final String MODULE_NOT_ADDED = "A module with this code already exists in SpinBox.";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
     private static final String NOTE_ADDED = "A new note has been successfully added to ";
-    private static final String UNKNOWN_ITEM_TYPE = "Sorry, we do not recognize the type of item you want to add.";
+    private static final String UNKNOWN_ITEM_TYPE = "Sorry, unknown item type to add.";
     private static final String FILE_ERROR_MESSAGE = "Please ensure that you enter "
             + "the full command for adding files:\n";
     private static final String NOTE_ERROR_MESSAGE = "Please ensure that you enter "
