@@ -34,13 +34,15 @@ public class AddCommand extends Command {
 
     /**
      * Constructor for initialization of variables to support addition of entities.
-     * @param moduleCode A String denoting the module code.
+     * @param pageDataComponents page data components.
      * @param content A string containing the content of the processed user input.
      */
-    public AddCommand(String moduleCode, String content) {
-        this.moduleCode = moduleCode;
+    public AddCommand(String[] pageDataComponents, String content) throws InputException {
+        if (pageDataComponents.length > 1) {
+            this.moduleCode = pageDataComponents[1];
+        }
         this.content = content;
-        this.type = content.split(" ")[0];
+        this.type = content.split(" ")[0].toLowerCase();
     }
 
     @Override
@@ -50,9 +52,10 @@ public class AddCommand extends Command {
         Task taskAdded;
         DateTime start;
         DateTime end;
-        try {
-            switch (type) {
-            case "file":
+        switch (type) {
+        case "file":
+            try {
+                checkIfOnModulePage(moduleCode);
                 if (moduleContainer.checkModuleExists(moduleCode)) {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
@@ -65,8 +68,15 @@ public class AddCommand extends Command {
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
+            } catch (IndexOutOfBoundsException e) {
+                throw new InputException("Please ensure that you enter the full command"
+                        + " for adding file:\n"
+                        + "add <moduleCode> / file <fileName>");
+            }
 
-            case "note":
+        case "note":
+            try {
+                checkIfOnModulePage(moduleCode);
                 if (moduleContainer.checkModuleExists(moduleCode)) {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
@@ -77,8 +87,15 @@ public class AddCommand extends Command {
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
+            } catch (IndexOutOfBoundsException e) {
+                throw new InputException("Please ensure that you enter the full command"
+                        + " for adding notes:\n"
+                        + "add <moduleCode> / note <content>");
+            }
 
-            case "todo":
+        case "todo":
+            try {
+                checkIfOnModulePage(moduleCode);
                 if (moduleContainer.checkModuleExists(moduleCode)) {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
@@ -94,35 +111,49 @@ public class AddCommand extends Command {
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
+            } catch (IndexOutOfBoundsException e) {
+                throw new InputException("Please ensure that you enter the full command"
+                        + " for adding todo:\n"
+                        + "add <moduleCode> / todo <taskName>");
+            }
 
-            case "deadline":
+        case "deadline":
+            try {
+                checkIfOnModulePage(moduleCode);
                 if (moduleContainer.checkModuleExists(moduleCode)) {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     TaskList tasks = module.getTasks();
                     String taskDescription = content.replace(type.concat(" "), "");
-                    if (taskDescription.split(" ")[0].equals("/by")) {
+                    if (taskDescription.split(" ")[0].equals("by:")) {
                         throw new InputException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
-                    start = new DateTime(taskDescription.split("/by ")[1]);
+                    start = new DateTime(taskDescription.split("by: ")[1]);
                     taskAdded = tasks.add(new Deadline(taskDescription.substring(0,
-                            taskDescription.lastIndexOf(" /by")), start));
+                            taskDescription.lastIndexOf(" by:")), start));
                     return "Added into " + module.toString() + " task: " + taskAdded.toString() + "\n"
                             + "You currently have " + tasks.getList().size()
                             + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.");
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
+            } catch (IndexOutOfBoundsException e) {
+                throw new InputException("Please ensure that you enter the full command"
+                        + " for adding deadline:\n"
+                        + "add <moduleCode> / deadline <taskName> by: <MM/DD/YYYY HH:MM");
+            }
 
-            case "exam":
-            case "tutorial":
-            case "lecture":
-            case "lab":
+        case "exam":
+        case "tutorial":
+        case "lecture":
+        case "lab":
+            try {
+                checkIfOnModulePage(moduleCode);
                 if (moduleContainer.checkModuleExists(moduleCode)) {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     String taskDescription = content.replace(type.concat(" "), "");
-                    if (taskDescription.split(" ")[0].equals("/at")) {
+                    if (taskDescription.split(" ")[0].equals("at:")) {
                         if (this.type.equals("exam")) {
                             throw new InputException("☹ OOPS!!! The description of an exam cannot be empty.");
                         } else if (this.type.equals("tutorial")) {
@@ -134,8 +165,8 @@ public class AddCommand extends Command {
                         }
                     }
                     TaskList tasks = module.getTasks();
-                    start = new DateTime(taskDescription.split("/at ")[1], 0);
-                    end = new DateTime(taskDescription.split("/at ")[1], 1);
+                    start = new DateTime(taskDescription.split("at: ")[1], 0);
+                    end = new DateTime(taskDescription.split("at: ")[1], 1);
                     List<Task> tasksList = tasks.getList();
                     for (int i = 0; i < tasksList.size(); i++) {
                         Task currentTask = tasksList.get(i);
@@ -155,29 +186,33 @@ public class AddCommand extends Command {
                 } else {
                     return NON_EXISTENT_MODULE;
                 }
+            } catch (IndexOutOfBoundsException e) {
+                throw new InputException("Please ensure that you enter the full command"
+                        + " for adding events:\n"
+                        + "add <moduleCode> / <eventType> <taskName> at: <start as MM/DD/YYYY HH:MM> "
+                        + "to <end as MM/DD/YYYY HH:MM>\n");
+            }
 
-            default:
+        case "module":
+            try {
+                String[] contentComponents = content.split(" ", 3);
+                moduleCode = contentComponents[1];
+                String moduleName = contentComponents[2];
                 if (!moduleContainer.checkModuleExists(moduleCode)) {
-                    String moduleName = this.content;
                     Module module = new Module(this.moduleCode, moduleName);
                     moduleContainer.addModule(module);
                     return MODULE_ADDED + module.toString();
                 } else {
                     return MODULE_NOT_ADDED;
                 }
+            } catch (IndexOutOfBoundsException e) {
+                throw new InputException("Please ensure that you enter the full command"
+                    + " for adding modules:\n"
+                    + "add / module <moduleCode> <moduleName>");
             }
-        } catch (IndexOutOfBoundsException e) {
-            throw new InputException("Please ensure that you enter the full command.\n"
-                    + "SpinBox.Tasks.Deadline: deadline <task name> /by <MM/DD/YYYY HH:MM>\n"
-                    + "SpinBox.Tasks.Exam: exam <task name> /at <start as MM/DD/YYYY HH:MM> "
-                    + "to <end as MM/DD/YYYY HH:MM>\n"
-                    + "SpinBox.Tasks.Tutorial: tutorial <task name> /at <start as MM/DD/YYYY HH:MM> "
-                    + "to <end as MM/DD/YYYY HH:MM>\n"
-                    + "SpinBox.Tasks.Lab: lab <task name> /at <start as MM/DD/YYYY HH:MM> "
-                    + "to <end as MM/DD/YYYY HH:MM>\n"
-                    + "SpinBox.Tasks.Lecture: lecture <task name> /at <start as MM/DD/YYYY HH:MM> "
-                    + "to <end as MM/DD/YYYY HH:MM>\n"
-            );
+
+        default:
+            throw new InputException("Sorry, we do not recognize the type of item you want to add.");
         }
     }
 }

@@ -107,19 +107,19 @@ public class Parser {
             command = new ExitCommand();
             break;
         case "view":
-            command = new ViewCommand(pageData, content);
+            command = new ViewCommand(pageDataComponents, content);
             break;
         case "add":
-            command = new AddCommand(pageDataComponents[1], content);
+            command = new AddCommand(pageDataComponents, content);
             break;
         case "remove":
-            command = new RemoveCommand(pageDataComponents[1], content);
+            command = new RemoveCommand(pageDataComponents, content);
             break;
         case "mark":
-            command = new MarkCommand(pageDataComponents[1], content);
+            command = new MarkCommand(pageDataComponents, content);
             break;
         case "remove-multiple":
-            command = new MultipleCommand(pageDataComponents[1], content);
+            command = new MultipleCommand(pageDataComponents, content);
             break;
         default:
         }
