@@ -6,12 +6,14 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 import javafx.stage.PopupWindow;
 import javafx.stage.Window;
-import spinbox.SpinBox;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import spinbox.SpinBox;
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.TaskList;
 import spinbox.entities.Module;
@@ -118,27 +120,24 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-    @FXML
     private void update() throws InvalidIndexException, DataReadWriteException, FileCreationException {
         updateMain();
         updateCalendar();
         updateModules();
     }
 
-    @FXML
+
     private void updateMain() throws InvalidIndexException, DataReadWriteException, FileCreationException {
         updateUrgentTask();
         updateExams();
     }
 
-    @FXML
     private void updateUrgentTask() throws DataReadWriteException, InvalidIndexException, FileCreationException {
 
         TaskList allTasks = new TaskList("Main");
         urgentTasks.getChildren().clear();
         moduleContainer = spinBox.getModuleContainer();
         HashMap<String, Module> modules = moduleContainer.getModules();
-
         for (Map.Entry module : modules.entrySet()) {
             String moduleCode = (String) module.getKey();
             Module moduleObject = (Module) module.getValue();
@@ -179,17 +178,14 @@ public class MainWindow extends AnchorPane {
 
     }
 
-    @FXML
     private void updateExams() {
         assert true;
     }
 
-    @FXML
     private void updateCalendar() {
         assert true;
     }
 
-    @FXML
     private void updateModules() {
         assert true;
     }
