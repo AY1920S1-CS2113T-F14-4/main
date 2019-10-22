@@ -91,7 +91,7 @@ public class ViewCommand extends Command {
      * @param moduleContainer the modules stored.
      * @param pageTrace the current pageTrace.
      * @param ui the Ui instance.
-     * @param guiMode
+     * @param guiMode boolean to check if in gui mode.
      * @return the display once been changed..
      * @throws SpinBoxException if page, module, or tab does not exist.
      */
@@ -168,7 +168,7 @@ public class ViewCommand extends Command {
             tempPageTrace.removeLast();
         }
 
-        if(guiMode){
+        if (guiMode) {
             outputList.set(0, newTrace.toString());
         } else {
             outputList.set(0, "Changed from page "

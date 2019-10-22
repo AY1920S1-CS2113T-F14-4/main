@@ -39,7 +39,7 @@ public class Ui {
      */
     public String showFormatted(String output) {
         String formattedOutput;
-        if (!gui){
+        if (!gui) {
             formattedOutput = output;
         } else {
             formattedOutput = HORIZONTAL_LINE + "\n" + output + "\n" + HORIZONTAL_LINE;

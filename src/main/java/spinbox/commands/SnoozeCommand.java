@@ -54,11 +54,11 @@ public class SnoozeCommand extends Command {
      * @param taskList TaskList instance.
      * @param storage Storage instance.
      * @param ui Ui instance.
-     * @param gui
+     * @param guiMode boolean to check if in gui mode.
      * @throws SpinBoxException invalid input or storage error.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui, boolean gui) throws SpinBoxException {
+    public String execute(TaskList taskList, Storage storage, Ui ui, boolean guiMode) throws SpinBoxException {
         try {
             List<Task> tasks = taskList.getList();
             Task indexedTask = tasks.get(index);

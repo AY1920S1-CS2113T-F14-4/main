@@ -1,8 +1,6 @@
 package spinbox.gui;
 
-import antlr.debug.TraceAdapter;
 import javafx.scene.control.TabPane;
-import javafx.stage.Stage;
 import spinbox.SpinBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -45,17 +43,18 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = spinBox.getResponse(input, true);
-        switch(response){
-
-            case "/main":
-                tabPane.getSelectionModel().select(0);
-                break;
-            case "/calendar":
-                tabPane.getSelectionModel().select(1);
-                break;
-            case "/modules":
-                tabPane.getSelectionModel().select(2);
-                break;
+        switch (response) {
+        case "/main":
+            tabPane.getSelectionModel().select(0);
+            break;
+        case "/calendar":
+            tabPane.getSelectionModel().select(1);
+            break;
+        case "/modules":
+            tabPane.getSelectionModel().select(2);
+            break;
+        default:
+            break;
         }
         userInput.clear();
         if (spinBox.isShutdown()) {
