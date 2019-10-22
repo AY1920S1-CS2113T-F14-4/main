@@ -1,13 +1,11 @@
 package spinbox;
 
 import spinbox.commands.Command;
-import spinbox.entities.Module;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.StorageException;
 import spinbox.containers.ModuleContainer;
 
 import java.util.ArrayDeque;
-import java.util.HashMap;
 
 public class SpinBox {
     private Ui userInterface;
@@ -87,7 +85,7 @@ public class SpinBox {
         return shutdown;
     }
 
-    public HashMap<String, Module> getModules() {
-        return modules.getModules();
+    public ModuleContainer getModuleContainer() {
+        return modules;
     }
 }
