@@ -56,10 +56,11 @@ public class FileCommand extends Command {
      * @param fileTaskList fileTaskList instance.
      * @param fileStorage fileStorage instance.
      * @param ui Ui instance.
+     * @param gui
      * @throws SpinBoxException invalid index or storage error.
      */
     @Override
-    public String execute(TaskList fileTaskList, Storage fileStorage, Ui ui) throws SpinBoxException {
+    public String execute(TaskList fileTaskList, Storage fileStorage, Ui ui, boolean gui) throws SpinBoxException {
         List<String> formattedOutput = new ArrayList<>();
         List<Task> files;
 

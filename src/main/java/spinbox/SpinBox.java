@@ -17,7 +17,7 @@ public class SpinBox {
      * Full Constructor for CLI/GUI version of SpinBox.
      */
     public SpinBox(boolean cliMode) {
-        userInterface = new Ui();
+        userInterface = new Ui(cliMode);
         pageTrace = new ArrayDeque<>();
         pageTrace.add("main");
 
@@ -55,26 +55,26 @@ public class SpinBox {
         while (!this.isShutdown()) {
             userInterface.print(userInterface.showPage(pageTrace));
             String input = userInterface.readInput();
-            userInterface.print(getResponse(input));
+            userInterface.print(getResponse(input, false));
         }
     }
 
     /**
      * Method to interact with SpinBox.
      * @param input String input from GUI/CLI layer.
+     * @param guiMode boolean to check if it is running gui.
      * @return output response String to be returned to GUI/CLI.
      */
-    public String getResponse(String input) {
+    public String getResponse(String input, boolean guiMode) {
         try {
             Parser.setPageTrace(pageTrace);
             Command command = Parser.parse(input);
-            String response = command.execute(modules, pageTrace, userInterface);
+            String response = command.execute(modules, pageTrace, userInterface, guiMode);
             this.setShutdown(command.isExit());
             return response;
         } catch (SpinBoxException e) {
             return userInterface.showFormatted(e.getMessage());
         }
-
     }
 
     private void setShutdown(boolean shutdown) {
@@ -83,5 +83,9 @@ public class SpinBox {
 
     public boolean isShutdown() {
         return shutdown;
+    }
+
+    public ModuleContainer getModules() {
+        return modules;
     }
 }

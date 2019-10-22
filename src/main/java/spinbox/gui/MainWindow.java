@@ -1,9 +1,11 @@
 package spinbox.gui;
 
+import antlr.debug.TraceAdapter;
+import javafx.scene.control.TabPane;
+import javafx.stage.Stage;
 import spinbox.SpinBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -14,9 +16,9 @@ import javafx.scene.layout.VBox;
  */
 public class MainWindow extends AnchorPane {
     @FXML
-    private ScrollPane scrollPane;
+    private TabPane tabPane;
     @FXML
-    private VBox dialogContainer;
+    private VBox urgentTasks;
     @FXML
     private TextField userInput;
     @FXML
@@ -29,7 +31,6 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     public void setSpinBox(SpinBox d) {
@@ -43,16 +44,50 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        String response = spinBox.getResponse(input, true);
+        switch(response){
 
-        if (!spinBox.isShutdown()) {
-            String response = spinBox.getResponse(input);
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
-            );
-        } else {
-            dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+            case "/main":
+                tabPane.getSelectionModel().select(0);
+                break;
+            case "/calendar":
+                tabPane.getSelectionModel().select(1);
+                break;
+            case "/modules":
+                tabPane.getSelectionModel().select(2);
+                break;
         }
         userInput.clear();
+        if (spinBox.isShutdown()) {
+            System.exit(0);
+        }
+    }
+
+    private void update() {
+        updateMain();
+        updateCalendar();
+        updateModules();
+    }
+
+    private void updateMain() {
+        updateUrgentTask();
+        updateExams();
+        updateModules();
+    }
+
+    private void updateUrgentTask() {
+        urgentTasks.getChildren().clear();
+    }
+
+    private void updateExams() {
+        assert true;
+    }
+
+    private void updateCalendar() {
+        assert true;
+    }
+
+    private void updateModules() {
+        assert true;
     }
 }

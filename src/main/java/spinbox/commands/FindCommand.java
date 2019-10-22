@@ -31,9 +31,10 @@ public class FindCommand extends Command {
      * @param taskList TaskList instance
      * @param storage Storage instance
      * @param ui Ui instance
+     * @param gui
      */
     @Override
-    public String execute(TaskList taskList, Storage storage, Ui ui) {
+    public String execute(TaskList taskList, Storage storage, Ui ui, boolean gui) {
         int resultCount = 0;
         ArrayList<String> formattedOutput = new ArrayList<>();
         formattedOutput.add("Here are the matching tasks in your list:");
