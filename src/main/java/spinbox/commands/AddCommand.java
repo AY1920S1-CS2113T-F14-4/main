@@ -8,7 +8,6 @@ import spinbox.entities.items.File;
 import spinbox.entities.Module;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
-import spinbox.Storage;
 import spinbox.Ui;
 import spinbox.entities.items.tasks.Deadline;
 import spinbox.entities.items.tasks.Event;
@@ -18,10 +17,8 @@ import spinbox.entities.items.tasks.Schedulable;
 import spinbox.containers.lists.TaskList;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.ToDoubleBiFunction;
 
 public class AddCommand extends Command {
     private static final String MODULE_ADDED = "The following module has been added to SpinBox: ";
@@ -44,7 +41,7 @@ public class AddCommand extends Command {
     private static final String FILE_FORMAT = "add <moduleCode> / file <fileName>";
     private static final String NOTE_FORMAT = "add <moduleCode> / note <fileName>";
     private static final String TODO_FORMAT = "add <moduleCode> / todo <fileName>";
-    private static final String DEADLINE_FORMAT = "add <moduleCode> / deadline <taskName> by: <MM/DD/YYYY HH:MM";
+    private static final String DEADLINE_FORMAT = "add <moduleCode> / deadline <taskName> by: <MM/DD/YYYY HH:MM>";
     private static final String EVENT_FORMAT = "add <moduleCode> / <eventType> <taskName> at: "
         + "<start as MM/DD/YYYY HH:MM> to <end as MM/DD/YYYY HH:MM>";
     private static final String MODULE_FORMAT = "add / module <moduleCode> <moduleName>";
@@ -68,7 +65,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui) throws
+    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode) throws
             SpinBoxException {
         File fileAdded;
         Task taskAdded;
@@ -158,9 +155,9 @@ public class AddCommand extends Command {
             }
 
         case "exam":
-        case "tutorial":
-        case "lecture":
         case "lab":
+        case "lecture":
+        case "tutorial":
             try {
                 checkIfOnModulePage(moduleCode);
                 if (moduleContainer.checkModuleExists(moduleCode)) {
