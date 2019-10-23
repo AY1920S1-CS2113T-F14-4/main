@@ -1,5 +1,6 @@
 package spinbox.containers.lists;
 
+import spinbox.SpinBox;
 import spinbox.Storage;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
@@ -151,4 +152,11 @@ public abstract class SpinBoxList<T extends Item> {
      * To view the list for output.
      */
     public abstract List<String> viewList();
+
+    /**
+     * Returns list of items containing keyword.
+     * @param keyword keyword to be searched.
+     * @return a list of string of items.
+     */
+    public abstract List<String> containsKeyword(String keyword);
 }
