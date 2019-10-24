@@ -5,10 +5,14 @@ import spinbox.Storage;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.entities.items.tasks.Deadline;
-import spinbox.entities.items.tasks.Task;
-import spinbox.entities.items.tasks.Schedulable;
 import spinbox.entities.items.tasks.Event;
+import spinbox.entities.items.tasks.Exam;
+import spinbox.entities.items.tasks.Lab;
+import spinbox.entities.items.tasks.Lecture;
+import spinbox.entities.items.tasks.Schedulable;
+import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.Todo;
+import spinbox.entities.items.tasks.Tutorial;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,11 +28,17 @@ public class TaskList extends SpinBoxList<Task> {
         localStorage = new Storage(DIRECTORY_NAME + this.getParentCode() + TASK_LIST_FILE_NAME);
     }
 
-    static class StartDateComparator implements Comparator<Task> {
+    static class TaskComparator implements Comparator<Task> {
         @Override
         public int compare(Task a, Task b) {
             DateTime startDateA = null;
             DateTime startDateB = null;
+
+            if (!a.getDone() && b.getDone()) {
+                return -1;
+            } else if (a.getDone() && !b.getDone()) {
+                return 1;
+            }
 
             if (a.isSchedulable()) {
                 startDateA = ((Schedulable)a).getStartDate();
@@ -50,7 +60,7 @@ public class TaskList extends SpinBoxList<Task> {
     }
 
     public void sort() {
-        Collections.sort(list, new StartDateComparator());
+        list.sort(new TaskComparator());
     }
 
     @Override
@@ -69,10 +79,30 @@ public class TaskList extends SpinBoxList<Task> {
                 start = new DateTime(arguments[3]);
                 this.addFromStorage(new Deadline(Integer.parseInt(arguments[1]), arguments[2], start));
                 break;
-            default:
+            case "E":
                 start = new DateTime(arguments[3]);
                 end = new DateTime(arguments[4]);
                 this.addFromStorage(new Event(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                break;
+            case "EXAM":
+                start = new DateTime(arguments[3]);
+                end = new DateTime(arguments[4]);
+                this.addFromStorage(new Exam(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                break;
+            case "LAB":
+                start = new DateTime(arguments[3]);
+                end = new DateTime(arguments[4]);
+                this.addFromStorage(new Lab(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                break;
+            case "LEC":
+                start = new DateTime(arguments[3]);
+                end = new DateTime(arguments[4]);
+                this.addFromStorage(new Lecture(Integer.parseInt(arguments[1]), arguments[2], start, end));
+                break;
+            default:
+                start = new DateTime(arguments[3]);
+                end = new DateTime(arguments[4]);
+                this.addFromStorage(new Tutorial(Integer.parseInt(arguments[1]), arguments[2], start, end));
             }
         }
     }
@@ -115,6 +145,27 @@ public class TaskList extends SpinBoxList<Task> {
                 }
             }
         }
+        return output;
+    }
+
+    @Override
+    public List<String> containsKeyword(String keyword) {
+        List<Task> contains = new ArrayList<>();
+        for (Task task : this.getList()) {
+            if (task.getName().toLowerCase().contains(keyword)) {
+                contains.add(task);
+            }
+        }
+
+        contains.sort(new TaskComparator());
+
+        List<String> output = new ArrayList<>();
+        output.add("Here are the tasks that contain " + keyword
+                + " in your module:");
+        for (int i = 0; i < contains.size(); i++) {
+            output.add(((i + 1) + ". " + contains.get(i).toString()));
+        }
+
         return output;
     }
 }

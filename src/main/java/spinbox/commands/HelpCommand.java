@@ -38,11 +38,11 @@ public class HelpCommand extends Command {
             case "remove-multiple":
                 helpOutput = helpText.removeMultiple;
                 break;
-            case "mark":
-                helpOutput = helpText.mark;
+            case "update":
+                helpOutput = helpText.update;
                 break;
-            case "mark-multiple":
-                helpOutput = helpText.markMultiple;
+            case "update-multiple":
+                helpOutput = helpText.updateMultiple;
                 break;
             default:
                 throw new InputException(COMMAND_NOT_FOUND);

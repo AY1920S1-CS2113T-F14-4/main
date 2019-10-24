@@ -3,19 +3,20 @@ package spinbox;
 import spinbox.commands.AddCommand;
 import spinbox.commands.Command;
 import spinbox.commands.ExitCommand;
+import spinbox.commands.FindCommand;
 import spinbox.commands.HelpCommand;
-import spinbox.commands.MarkCommand;
+import spinbox.commands.UpdateCommand;
 import spinbox.commands.MultipleCommand;
 import spinbox.commands.RemoveCommand;
 import spinbox.commands.ViewCommand;
-
-
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 
 import java.util.ArrayDeque;
 
 public class Parser {
+    private static final String INVALID_COMMAND = "Please provide a valid command:\n"
+            + "'<action> <page> / <content>' or 'bye'";
     private static ArrayDeque<String> pageTrace;
 
     public static void setPageTrace(ArrayDeque<String> pageTraceNew) {
@@ -63,7 +64,7 @@ public class Parser {
             if (pageComponent[0].equals("modules")) {
                 pageData = pageData.concat("modules " + pageComponent[1]);
             } else {
-                throw new InputException("Please input a valid command.");
+                throw new InputException(INVALID_COMMAND);
             }
         }
         return pageData;
@@ -91,8 +92,7 @@ public class Parser {
                     action = "help";
                     content = "";
                 } else {
-                    throw new InputException("Please give valid command:\n"
-                            + "'<action> <page> / <content>' or 'bye'");
+                    throw new InputException(INVALID_COMMAND);
                 }
             } else if (slashSeparate[0].toLowerCase().equals("help") && slashSeparate.length == 2) {
                 action = "help";
@@ -106,8 +106,7 @@ public class Parser {
                 pageDataComponents = pageData.split(" ");
             }
         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
-            throw new InputException("Please give valid command:\n"
-                    + "'<action> <page> / <content>' or 'bye'");
+            throw new InputException(INVALID_COMMAND);
         }
 
         switch (action.toLowerCase()) {
@@ -123,29 +122,21 @@ public class Parser {
         case "remove":
             command = new RemoveCommand(pageDataComponents, content);
             break;
-        case "mark":
-            command = new MarkCommand(pageDataComponents, content);
+        case "update":
+            command = new UpdateCommand(pageDataComponents, content);
             break;
         case "remove-multiple":
             command = new MultipleCommand(pageDataComponents, content);
+            break;
+        case "find":
+            command = new FindCommand(pageDataComponents, content);
             break;
         case "help":
             command = new HelpCommand(content);
             break;
         default:
+            throw new InputException(INVALID_COMMAND);
         }
         return command;
-
-        //      **This will be an example of how to turn the input into commands.**
-        //
-        //        try {
-        //            switch (action) {
-        //                case "done":
-        //                    String moduleCode = pageDataComponents[1];
-        //                    command = new DoneCommand(moduleCode, Integer.parseInt(content) - 1);
-        //            }
-        //        } catch (NumberFormatException e) {
-        //            throw new InputException("Please enter an integer for index");
-        //        }
     }
 }
