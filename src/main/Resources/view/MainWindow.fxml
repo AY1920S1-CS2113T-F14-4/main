@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane prefHeight="600.0" prefWidth="800.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<GridPane prefHeight="750.0" prefWidth="1000.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
           minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="spinbox.gui.MainWindow" hgap="10.0">
+          fx:controller="spinbox.gui.MainWindow" hgap="10.0" style="-fx-background-color: #464866">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
@@ -34,9 +34,9 @@
         <!--Start of Main tab-->
         <Tab text="Main">
             <SplitPane dividerPositions="0.6525" prefHeight="492.0" prefWidth="800.0">
-                <ScrollPane>
+                <ScrollPane fitToWidth="true" fitToHeight="true">
                     <VBox fx:id="overallTasksView" minHeight="0.0" minWidth="0.0" prefHeight="528.0"
-                          prefWidth="515.0">
+                          prefWidth="515.0" style="-fx-background-color: #25274D">
                         <children>
 
                         </children>

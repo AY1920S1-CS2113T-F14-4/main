@@ -20,7 +20,7 @@ public class Main extends Application {
             GridPane gridPane = fxmlLoader.load();
             Scene scene = new Scene(gridPane);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().initializeGUI();
+            fxmlLoader.<MainWindow>getController().initializeGui();
             stage.show();
 
         } catch (SpinBoxException | IOException e) {

@@ -3,7 +3,11 @@ package spinbox.gui;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -19,8 +23,12 @@ import javafx.scene.layout.VBox;
 
 import spinbox.SpinBox;
 import spinbox.containers.ModuleContainer;
+import spinbox.containers.lists.FileList;
+import spinbox.containers.lists.GradeList;
 import spinbox.containers.lists.TaskList;
 import spinbox.entities.Module;
+import spinbox.entities.items.File;
+import spinbox.entities.items.GradedComponent;
 import spinbox.entities.items.tasks.Schedulable;
 import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.TaskType;
@@ -28,6 +36,8 @@ import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.InvalidIndexException;
 import spinbox.exceptions.SpinBoxException;
+import spinbox.gui.boxes.FileBox;
+import spinbox.gui.boxes.ModuleBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +48,11 @@ import java.util.Map;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends GridPane {
+    private static final String WHITESPACE = "    ";
+    private static final String TASKS = "Tasks";
+    private static final String FILES = "Files";
+    private static final String GRADES = "Grades";
+
     @FXML
     private TabPane tabPane;
     @FXML
@@ -56,6 +71,9 @@ public class MainWindow extends GridPane {
     private ArrayList<String> commandHistory = new ArrayList<>();
     private int commandCount = 0;
 
+    /**
+     * FXML method that is used as a post-constructor function to initialize variables and tabbed views.
+     */
     @FXML
     public void initialize()  {
         this.spinBox = new SpinBox();
@@ -145,7 +163,7 @@ public class MainWindow extends GridPane {
 
             if (responseFragments.length == 4) {
                 this.specificModuleCode = responseFragments[2];
-                this.subTab = responseFragments[3];
+                this.subTab = responseFragments[3].split(" ")[0];
             } else {
                 this.specificModuleCode = null;
                 this.subTab = null;
@@ -169,7 +187,7 @@ public class MainWindow extends GridPane {
      * @throws FileCreationException should be displayed.
      * @throws InvalidIndexException should be displayed.
      */
-    public void initializeGUI() throws DataReadWriteException, FileCreationException, InvalidIndexException {
+    public void initializeGui() throws DataReadWriteException, FileCreationException, InvalidIndexException {
         this.updateMain();
         this.setPopup(popup);
         this.enableCommandHistory();
@@ -257,9 +275,17 @@ public class MainWindow extends GridPane {
 
         for (Map.Entry module : modules.entrySet()) {
             Module currentModule = (Module) module.getValue();
-            ModuleListBox wrappedModule = ModuleListBox.getModuleListBox(currentModule.getModuleCode(),
+            ModuleBox wrappedModule = ModuleBox.getModuleListBox(currentModule.getModuleCode(),
                     currentModule.getModuleName());
 
+            wrappedModule.setOnMouseClicked(event -> {
+                userInput.setText("view / modules " + currentModule.getModuleCode() + " tasks");
+                try {
+                    handleUserInput();
+                } catch (SpinBoxException e) {
+                    e.printStackTrace();
+                }
+            });
             modulesList.getChildren().add(wrappedModule);
         }
     }
@@ -270,20 +296,15 @@ public class MainWindow extends GridPane {
 
         updateSpecificModuleHeader(currentModule, subTab);
         updateSpecificModuleNotes(currentModule);
+        updateSpecificModuleList(currentModule, subTab);
     }
 
-    private void updateSpecificModuleHeader(Module currentModule, String subTab) {
-        final String CURRENTLY_VIEWING = "Currently viewing: ";
-        final String WHITESPACE = "    ";
-        final String TASKS = "Tasks";
-        final String FILES = "Files";
-        final String GRADES = "Grades";
-
+    private void updateSpecificModuleHeader(Module currentModule, String subTabName) {
         TextFlow textFlow = new TextFlow();
         textFlow.setPadding(new Insets(10, 10, 10, 10));
         textFlow.setTextAlignment(TextAlignment.CENTER);
         textFlow.setLineSpacing(5.0);
-        textFlow.setStyle("-fx-background-color: #25274D");
+        textFlow.setStyle("-fx-background-color: #464866");
 
         Text modCode = new Text(currentModule.getModuleCode());
         modCode.setFont(new Font("Roboto", 18.0));
@@ -308,7 +329,7 @@ public class MainWindow extends GridPane {
         fileSubHeader.setFill(Color.WHITE);
         gradeSubHeader.setFill(Color.WHITE);
 
-        switch (subTab) {
+        switch (subTabName) {
         case "grades":
             gradeSubHeader.setStyle("-fx-font-weight: bold");
             gradeSubHeader.setFill(Color.AQUA);
@@ -319,9 +340,13 @@ public class MainWindow extends GridPane {
             fileSubHeader.setFill(Color.AQUA);
             break;
 
+        case "tasks":
+            taskSubHeader.setStyle("-fx-font-weight: bold");
+            taskSubHeader.setFill(Color.AQUA);
+            break;
+
         default:
-        taskSubHeader.setStyle("-fx-font-weight: bold");
-        taskSubHeader.setFill(Color.AQUA);
+            break;
         }
 
         textFlow.getChildren().add(taskSubHeader);
@@ -334,20 +359,97 @@ public class MainWindow extends GridPane {
     }
 
     private void updateSpecificModuleNotes(Module currentModule) {
-        List<String> notes = currentModule.getNotepad().getNotes();
-
         TextFlow textFlow = new TextFlow();
         textFlow.setStyle("-fx-background-color: #AAABB8");
         textFlow.setPadding(new Insets(5, 5, 5, 5));
         textFlow.setLineSpacing(5.0);
         textFlow.setTextAlignment(TextAlignment.JUSTIFY);
 
+        List<String> notes = currentModule.getNotepad().getNotes();
         for (String note : notes) {
             textFlow.getChildren().add(new Text(note));
             textFlow.getChildren().add(new Text(System.lineSeparator()));
         }
 
         modulesTabContainer.add(textFlow, 0, 1, 1, 1);
+    }
+
+    private void updateSpecificModuleList(Module currentModule, String subTab) {
+        switch (subTab) {
+        case "files":
+            updateSpecificModuleFileList(currentModule);
+            break;
+
+        case "grades":
+            updateSpecificModuleGradeList(currentModule);
+            break;
+
+        default:
+            updateSpecificModuleTaskList(currentModule);
+        }
+    }
+
+    private void updateSpecificModuleGradeList(Module currModule) {
+        GradeList gradeList = currModule.getGrades();
+        List<GradedComponent> gradedComponents = gradeList.getList();
+
+        ScrollPane scrollPane = this.createScrollPane();
+        modulesTabContainer.add(scrollPane, 1, 1, 1, 1);
+
+        VBox gradesList = new VBox();
+        gradesList.setStyle("-fx-background-color: #25274D");
+
+        scrollPane.setContent(gradesList);
+    }
+
+    private void updateSpecificModuleTaskList(Module currModule) {
+        ScrollPane scrollPane = this.createScrollPane();
+        modulesTabContainer.add(scrollPane, 1, 1, 1, 1);
+
+        VBox tasksList = new VBox();
+        tasksList.setStyle("-fx-background-color: #25274D");
+
+        scrollPane.setContent(tasksList);
+
+        TaskList taskList = currModule.getTasks();
+        List<Task> tasks = taskList.getList();
+        for (Task task : tasks) {
+            String description = task.getTaskType().name();
+            description += ": " + task.getName();
+            String dates = "";
+            if (task.isSchedulable()) {
+                Schedulable schedulable = ((Schedulable) task);
+                dates += schedulable.getStartDate().toString();
+                if (TaskType.taskWithBothDates().contains(task.getTaskType())) {
+                    dates += " " + schedulable.getEndDate().toString();
+                    dates = "At: " + dates;
+                } else {
+                    dates = "By: " + dates;
+                }
+            }
+
+            TaskBox wrappedTask = TaskBox.getTaskBox(description, "", dates);
+            if (!task.getDone()) {
+                tasksList.getChildren().add(wrappedTask);
+            }
+        }
+    }
+
+    private void updateSpecificModuleFileList(Module currModule) {
+        ScrollPane scrollPane = this.createScrollPane();
+        modulesTabContainer.add(scrollPane, 1, 1, 1, 1);
+
+        VBox filesList = new VBox();
+        filesList.setStyle("-fx-background-color: #25274D");
+
+        scrollPane.setContent(filesList);
+
+        FileList fileList = currModule.getFiles();
+        List<File> files = fileList.getList();
+        for (File file : files) {
+            FileBox wrappedFile = FileBox.getFileBox(file);
+            filesList.getChildren().add(wrappedFile);
+        }
     }
 
     private void updateExams() {
@@ -384,5 +486,12 @@ public class MainWindow extends GridPane {
         popup.setX(600);
         popup.setY(788);
         popup.show(window);
+    }
+
+    private ScrollPane createScrollPane() {
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        return scrollPane;
     }
 }

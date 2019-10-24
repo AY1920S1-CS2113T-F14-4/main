@@ -1,4 +1,4 @@
-package spinbox.gui;
+package spinbox.gui.boxes;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -6,18 +6,20 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import spinbox.gui.MainWindow;
 
 import java.io.IOException;
 
-public class ModuleListBox extends VBox {
+public class ModuleBox extends VBox {
     @FXML
     private Label moduleNameLabel;
     @FXML
     private Label moduleCodeLabel;
 
-    private ModuleListBox(String moduleCode, String moduleName) {
+    private ModuleBox(String moduleCode, String moduleName) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/ModuleListBox/ModuleListBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
+                    .getResource("/view/ModuleListBox/ModuleListBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -37,7 +39,7 @@ public class ModuleListBox extends VBox {
         this.moduleNameLabel.setText(moduleName);
     }
 
-    static ModuleListBox getModuleListBox(String moduleCode, String moduleName) {
-        return new ModuleListBox(moduleCode, moduleName);
+    public static ModuleBox getModuleListBox(String moduleCode, String moduleName) {
+        return new ModuleBox(moduleCode, moduleName);
     }
 }

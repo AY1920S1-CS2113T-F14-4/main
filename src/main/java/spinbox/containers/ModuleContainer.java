@@ -67,6 +67,11 @@ public class ModuleContainer {
         return this.getModules().containsKey(moduleCode);
     }
 
+    /**
+     * Gets a specific module from within the container.
+     * @param moduleCode A string containing the module code to be used as the key.
+     * @return a Module object, or null if no such module exists.
+     */
     public Module getModule(String moduleCode) {
         if (this.checkModuleExists(moduleCode)) {
             return this.getModules().get(moduleCode);
