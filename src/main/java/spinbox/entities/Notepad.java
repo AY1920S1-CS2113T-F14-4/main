@@ -1,6 +1,6 @@
 package spinbox.entities;
 
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.InvalidIndexException;
