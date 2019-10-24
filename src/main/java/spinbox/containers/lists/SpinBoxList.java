@@ -133,6 +133,10 @@ public abstract class SpinBoxList<T extends Item> {
         return list.get(index);
     }
 
+    public int size() {
+        return list.size();
+    }
+
     /**
      * Sort the list.
      */

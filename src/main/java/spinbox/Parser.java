@@ -15,6 +15,8 @@ import spinbox.exceptions.InputException;
 import java.util.ArrayDeque;
 
 public class Parser {
+    private static final String INVALID_COMMAND = "Please provide a valid command:\n"
+            + "'<action> <page> / <content>' or 'bye'";
     private static ArrayDeque<String> pageTrace;
 
     public static void setPageTrace(ArrayDeque<String> pageTraceNew) {
@@ -62,7 +64,7 @@ public class Parser {
             if (pageComponent[0].equals("modules")) {
                 pageData = pageData.concat("modules " + pageComponent[1]);
             } else {
-                throw new InputException("Please input a valid command.");
+                throw new InputException(INVALID_COMMAND);
             }
         }
         return pageData;
@@ -90,8 +92,7 @@ public class Parser {
                     action = "help";
                     content = "";
                 } else {
-                    throw new InputException("Please give valid command:\n"
-                            + "'<action> <page> / <content>' or 'bye'");
+                    throw new InputException(INVALID_COMMAND);
                 }
             } else if (slashSeparate[0].toLowerCase().equals("help") && slashSeparate.length == 2) {
                 action = "help";
@@ -105,8 +106,7 @@ public class Parser {
                 pageDataComponents = pageData.split(" ");
             }
         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
-            throw new InputException("Please give valid command:\n"
-                    + "'<action> <page> / <content>' or 'bye'");
+            throw new InputException(INVALID_COMMAND);
         }
 
         switch (action.toLowerCase()) {
@@ -135,6 +135,7 @@ public class Parser {
             command = new HelpCommand(content);
             break;
         default:
+            throw new InputException(INVALID_COMMAND);
         }
         return command;
     }
