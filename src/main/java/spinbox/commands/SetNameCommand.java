@@ -105,8 +105,8 @@ public class SetNameCommand extends Command {
                     Module module = modules.get(moduleCode);
                     Notepad notepad = module.getNotepad();
                     int index = Integer.parseInt(content.split(" ")[1]) - 1;
-                    String noteSelected = notepad.getLine(index);
                     replaceName = content.split("to: ")[1].trim();
+                    String noteSelected = notepad.getLine(index);
                     notepad.removeLine(index);
                     notepad.addLine(replaceName);
                     return HORIZONTAL_LINE + "\n" + NOTE_SET + "Note " + (index + 1) + CHANGE_FROM
@@ -137,8 +137,8 @@ public class SetNameCommand extends Command {
                     } else {
                         doneStatus = 0;
                     }
-                    if (taskType.equals("EVENT") || taskType.equals("EXAM") || taskType.equals("LAB") ||
-                    taskType.equals("LECTURE") || taskType.equals("TUTORIAL")) {
+                    if (taskType.equals("EVENT") || taskType.equals("EXAM") || taskType.equals("LAB")
+                            || taskType.equals("LECTURE") || taskType.equals("TUTORIAL")) {
                         start = new DateTime(taskDescription.substring(taskDescription.lastIndexOf("(at: "),
                                 taskDescription.lastIndexOf(" to")));
                         end = new DateTime(taskDescription.substring(taskDescription.lastIndexOf("to ")));
@@ -175,8 +175,8 @@ public class SetNameCommand extends Command {
             } else {
                 return NON_EXISTENT_MODULE;
             }
-            default:
-                throw new InputException(INVALID_SET_NAME_FORMAT);
+        default:
+            throw new InputException(INVALID_SET_NAME_FORMAT);
         }
     }
 }
