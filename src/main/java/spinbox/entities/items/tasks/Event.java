@@ -17,7 +17,7 @@ public class Event extends Schedulable {
     }
 
     /**
-     * This constructor is used for recreation of SpinBox.Tasks.Deadline from storage.
+     * This constructor is used for recreation of SpinBox.Tasks.Event from storage.
      * @param done  1 if task has been marked complete, 0 otherwise.
      * @param description the name or description of the event.
      * @param startDate Date object for start DateTime.
@@ -25,7 +25,7 @@ public class Event extends Schedulable {
      */
     public Event(int done, String description, DateTime startDate, DateTime endDate) {
         super(description);
-        this.setDone(done == 1);
+        this.updateDone(done == 1);
         this.startDate = startDate;
         this.endDate = endDate;
         taskType = TaskType.EVENT;
