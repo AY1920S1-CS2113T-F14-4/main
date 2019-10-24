@@ -67,6 +67,14 @@ public class ModuleContainer {
         return this.getModules().containsKey(moduleCode);
     }
 
+    public Module getModule(String moduleCode) {
+        if (this.checkModuleExists(moduleCode)) {
+            return this.getModules().get(moduleCode);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Loads data using the localStorage instance from the relevant .txt file.
      * @throws DataReadWriteException I/O error.
