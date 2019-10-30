@@ -14,8 +14,8 @@ public abstract class Command {
             + "the specific module this action is for.";
     private boolean isExit;
 
-    public abstract String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode)
-            throws SpinBoxException;
+    public abstract String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui,
+           boolean guiMode) throws SpinBoxException;
 
     public boolean isExit() {
         return isExit;
