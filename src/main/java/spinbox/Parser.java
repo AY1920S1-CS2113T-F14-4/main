@@ -5,9 +5,12 @@ import spinbox.commands.Command;
 import spinbox.commands.ExitCommand;
 import spinbox.commands.FindCommand;
 import spinbox.commands.HelpCommand;
-import spinbox.commands.UpdateCommand;
-import spinbox.commands.MultipleCommand;
 import spinbox.commands.RemoveCommand;
+import spinbox.commands.RemoveMultipleCommand;
+import spinbox.commands.SetDateCommand;
+import spinbox.commands.SetNameCommand;
+import spinbox.commands.UpdateCommand;
+import spinbox.commands.UpdateMultipleCommand;
 import spinbox.commands.ViewCommand;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
@@ -39,7 +42,7 @@ public class Parser {
             pageData = pageData.concat(tempPageTrace.getLast());
             tempPageTrace.removeLast();
             if (tempPageTrace.size() != 0) {
-                pageData = pageData.concat(" " + tempPageTrace.getLast());
+                pageData = pageData.concat(" " + tempPageTrace.getLast().toUpperCase());
             }
         // append page from input and maybe moduleCode from pageTrace
         } else if (pageComponent.length == 1) {
@@ -52,17 +55,17 @@ public class Parser {
                 pageData = pageData.concat(pageComponent[0]);
                 tempPageTrace.removeLast();
                 if (tempPageTrace.size() != 0) {
-                    pageData = pageData.concat(" " + tempPageTrace.getLast());
+                    pageData = pageData.concat(" " + tempPageTrace.getLast().toUpperCase());
                 }
                 break;
             default:
                 // means inputPageData is a moduleCode
-                pageData = pageData.concat("modules " + pageComponent[0]);
+                pageData = pageData.concat("modules " + pageComponent[0].toUpperCase());
             }
         // append "modules" + moduleCode from input
         } else if (pageComponent.length == 2 || pageComponent.length == 3) {
             if (pageComponent[0].equals("modules")) {
-                pageData = pageData.concat("modules " + pageComponent[1]);
+                pageData = pageData.concat("modules " + pageComponent[1].toUpperCase());
             } else {
                 throw new InputException(INVALID_COMMAND);
             }
@@ -83,7 +86,7 @@ public class Parser {
         String pageData = "";
         String[] pageDataComponents = new String[10];
 
-        String[] slashSeparate = input.split(" / ");
+        String[] slashSeparate = input.split(" / ", 2);
         try {
             if (slashSeparate.length == 1) {
                 if (input.toLowerCase().equals("bye")) {
@@ -125,11 +128,20 @@ public class Parser {
         case "update":
             command = new UpdateCommand(pageDataComponents, content);
             break;
-        case "remove-multiple":
-            command = new MultipleCommand(pageDataComponents, content);
+        case "remove-*":
+            command = new RemoveMultipleCommand(pageDataComponents, content);
+            break;
+        case "update-*":
+            command = new UpdateMultipleCommand(pageDataComponents, content);
             break;
         case "find":
             command = new FindCommand(pageDataComponents, content);
+            break;
+        case "set-date":
+            command = new SetDateCommand(pageDataComponents, content);
+            break;
+        case "set-name":
+            command = new SetNameCommand(pageDataComponents, content);
             break;
         case "help":
             command = new HelpCommand(content);

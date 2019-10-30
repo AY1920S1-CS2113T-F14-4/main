@@ -3,7 +3,7 @@ package spinbox.commands;
 import spinbox.DateTime;
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
-import spinbox.entities.Notepad;
+import spinbox.containers.Notepad;
 import spinbox.entities.items.File;
 import spinbox.entities.Module;
 import spinbox.exceptions.SpinBoxException;
@@ -237,7 +237,7 @@ public class AddCommand extends Command {
         case "module":
             try {
                 String[] contentComponents = content.split(" ", 3);
-                moduleCode = contentComponents[1];
+                moduleCode = contentComponents[1].toUpperCase();
                 String moduleName = contentComponents[2];
                 if (!moduleContainer.checkModuleExists(moduleCode)) {
                     Module module = new Module(this.moduleCode, moduleName);

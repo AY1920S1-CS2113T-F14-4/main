@@ -11,8 +11,8 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "full"
-    archiveVersion = "v1.2"
+    archiveBaseName = "lite"
+    archiveVersion = "v1.2.1"
     archiveClassifier = null
     archiveAppendix = null
 }
@@ -32,7 +32,7 @@ javafx {
 
 application {
     // Change this to your main class.
-    mainClassName = "spinbox.SpinBox"
+    mainClassName = "spinbox.gui.Launcher"
 }
 
 dependencies {

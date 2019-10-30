@@ -1,14 +1,15 @@
-package spinbox.entities;
+package spinbox.containers;
 
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.InvalidIndexException;
+import spinbox.storage.StorageContainer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Notepad {
+public class Notepad implements StorageContainer {
     private static final String DIRECTORY_NAME = "SpinBoxData/";
     private static final String NOTEPAD_FILE_NAME = "/notes.txt";
     private static final String CLI_LIST_HEADER =  "Here are your notes: ";
@@ -29,6 +30,20 @@ public class Notepad {
     public void addLine(String line) throws DataReadWriteException {
         notes.add(line);
         this.saveData();
+    }
+
+    /**
+     * Return note at index.
+     * @param index Index of note.
+     * @return Note at index.
+     * @throws InvalidIndexException If index is out of range.
+     */
+    public String getLine(int index) throws InvalidIndexException {
+        try {
+            return notes.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidIndexException();
+        }
     }
 
     /**
@@ -80,10 +95,12 @@ public class Notepad {
         return notes;
     }
 
+    @Override
     public void loadData() throws DataReadWriteException {
         notes = localStorage.loadData();
     }
 
+    @Override
     public void saveData() throws DataReadWriteException {
         localStorage.saveData(notes);
     }

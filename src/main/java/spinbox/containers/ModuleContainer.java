@@ -1,17 +1,18 @@
 package spinbox.containers;
 
 import spinbox.entities.Module;
-import spinbox.Storage;
+import spinbox.storage.Storage;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
+import spinbox.storage.StorageContainer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ModuleContainer {
+public class ModuleContainer implements StorageContainer {
     private static final String DIRECTORY_NAME = "SpinBoxData/";
     private static final String MODULES_FILE_NAME = "modules.txt";
 
@@ -38,6 +39,7 @@ public class ModuleContainer {
      * Saves data using the localStorage instance to the relevant .txt file.
      * @throws DataReadWriteException I/O error.
      */
+    @Override
     public void saveData() throws DataReadWriteException {
         List<String> dataToSave = new ArrayList<>();
         for (Map.Entry<String, Module> entry : modules.entrySet()) {
@@ -68,10 +70,24 @@ public class ModuleContainer {
     }
 
     /**
+     * Gets a specific module from within the container.
+     * @param moduleCode A string containing the module code to be used as the key.
+     * @return a Module object, or null if no such module exists.
+     */
+    public Module getModule(String moduleCode) {
+        if (this.checkModuleExists(moduleCode)) {
+            return this.getModules().get(moduleCode);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Loads data using the localStorage instance from the relevant .txt file.
      * @throws DataReadWriteException I/O error.
      * @throws CorruptedDataException polluted data within txt files.
      */
+    @Override
     public void loadData() throws DataReadWriteException, CorruptedDataException, FileCreationException {
         List<String> savedData = localStorage.loadData();
         for (String datum : savedData) {
