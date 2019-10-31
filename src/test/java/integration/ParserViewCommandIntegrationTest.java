@@ -93,6 +93,14 @@ public class ParserViewCommandIntegrationTest {
         command.execute(testContainer, pageTrace, ui, false);
 
         assertTrue(Arrays.equals(checkTrace.toArray(), pageTrace.toArray()));
+
+        pageTrace.add("CG1112");
+
+        Parser.setPageTrace(pageTrace);
+        command = Parser.parse(toModule);
+        command.execute(testContainer, pageTrace, ui, false);
+
+        assertTrue(Arrays.equals(checkTrace.toArray(), pageTrace.toArray()));
     }
 
     @Test
