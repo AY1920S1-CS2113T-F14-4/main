@@ -49,22 +49,21 @@ public class ScoreCommand extends Command {
 
                 String[] scoreComponents = this.content.split(" marks:");
                 int index = Integer.parseInt(content.split(" ")[0]) - 1;
-                GradedComponent componentToScore = gradeList.get(index);
                 String[] scores = scoreComponents[1].split("/");
 
                 if (scoreComponents[1].contains("%")) {
                     scoreComponents[1] = scoreComponents[1].replace("%", "");
                     double attainedPercentage = Double.parseDouble(scoreComponents[1]);
-                    componentToScore.updateWeightedScore(attainedPercentage);
+                    gradeList.updateGradeWeightedScore(index, attainedPercentage);
                 } else if (scores.length == 2) {
                     double attainedScore = Double.parseDouble(scores[0]);
                     double maximumScore = Double.parseDouble(scores[1]);
-                    componentToScore.updateWeightedScore(attainedScore, maximumScore);
+                    gradeList.updateGradeWeightedScore(index, attainedScore, maximumScore);
                 } else {
                     throw new InputException(INVALID_FORMAT);
                 }
                 return HORIZONTAL_LINE + "\n" + COMPONENT_SCORED + "\n"
-                        + componentToScore.toString() + "\n" + HORIZONTAL_LINE;
+                        + gradeList.get(index).toString() + "\n" + HORIZONTAL_LINE;
             } catch (NumberFormatException e) {
                 throw new InputException(INVALID_VALUE);
             } catch (IndexOutOfBoundsException e) {
