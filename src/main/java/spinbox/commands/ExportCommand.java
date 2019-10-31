@@ -19,7 +19,7 @@ public class ExportCommand extends Command {
     private static final String TASKS_HEADER = "These are your tasks for ";
     private static final String FILENAME_MODIFIER_FILES = "_files.txt";
     private static final String FILENAME_MODIFIER_GRADES = "_grades.txt";
-    private static final String FILENAME_MODIFIER_TASKS = "_task.txt";
+    private static final String FILENAME_MODIFIER_TASKS = "_tasks.txt";
     private static final String ACKNOWLEDGEMENT = "Your selected items have been exported to SpinBoxData/exports";
     private static final String NON_EXISTENT_MODULE = "Sorry, that module does not exist.";
     private static final String NON_EXISTENT_CATEGORY = "Sorry, that category does not exist. Please choose one of"
