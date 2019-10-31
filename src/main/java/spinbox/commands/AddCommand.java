@@ -153,6 +153,8 @@ public class AddCommand extends Command {
                             + gradedComponentAdded.toString() + "\n You currently have " + gradeList.size()
                             +  ((gradeList.size() == 1) ? " graded component in the list." : " graded components"
                             + " in the list.") + "\n" + HORIZONTAL_LINE;
+                } else {
+                    return NON_EXISTENT_MODULE;
                 }
             } catch (IndexOutOfBoundsException e) {
                 throw new InputException(GRADED_COMPONENT_ERROR_MESSAGE + GRADED_COMP_FORMAT);
