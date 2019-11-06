@@ -48,6 +48,10 @@ public class GradedComponent extends Item {
         return (this.getDone() ? COMPLETED : NOT_COMPLETED);
     }
 
+    /**
+     * This method converts the gradedComponent data into a human readable string for display on the GUI.
+     * @return a String that is human-readable and contains data to be shown on the screen.
+     */
     @Override
     public String toString() {
         return BRACKET_OPEN + this.getStatusText() + BRACKET_CLOSE + this.getName() + "\n"
