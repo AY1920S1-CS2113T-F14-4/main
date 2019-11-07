@@ -45,7 +45,7 @@ public class Calendar {
         return startDate.getMonthString();
     }
 
-    public String getYearString(){
+    public String getYearString() {
         return startDate.getYearString();
     }
 
@@ -61,6 +61,12 @@ public class Calendar {
         return taskList.viewListInterval(startDate, endDate);
     }
 
+    /**
+     * Iterates through the TaskList to find out
+     * which task overlaps with the current month.
+     * @param taskList TaskList that contains all tasks
+     * @return tasks contained inside the current month
+     */
     public List<Pair<Integer, List<Task>>> taskInCalendarByDayInMonth(TaskList taskList) {
         DateTime currentDate = startDate;
         List<Task> tempTaskList = null;

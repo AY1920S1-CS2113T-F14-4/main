@@ -151,6 +151,11 @@ public class DateTime implements Comparable<DateTime> {
         return new DateTime(calendar.getTime());
     }
 
+    /**
+     * Return another DateTime with date
+     * set as next day relative to this DateTime.
+     * @return next day
+     */
     public DateTime getNextDay() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateTime);
@@ -158,6 +163,11 @@ public class DateTime implements Comparable<DateTime> {
         return new DateTime(calendar.getTime());
     }
 
+    /**
+     * Return another DateTime with date
+     * set as start of the day relative to this DateTime.
+     * @return start of the day
+     */
     public DateTime getStartOfDay() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateTime);
@@ -169,6 +179,11 @@ public class DateTime implements Comparable<DateTime> {
         return new DateTime(calendar.getTime());
     }
 
+    /**
+     * Return another DateTime with date
+     * set as end of day relative to this DateTime.
+     * @return end of the day
+     */
     public DateTime getEndOfDay() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateTime);

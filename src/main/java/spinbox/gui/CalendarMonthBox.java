@@ -2,10 +2,11 @@ package spinbox.gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import spinbox.containers.lists.TaskList;
@@ -64,10 +65,10 @@ public class CalendarMonthBox extends AnchorPane {
             VBox temp = new VBox();
             label = new Label(" " + dateCount);
             temp.getChildren().add(label);
-            int row = ((i + day - 2) / 7 ) + 1;
+            int row = ((i + day - 2) / 7) + 1;
             int col = (i + day - 2) % 7;
             if (!taskInMonthBox.isEmpty()) {
-                Pair<Integer, List<Task>> pair = taskInMonthBox.get(i-1);
+                Pair<Integer, List<Task>> pair = taskInMonthBox.get(i - 1);
                 List<Task> tasksOnDay = pair.getValue();
                 for (Task task : tasksOnDay) {
                     label = new Label(" " + task.getTaskType() + " : " + task.getName());

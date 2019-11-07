@@ -3,14 +3,12 @@ package spinbox.gui;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -35,7 +33,11 @@ import spinbox.entities.items.GradedComponent;
 import spinbox.entities.items.tasks.Schedulable;
 import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.TaskType;
-import spinbox.exceptions.*;
+import spinbox.exceptions.DataReadWriteException;
+import spinbox.exceptions.SpinBoxException;
+import spinbox.exceptions.CalendarSelectorException;
+import spinbox.exceptions.InvalidIndexException;
+import spinbox.exceptions.FileCreationException;
 import spinbox.gui.boxes.FileBox;
 import spinbox.gui.boxes.GradedComponentBox;
 import spinbox.gui.boxes.ModuleBox;
@@ -144,7 +146,8 @@ public class MainWindow extends GridPane {
      * them to the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws InvalidIndexException, DataReadWriteException, FileCreationException, CalendarSelectorException {
+    private void handleUserInput()
+            throws InvalidIndexException, DataReadWriteException, FileCreationException, CalendarSelectorException {
         commandHistory.add(0, userInput.getText());
         commandCount = 0;
         String input = userInput.getText();
@@ -201,7 +204,8 @@ public class MainWindow extends GridPane {
         this.enableCommandHistory();
     }
 
-    private void updateAll() throws DataReadWriteException, FileCreationException, InvalidIndexException, CalendarSelectorException {
+    private void updateAll()
+            throws DataReadWriteException, FileCreationException, InvalidIndexException, CalendarSelectorException {
         updateMain();
         updateModules();
         updateCalendar();
@@ -469,8 +473,8 @@ public class MainWindow extends GridPane {
     }
 
     private void updateCalendar() throws CalendarSelectorException {
-        CalendarMonthBox MonthBox = new CalendarMonthBox("today", allTasks);
-        calendarView.getChildren().add(MonthBox);
+        CalendarMonthBox monthBox = new CalendarMonthBox("today", allTasks);
+        calendarView.getChildren().add(monthBox);
     }
 
     private void setPopup(Popup popup) {
