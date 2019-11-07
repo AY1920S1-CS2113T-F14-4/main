@@ -1,4 +1,4 @@
-package integration;
+package unit;
 
 import org.junit.jupiter.api.Test;
 import spinbox.containers.lists.TaskList;
@@ -14,9 +14,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TaskListIntegrationTest {
+public class TaskListUnitTest {
     @Test
-    void testTaskList_addingTasks() throws SpinBoxException {
+    void addItemSuccessful_insertTodo_addedSuccessfully() throws SpinBoxException {
         TaskList taskList = new TaskList("testTaskList");
         taskList.add(new Todo("task1"));
         taskList.add(new Todo("task2"));
@@ -31,7 +31,7 @@ public class TaskListIntegrationTest {
     }
 
     @Test
-    void testTaskList_removingTasks() throws SpinBoxException {
+    void removeItemSuccessful_removeTodo_removedSuccessfully() throws SpinBoxException {
         TaskList taskList = new TaskList("testTaskList");
         taskList.add(new Todo("task1"));
         taskList.add(new Todo("task2"));
@@ -49,7 +49,7 @@ public class TaskListIntegrationTest {
     }
 
     @Test
-    void testTaskList_getTask() throws SpinBoxException {
+    void gettingItem_addTodoGetTodo_getItemSuccessfully() throws SpinBoxException {
         TaskList taskList = new TaskList("testTaskList");
         taskList.add(new Todo("task1"));
         taskList.add(new Todo("task2"));
@@ -61,7 +61,7 @@ public class TaskListIntegrationTest {
     }
 
     @Test
-    void testTaskList_update() throws SpinBoxException {
+    void updateItem_addTodoUpdateTodo_updatedSuccessfully() throws SpinBoxException {
         TaskList taskList = new TaskList("testTaskList");
         taskList.add(new Todo("task1"));
         taskList.add(new Todo("task2"));
@@ -77,7 +77,7 @@ public class TaskListIntegrationTest {
     }
 
     @Test
-    void testTaskList_contains() throws SpinBoxException {
+    void checkContains_addTodo_checkSuccessfully() throws SpinBoxException {
         TaskList taskList = new TaskList("testTaskList");
         taskList.add(new Todo("a"));
         taskList.add(new Todo("b"));
@@ -93,7 +93,7 @@ public class TaskListIntegrationTest {
     }
 
     @Test
-    void testTaskList_sort() throws SpinBoxException {
+    void sortList_addTodo_sortedSuccessfully() throws SpinBoxException {
         TaskList taskList = new TaskList("testTaskList");
         taskList.add(new Todo("task3"));
         taskList.add(new Todo("task1"));
