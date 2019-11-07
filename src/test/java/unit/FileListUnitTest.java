@@ -1,4 +1,4 @@
-package integration;
+package unit;
 
 import org.junit.jupiter.api.Test;
 import spinbox.containers.lists.FileList;
@@ -13,9 +13,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class FileListIntegrationTest {
+public class FileListUnitTest {
     @Test
-    void testFileList_addingFiles() throws SpinBoxException {
+    void addFileSuccessful_insertFile_addedSuccessfully() throws SpinBoxException {
         FileList fileList = new FileList("testFileList");
         fileList.add(new File(0, "file1"));
         fileList.add(new File(0, "file2"));
@@ -30,7 +30,7 @@ public class FileListIntegrationTest {
     }
 
     @Test
-    void testFileList_removingFiles() throws SpinBoxException {
+    void removeFileSuccessful_removeFile_removedSuccessfully() throws SpinBoxException {
         FileList fileList = new FileList("testFileList");
         fileList.add(new File(0, "file1"));
         fileList.add(new File(0, "file2"));
@@ -48,7 +48,7 @@ public class FileListIntegrationTest {
     }
 
     @Test
-    void testFileList_getFile() throws SpinBoxException {
+    void gettingFile_getFile_getFileSuccessfully() throws SpinBoxException {
         FileList fileList = new FileList("testFileList");
         fileList.add(new File(0, "file1"));
         fileList.add(new File(0, "file2"));
@@ -60,7 +60,7 @@ public class FileListIntegrationTest {
     }
 
     @Test
-    void testFileList_update() throws SpinBoxException {
+    void updateFile_addFileUpdateFile_updatedSuccessfully() throws SpinBoxException {
         FileList fileList = new FileList("testFileList");
         fileList.add(new File(0, "file1"));
         fileList.add(new File(0, "file2"));
@@ -73,7 +73,7 @@ public class FileListIntegrationTest {
     }
 
     @Test
-    void testFileList_contains() throws SpinBoxException {
+    void checkContains_addFile_checkSuccessfully() throws SpinBoxException {
         FileList fileList = new FileList("testFileList");
         fileList.add(new File(0, "a"));
         fileList.add(new File(0, "b"));
@@ -88,7 +88,7 @@ public class FileListIntegrationTest {
     }
 
     @Test
-    void testFileList_sort() throws SpinBoxException {
+    void sortList_addFile_sortedSuccessfully() throws SpinBoxException {
         FileList fileList = new FileList("testFileList");
         fileList.add(new File(0, "file3"));
         fileList.add(new File(0, "file1"));
