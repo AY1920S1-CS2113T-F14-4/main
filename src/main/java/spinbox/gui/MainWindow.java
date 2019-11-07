@@ -3,12 +3,15 @@ package spinbox.gui;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -32,10 +35,7 @@ import spinbox.entities.items.GradedComponent;
 import spinbox.entities.items.tasks.Schedulable;
 import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.TaskType;
-import spinbox.exceptions.DataReadWriteException;
-import spinbox.exceptions.FileCreationException;
-import spinbox.exceptions.InvalidIndexException;
-import spinbox.exceptions.SpinBoxException;
+import spinbox.exceptions.*;
 import spinbox.gui.boxes.FileBox;
 import spinbox.gui.boxes.GradedComponentBox;
 import spinbox.gui.boxes.ModuleBox;
@@ -64,6 +64,8 @@ public class MainWindow extends GridPane {
     private Button submitButton;
     @FXML
     private GridPane modulesTabContainer;
+    @FXML
+    private StackPane calendarView;
 
     private SpinBox spinBox;
     private String specificModuleCode;
@@ -71,6 +73,7 @@ public class MainWindow extends GridPane {
     private Popup popup = new Popup();
     private ArrayList<String> commandHistory = new ArrayList<>();
     private int commandCount = 0;
+    private TaskList allTasks;
 
     /**
      * FXML method that is used as a post-constructor function to initialize variables and tabbed views.
@@ -93,7 +96,11 @@ public class MainWindow extends GridPane {
                     }
                     break;
                 case 1:
-                    updateCalendar();
+                    try {
+                        updateCalendar();
+                    } catch (CalendarSelectorException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 default:
                     updateModules();
@@ -137,7 +144,7 @@ public class MainWindow extends GridPane {
      * them to the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws InvalidIndexException, DataReadWriteException, FileCreationException {
+    private void handleUserInput() throws InvalidIndexException, DataReadWriteException, FileCreationException, CalendarSelectorException {
         commandHistory.add(0, userInput.getText());
         commandCount = 0;
         String input = userInput.getText();
@@ -194,10 +201,10 @@ public class MainWindow extends GridPane {
         this.enableCommandHistory();
     }
 
-    private void updateAll() throws DataReadWriteException, FileCreationException, InvalidIndexException {
+    private void updateAll() throws DataReadWriteException, FileCreationException, InvalidIndexException, CalendarSelectorException {
         updateMain();
-        updateCalendar();
         updateModules();
+        updateCalendar();
     }
 
     private void updateMain() throws InvalidIndexException, DataReadWriteException, FileCreationException {
@@ -217,7 +224,7 @@ public class MainWindow extends GridPane {
 
     private void updateOverallTasksView() throws DataReadWriteException, InvalidIndexException, FileCreationException {
 
-        TaskList allTasks = new TaskList("Main");
+        allTasks = new TaskList("Main");
         overallTasksView.getChildren().clear();
         ModuleContainer moduleContainer = spinBox.getModuleContainer();
         HashMap<String, Module> modules = moduleContainer.getModules();
@@ -461,11 +468,12 @@ public class MainWindow extends GridPane {
         assert true;
     }
 
-    private void updateCalendar() {
-        assert true;
+    private void updateCalendar() throws CalendarSelectorException {
+        CalendarMonthBox MonthBox = new CalendarMonthBox("today", allTasks);
+        calendarView.getChildren().add(MonthBox);
     }
 
-    public void setPopup(Popup popup) {
+    private void setPopup(Popup popup) {
         popup.setAutoHide(true);
         popup.setAnchorLocation(PopupWindow.AnchorLocation.WINDOW_TOP_LEFT);
     }
