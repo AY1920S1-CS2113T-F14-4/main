@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AddCommand extends Command {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String MODULE_ADDED = "The following module has been added to SpinBox: ";
     private static final String MODULE_NOT_ADDED = "A module with this code already exists in SpinBox.";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
