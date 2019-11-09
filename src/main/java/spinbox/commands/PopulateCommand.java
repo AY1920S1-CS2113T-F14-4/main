@@ -13,8 +13,8 @@ public class PopulateCommand extends Command {
             + "Sample data successfully populated. Hope you enjoy testing out SpinBox!!\n"
             + HORIZONTAL_LINE;
     private static final String NOT_POPULATED = HORIZONTAL_LINE + "\n"
-            + "Sample data not populated. Please delete your current SpinBoxData folder if you wish to "
-            + "use sample data instead.\n"
+            + "Sample data not populated. Please delete your current SpinBoxData folder and restart the application "
+            + "if you wish to use sample data instead.\n"
             + HORIZONTAL_LINE;
 
     private static final String[] EMPTY_CONTEXT = {};

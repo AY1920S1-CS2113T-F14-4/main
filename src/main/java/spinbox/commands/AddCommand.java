@@ -171,7 +171,6 @@ public class AddCommand extends Command {
                         throw new InputException(EMPTY_TODO_DESCRIPTION);
                     }
                     taskAdded = tasks.add(new Todo(taskDescription));
-                    System.out.println(taskAdded.toString());
 
                     return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " task: " + taskAdded.toString()
                             + "\nYou currently have " + tasks.getList().size()

@@ -191,6 +191,7 @@ public class MainWindow extends GridPane {
             break;
         }
         userInput.clear();
+        suggestPopulate();
         if (spinBox.isShutdown()) {
             System.exit(0);
         }
@@ -203,9 +204,21 @@ public class MainWindow extends GridPane {
      * @throws InvalidIndexException should be displayed.
      */
     public void initializeGui() throws DataReadWriteException, FileCreationException, InvalidIndexException {
-        this.updateMain();
         this.setPopup(popup);
+        this.suggestPopulate();
+        this.updateMain();
         this.enableCommandHistory();
+    }
+
+    private void suggestPopulate() {
+        if (spinBox.getModuleContainer().getModules().isEmpty()) {
+            userInput.setPromptText("We notice you have no existing data." +
+                    " Type \"populate\" into this input box to load sample data.");
+            userInput.setStyle("-fx-prompt-text-fill: #FF0000; -fx-font-weight: BOLD");
+        } else {
+            userInput.setPromptText("");
+            userInput.setStyle("-fx-font-weight: normal");
+        }
     }
 
     private void updateAll()
