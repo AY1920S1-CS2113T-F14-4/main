@@ -59,6 +59,8 @@ public class MainWindow extends GridPane {
     private static final String GRADES = "Grades";
     private static final String HELP_POPUP = "Welcome to the help page.";
     private static final String HELP_PAGE_POPUP = "Example:";
+    private static final String NO_DATA = "We notice you have no existing data."
+            + " Type \"populate\" into this input box to load sample data.";
 
     @FXML
     private TabPane tabPane;
@@ -212,8 +214,7 @@ public class MainWindow extends GridPane {
 
     private void suggestPopulate() {
         if (spinBox.getModuleContainer().getModules().isEmpty()) {
-            userInput.setPromptText("We notice you have no existing data." +
-                    " Type \"populate\" into this input box to load sample data.");
+            userInput.setPromptText(NO_DATA);
             userInput.setStyle("-fx-prompt-text-fill: #FF0000; -fx-font-weight: BOLD");
         } else {
             userInput.setPromptText("");
