@@ -51,11 +51,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends GridPane {
+    private static final Logger LOGGER = Logger.getLogger(MainWindow.class.getName());
+    private static final String LOG_CORRUPTED = "Corrupted storage item: ";
+    private static final String LOG_NORMAL_TERMINATION = "Graceful exit by user";
     private static final String WHITESPACE = "    ";
     private static final String TASKS = "Tasks";
     private static final String FILES = "Files";
@@ -94,9 +99,13 @@ public class MainWindow extends GridPane {
      */
     @FXML
     public void initialize() {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.INFO);
+        LOGGER.entering(getClass().getName(), "initialize");
         try {
             this.spinBox = new SpinBox();
         } catch (SpinBoxException e) {
+            LOGGER.severe(LOG_CORRUPTED + e.getMessage());
             userInput.setPromptText(CORRUPTED_DATA);
             userInput.setStyle("-fx-prompt-text-fill: #FF0000; -fx-font-weight: BOLD");
             return;
@@ -124,6 +133,7 @@ public class MainWindow extends GridPane {
                 }
             }
         });
+        LOGGER.exiting(getClass().getName(), "initialize");
     }
 
     /**
@@ -163,6 +173,7 @@ public class MainWindow extends GridPane {
     @FXML
     private void handleUserInput()
             throws CalendarSelectorException {
+        LOGGER.entering(getClass().getName(), "handleUserInput");
         commandHistory.add(0, userInput.getText());
         commandCount = 0;
         String input = userInput.getText();
@@ -204,8 +215,10 @@ public class MainWindow extends GridPane {
         userInput.clear();
         suggestPopulate();
         if (spinBox.isShutdown()) {
+            LOGGER.info(LOG_NORMAL_TERMINATION);
             System.exit(0);
         }
+        LOGGER.exiting(getClass().getName(), "handleUserInput");
     }
 
     /**
