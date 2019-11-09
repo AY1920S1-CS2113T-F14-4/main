@@ -69,7 +69,8 @@ public class MainWindow extends GridPane {
     private static final String HELP_PAGE_POPUP = "Example:";
     private static final String NO_DATA = "We notice you have no existing data."
             + " Type \"populate\" into this input box to load sample data.";
-    private static final String CORRUPTED_DATA = "Corrupted Data: please fix or remove affected file(s).";
+    private static final String CORRUPTED_DATA = "Corrupted Data: please fix or remove affected file(s). More details"
+            + " may be found within log file.";
 
     @FXML
     private TabPane tabPane;
