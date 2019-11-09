@@ -42,7 +42,7 @@ import spinbox.entities.items.tasks.Task;
 import spinbox.entities.items.tasks.TaskType;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.CalendarSelectorException;
-import spinbox.exceptions.StorageException;
+
 import spinbox.gui.boxes.FileBox;
 import spinbox.gui.boxes.GradedComponentBox;
 import spinbox.gui.boxes.ModuleBox;
