@@ -96,12 +96,13 @@ public class ViewCommand extends Command {
                 tab = "tasks";
             }
         } else if (contentComponents.length == TWO_PAGE_INPUTS) {
+            boolean isValidTab = contentComponents[1].equals("tasks") || contentComponents[1].equals("files")
+                    || contentComponents[1].equals("grades");
             if (contentComponents[0].equals("modules")) {
                 page = "modules";
                 moduleCode = contentComponents[1];
                 tab = "tasks";
-            } else if (contentComponents[1].equals("tasks") || contentComponents[1].equals("files")
-                    || contentComponents[1].equals("grades")) {
+            } else if (isValidTab) {
                 page = "modules";
                 moduleCode = contentComponents[0];
                 tab = contentComponents[1];
@@ -153,7 +154,8 @@ public class ViewCommand extends Command {
         }
 
         ArrayDeque<String> newPageTrace = new ArrayDeque<>();
-        if (page.equals("main") || page.equals("calendar") || page.equals("modules")) {
+        boolean isValidPage = page.equals("main") || page.equals("calendar") || page.equals("modules");
+        if (isValidPage) {
             newPageTrace.addFirst(page);
             LOGGER.fine(LOG_ADDED_PAGE);
         } else {
