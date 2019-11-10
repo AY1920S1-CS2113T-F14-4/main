@@ -268,7 +268,7 @@ public class MainWindow extends GridPane {
     private void updateOverallTasksView() {
         allTasks = new ArrayList<>();
         overallTasksView.getChildren().clear();
-        overallTasksView.getChildren().add(addHeader("URGENT TASK"));
+        overallTasksView.getChildren().add(addHeader("URGENT TASKS"));
         ModuleContainer moduleContainer = spinBox.getModuleContainer();
         HashMap<String, Module> modules = moduleContainer.getModules();
         for (Map.Entry module : modules.entrySet()) {
