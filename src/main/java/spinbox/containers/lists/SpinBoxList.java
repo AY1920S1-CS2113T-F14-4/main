@@ -1,5 +1,6 @@
 package spinbox.containers.lists;
 
+import spinbox.exceptions.DateFormatException;
 import spinbox.storage.Storage;
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.DataReadWriteException;
@@ -146,7 +147,7 @@ public abstract class SpinBoxList<T extends Item> implements StorageContainer {
      * To populate data into this list from the list's localStorage.
      */
     @Override
-    public abstract void loadData() throws DataReadWriteException, CorruptedDataException;
+    public abstract void loadData() throws DataReadWriteException, CorruptedDataException, DateFormatException;
 
     /**
      * To save current list data into the list's localStorage.
