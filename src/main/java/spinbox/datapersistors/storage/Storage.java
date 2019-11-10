@@ -1,9 +1,9 @@
-package spinbox.storage;
+package spinbox.datapersistors.storage;
 
+import spinbox.datapersistors.FileDataWriter;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,12 +14,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Storage {
-    private java.io.File spinBoxFile;
+public class Storage extends FileDataWriter {
     private static final Logger LOGGER = Logger.getLogger(Storage.class.getName());
-    private static final String LOG_DIRECTORY_FILE_BOOLEAN = "Created:-> directory, file: ";
-    private static final String LOG_ERROR_IO_CREATION = "Error creating file/directory, storage error propagated "
-            + "upwards. Filepath: ";
     private static final String LOG_ERROR_IO_READ_WRITE = "Error R/W file, storage error propagated "
             + "upwards. Filepath: ";
     private static final String LOG_READ = "Reading from : ";
@@ -31,19 +27,10 @@ public class Storage {
      * @throws FileCreationException An exception is thrown for file creation errors.
      */
     public Storage(String fileLocation) throws FileCreationException {
+        super(fileLocation);
+        LOGGER.setUseParentHandlers(true);
         LOGGER.entering(getClass().getName(), "Constructor");
         LOGGER.setLevel(Level.WARNING);
-        try {
-            spinBoxFile = new File(fileLocation);
-            boolean directoryMade = spinBoxFile.getParentFile().mkdir();
-            boolean fileCreated = spinBoxFile.createNewFile();
-            LOGGER.info(LOG_DIRECTORY_FILE_BOOLEAN + directoryMade + " " + fileCreated + " " + fileLocation);
-        } catch (IOException e) {
-            LOGGER.warning(LOG_ERROR_IO_CREATION + fileLocation);
-            throw new FileCreationException(e.getMessage());
-        }
-        assert spinBoxFile.exists();
-        assert spinBoxFile.isFile();
         LOGGER.exiting(getClass().getName(), "Constructor");
     }
 
@@ -77,8 +64,8 @@ public class Storage {
      * @param lines List of Strings to be saved line by line to the text file.
      * @throws DataReadWriteException An exception is thrown for I/O errors.
      */
-    public void saveData(List<String> lines) throws DataReadWriteException {
-        LOGGER.setUseParentHandlers(true);
+    @Override
+    public void writeData(List<String> lines) throws DataReadWriteException {
         LOGGER.entering(getClass().getName(), "saveData");
         assert spinBoxFile.exists();
         try {

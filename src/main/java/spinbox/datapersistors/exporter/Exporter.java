@@ -1,12 +1,11 @@
-package spinbox.exporter;
+package spinbox.datapersistors.exporter;
 
 import spinbox.DateTime;
-import spinbox.entities.items.Item;
+import spinbox.datapersistors.FileDataWriter;
 import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Exporter {
+public class Exporter extends FileDataWriter {
     private static final Logger LOGGER = Logger.getLogger(Exporter.class.getName());
     private static final String TIMESTAMP = " as of ";
     private static final String LOG_TITLE_FILEPATH = "Title of file and filepath: ";
@@ -38,21 +37,11 @@ public class Exporter {
      * @throws FileCreationException An exception is thrown for file creation errors.
      */
     public Exporter(String fileLocation, String titleLine) throws FileCreationException {
+        super(fileLocation);
         LOGGER.entering(getClass().getName(), "Constructor");
         LOGGER.setLevel(Level.INFO);
-        try {
-            LOGGER.fine(LOG_TITLE_FILEPATH + titleLine + ", " + fileLocation);
-            this.titleLine = titleLine;
-            spinBoxFile = new File(fileLocation);
-            boolean directoryMade = spinBoxFile.getParentFile().mkdir();
-            boolean fileCreated = spinBoxFile.createNewFile();
-            LOGGER.info(LOG_DIRECTORY_FILE_BOOLEAN + directoryMade + " " + fileCreated + " " + fileLocation);
-        } catch (IOException e) {
-            LOGGER.warning(LOG_ERROR_IO_CREATION + fileLocation);
-            throw new FileCreationException(e.getMessage());
-        }
-        assert spinBoxFile.exists();
-        assert spinBoxFile.isFile();
+        this.titleLine = titleLine;
+        LOGGER.fine(LOG_TITLE_FILEPATH + titleLine + ", " + fileLocation);
         LOGGER.exiting(getClass().getName(), "Constructor");
     }
 
@@ -61,7 +50,8 @@ public class Exporter {
      * @param exportables A list of items that implement the Exportable interface.
      * @throws DataReadWriteException An exception is thrown for file creation errors.
      */
-    public void writeData(List<? extends Item> exportables) throws DataReadWriteException {
+    @Override
+    public void writeData(List<String> exportables) throws DataReadWriteException {
         LOGGER.entering(getClass().getName(), "writeData");
         assert spinBoxFile.exists();
         try {
@@ -76,10 +66,10 @@ public class Exporter {
 
             for (int lineNumber = 0; lineNumber < exportables.size(); lineNumber++) {
                 LOGGER.fine(LOG_WRITE + spinBoxFile.getPath() + " : "
-                        + exportables.get(lineNumber).exportString());
+                        + exportables.get(lineNumber));
                 outputStream.write(Integer.toString(lineNumber + 1));
                 outputStream.write(". ");
-                outputStream.write(exportables.get(lineNumber).exportString());
+                outputStream.write(exportables.get(lineNumber));
                 outputStream.newLine();
             }
             outputStream.close();
