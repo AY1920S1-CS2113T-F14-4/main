@@ -29,8 +29,8 @@ public class Storage extends FileDataWriter {
     public Storage(String fileLocation) throws FileCreationException {
         super(fileLocation);
         LOGGER.setUseParentHandlers(true);
-        LOGGER.entering(getClass().getName(), "Constructor");
         LOGGER.setLevel(Level.WARNING);
+        LOGGER.entering(getClass().getName(), "Constructor");
         LOGGER.exiting(getClass().getName(), "Constructor");
     }
 
@@ -71,9 +71,7 @@ public class Storage extends FileDataWriter {
         try {
             BufferedWriter outputStream = new BufferedWriter(new FileWriter(spinBoxFile));
             for (String line : lines) {
-                LOGGER.fine(LOG_WRITE + spinBoxFile.getPath() + " : " + line);
-                outputStream.write(line);
-                outputStream.newLine();
+                writeStorageLine(line, outputStream);
             }
             outputStream.close();
         } catch (IOException e) {
@@ -81,5 +79,13 @@ public class Storage extends FileDataWriter {
             throw new DataReadWriteException();
         }
         LOGGER.exiting(getClass().getName(), "saveData");
+    }
+
+    private void writeStorageLine(String line, BufferedWriter outputStream) throws IOException {
+        LOGGER.entering(getClass().getName(), "writeStorageLine");
+        LOGGER.fine(LOG_WRITE + spinBoxFile.getPath() + " : " + line);
+        outputStream.write(line);
+        outputStream.newLine();
+        LOGGER.exiting(getClass().getName(), "writeStorageLine");
     }
 }
