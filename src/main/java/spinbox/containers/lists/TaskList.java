@@ -28,7 +28,7 @@ public class TaskList extends SpinBoxList<Task> {
         localStorage = new Storage(DIRECTORY_NAME + this.getParentCode() + TASK_LIST_FILE_NAME);
     }
 
-    static class TaskComparator implements Comparator<Task> {
+    public static class TaskComparator implements Comparator<Task> {
         @Override
         public int compare(Task a, Task b) {
             DateTime startDateA = null;
@@ -48,7 +48,7 @@ public class TaskList extends SpinBoxList<Task> {
             }
 
             if (startDateA == null && startDateB == null) {
-                return 0;
+                return a.getName().compareToIgnoreCase(b.getName());
             } else if (startDateA == null) {
                 return 1;
             } else if (startDateB == null) {
@@ -64,7 +64,7 @@ public class TaskList extends SpinBoxList<Task> {
     }
 
     @Override
-    public void loadData() throws DataReadWriteException {
+    public void loadData() throws DataReadWriteException, CorruptedDataException {
         List<String> savedData = localStorage.loadData();
 
         for (String datum : savedData) {
@@ -123,27 +123,6 @@ public class TaskList extends SpinBoxList<Task> {
         output.add("Here are the tasks in your module:");
         for (int i = 0; i < list.size(); i++) {
             output.add(((i + 1) + ". " + list.get(i).toString()));
-        }
-        return output;
-    }
-
-    /**
-     * Return list of task that overlaps with start and end interval.
-     * @param startInterval start of the interval.
-     * @param endInterval end of the interval.
-     * @return list of task
-     */
-    public List<Task> viewListInterval(DateTime startInterval, DateTime endInterval) {
-        Task currentTask;
-        List<Task> output = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            currentTask = list.get(i);
-            if (currentTask.isSchedulable()) {
-                Schedulable task = (Schedulable) currentTask;
-                if (task.isOverlapping(startInterval, endInterval)) {
-                    output.add(task);
-                }
-            }
         }
         return output;
     }

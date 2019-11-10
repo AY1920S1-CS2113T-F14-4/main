@@ -5,54 +5,63 @@ import spinbox.DateTime;
 import spinbox.entities.items.tasks.Deadline;
 import spinbox.entities.items.tasks.Event;
 import spinbox.entities.items.tasks.Schedulable;
+import spinbox.exceptions.ScheduleDateException;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ViewScheduleTest {
 
     @Test
     void testDateCheckDeadline() {
         Calendar inputDateOne = Calendar.getInstance();
-        inputDateOne.set(2019, 9, 28);
+        inputDateOne.set(2029, 9, 28);
 
         DateTime inputDateTimeOne = new DateTime(inputDateOne.getTime());
-        Schedulable task = new Deadline("Test", inputDateTimeOne);
-        assertTrue(task.compareEquals(inputDateTimeOne));
+        try {
+            Schedulable task = new Deadline("Test", inputDateTimeOne);
+            assertTrue(task.compareEquals(inputDateTimeOne));
 
-        Calendar inputDateTwo = Calendar.getInstance();
-        inputDateTwo.set(2019,9,21);
+            Calendar inputDateTwo = Calendar.getInstance();
+            inputDateTwo.set(2029,9,21);
 
-        DateTime inputDateTimeTwo = new DateTime(inputDateTwo.getTime());
-        assertFalse(task.compareEquals(inputDateTimeTwo));
+            DateTime inputDateTimeTwo = new DateTime(inputDateTwo.getTime());
+            assertFalse(task.compareEquals(inputDateTimeTwo));
+        } catch (ScheduleDateException sde) {
+            fail(sde.getMessage());
+        }
     }
 
     @Test
     void testDateCheckEvent() {
         Calendar inputOne = Calendar.getInstance();
-        inputOne.set(2019, 9, 20);
+        inputOne.set(2029, 9, 20);
 
         Calendar inputTwo = Calendar.getInstance();
-        inputTwo.set(2019, 9, 19);
+        inputTwo.set(2029, 9, 19);
 
         Calendar inputThree = Calendar.getInstance();
-        inputThree.set(2019, 9,21);
+        inputThree.set(2029, 9,21);
 
         DateTime inputDate = new DateTime(inputOne.getTime());
         DateTime startDate = new DateTime(inputTwo.getTime());
         DateTime endDate = new DateTime(inputThree.getTime());
 
-        Schedulable task = new Event("Test", startDate, endDate);
-        assertTrue(task.compareEquals(inputDate));
-        assertTrue(task.compareEquals(startDate));
-        assertTrue(task.compareEquals(endDate));
+        try {
+            Schedulable task = new Event("Test", startDate, endDate);
+            assertTrue(task.compareEquals(inputDate));
+            assertTrue(task.compareEquals(startDate));
+            assertTrue(task.compareEquals(endDate));
 
-        Calendar inputFour = Calendar.getInstance();
-        inputFour.set(2019, 9, 23);
-        DateTime inputDateTwo = new DateTime(inputFour.getTime());
-        assertFalse(task.compareEquals(inputDateTwo));
+            Calendar inputFour = Calendar.getInstance();
+            inputFour.set(2029, 9, 23);
+            DateTime inputDateTwo = new DateTime(inputFour.getTime());
+            assertFalse(task.compareEquals(inputDateTwo));
+        } catch (ScheduleDateException ede) {
+            fail(ede.getMessage());
+        }
     }
 }

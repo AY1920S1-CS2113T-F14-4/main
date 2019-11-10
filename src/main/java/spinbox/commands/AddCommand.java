@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AddCommand extends Command {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String MODULE_ADDED = "The following module has been added to SpinBox: ";
     private static final String MODULE_NOT_ADDED = "A module with this code already exists in SpinBox.";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
@@ -98,7 +97,7 @@ public class AddCommand extends Command {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     FileList files = module.getFiles();
-                    String fileName = content.replace(type, "").trim();
+                    String fileName = content.replaceFirst(type, "").trim();
                     fileAdded = files.add(new File(0, fileName));
                     return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " file: " + fileAdded.toString()
                             + "\nYou currently have " + files.getList().size()
@@ -118,7 +117,7 @@ public class AddCommand extends Command {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     Notepad notepad = module.getNotepad();
-                    String noteContent = content.replace(type, "").trim();
+                    String noteContent = content.replaceFirst(type, "").trim();
                     notepad.addLine(noteContent);
                     return HORIZONTAL_LINE + "\n" + NOTE_ADDED + moduleCode + "\n" + HORIZONTAL_LINE;
                 } else {
@@ -135,7 +134,7 @@ public class AddCommand extends Command {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     GradeList gradeList = module.getGrades();
-                    String gradedComponentDetails = content.replace(type, "").trim();
+                    String gradedComponentDetails = content.replaceFirst(type, "").trim();
                     gradedComponentDetails = gradedComponentDetails.replace("%", "");
 
                     String gradedComponentName =  gradedComponentDetails.substring(0,
@@ -167,11 +166,12 @@ public class AddCommand extends Command {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     TaskList tasks = module.getTasks();
-                    String taskDescription = content.replace(type, "").trim();
+                    String taskDescription = content.replaceFirst(type, "").trim();
                     if (taskDescription.equals("")) {
                         throw new InputException(EMPTY_TODO_DESCRIPTION);
                     }
                     taskAdded = tasks.add(new Todo(taskDescription));
+
                     return HORIZONTAL_LINE + "\nAdded into " + module.toString() + " task: " + taskAdded.toString()
                             + "\nYou currently have " + tasks.getList().size()
                             + ((tasks.getList().size() == 1) ? " task in the list." : " tasks in the list.") + "\n"
@@ -190,7 +190,7 @@ public class AddCommand extends Command {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
                     TaskList tasks = module.getTasks();
-                    String taskDescription = content.replace(type, "").trim();
+                    String taskDescription = content.replaceFirst(type, "").trim();
                     if (taskDescription.split(" ")[0].equals("by:")) {
                         throw new InputException(EMPTY_DEADLINE_DESCRIPTION);
                     }
@@ -218,7 +218,7 @@ public class AddCommand extends Command {
                 if (moduleContainer.checkModuleExists(moduleCode)) {
                     HashMap<String, Module> modules = moduleContainer.getModules();
                     Module module = modules.get(moduleCode);
-                    String taskDescription = content.replace(type, "").trim();
+                    String taskDescription = content.replaceFirst(type, "").trim();
                     if (taskDescription.split(" ")[0].equals("at:")) {
                         if (this.type.equals("event")) {
                             throw new InputException(EMPTY_EVENT_DESCRIPTION);

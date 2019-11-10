@@ -17,7 +17,10 @@ public class HelpList {
             + "\t6. help / set-name : To set task/grade/file/note name to a new name\n"
             + "\t7. help / update : To update a task/grade/file component to a value\n"
             + "\t8. help / update-* : To update multiple task/grade/file components to a value\n"
-            + "\t9. help / export : To export a current snapshot of a module's tasks/grades/files\n"
+            + "\t9. help / export : To export a current snapshot of a module's tasks/grades/files or all deadlines "
+            + "across modules\n"
+            + "\t10. help / score : To score a graded component and mark it as complete\n"
+            + "\t11. help / populate : To load SpinBox with sample data for trying it out \n"
             + horizontalLine);
 
     public final String view = helpOutput.concat(horizontalLine + "\n" + "Command: view\n"
@@ -104,22 +107,32 @@ public class HelpList {
             + horizontalLine);
 
     public final String update = helpOutput.concat(horizontalLine + "\n" + "Command: update\n"
-            + "Function: To update a task/grade/file component to a boolean value\n"
-            + "Format: update <module code> / <item type> <item index> <booleanValue>\n"
+            + "Function: To update a task/grade/file component to a new done status\n"
+            + "Format: update <module code> / <item type> <item index> <done status>\n"
             + "Example:\n"
             + "\t* Note: omit module code if current page is the specific module *\n"
-            + "\t1. Update a file to downloaded under module CG1111: update CG1111 / file 1 true\n"
-            + "\t2. Update a grade component under CG1111: update CG1111 / grade 1 false\n"
-            + "\t3. Update a task to done under module CG1111: update CG1111 / task 1 true\n" + horizontalLine);
+            + "\t1. Update a file to downloaded under module CG1111: update CG1111 / file 1 done\n"
+            + "\t2. Update a grade component under CG1111: update CG1111 / grade 1 done\n"
+            + "\t3. Update a task to done under module CG1111: update CG1111 / task 1 done\n" + horizontalLine);
 
     public final String updateMultiple = helpOutput.concat(horizontalLine + "\n" + "Command: update-*\n"
-            + "Function: To update multiple task/grade/file components to a value\n"
-            + "Format: update-* <module code> / <item type> <item indexes> <item values>\n"
+            + "Function: To update multiple task/grade/file components to a done status\n"
+            + "Format: update-* <module code> / <item type> <item indexes> <done status>\n"
             + "Example:\n"
             + "\t* Note: omit module code if current page is the specific module *\n"
-            + "\t1. Update the first 2 files under module CG1111: update-* CG1111 / file 1,2 true\n"
-            + "\t2. Update the first 2 grade components under CG1111: TBC\n"
-            + "\t3. Update the first 2 tasks under module CG1111: update-* CG1111 / task 1,2 true\n"
+            + "\t1. Update the first 2 files under module CG1111: update-* CG1111 / file 1,2 done\n"
+            + "\t2. Update the first 2 tasks under module CG1111: update-* CG1111 / task 1,2 done\n"
+            + horizontalLine);
+
+    public final String score =  helpOutput.concat(horizontalLine + "\n" + "Command: score\n"
+            + "Function: To update a grade within a module with achieved marks\n"
+            + "Format 1 (Absolute percentage): score <module code> / <index> marks: <percentage>%\n"
+            + "Format 2 (Relative grading): score <module code> / <index> marks: <your score>/<maximum score>\n"
+            + "Example:\n"
+            + "\t* Note: omit module code if current page is the specific module *\n"
+            + "\t* Note: has the side effect of marking the grade item as done *\n"
+            + "\t1. Score the 1st grade item under CG1111 with absolute score: score CG1111 / 1 marks: 12.5%\n"
+            + "\t2. Score the 2nd grade item under CG1111 with relative score: score CG1111 / 2 marks: 26/30\n"
             + horizontalLine);
 
     public final String export = helpOutput.concat(horizontalLine + "\n" + "Command: export\n"
@@ -128,6 +141,12 @@ public class HelpList {
             + "Example:\n"
             + "\t* Note: omit module code if current page is the specific module *\n"
             + "\t1. Export the files under module CG1111: export CG1111 / files\n"
-            + "\t2. Export the tasks under module CG1111, while viewing CG1111:  export / tasks\n"
+            + "\t2. Export the tasks under module CG1111, while viewing CG1111: export / tasks\n"
+            + "\t3. Export all deadlines across all modules: export / deadlines\n"
             + horizontalLine);
+
+    public final String populate = helpOutput.concat(horizontalLine + "\n" + "Command: populate\n"
+        + "Function: To load SpinBox with sample data if no data is currently available.\n"
+        + "Example: populate\n"
+        + horizontalLine);
 }

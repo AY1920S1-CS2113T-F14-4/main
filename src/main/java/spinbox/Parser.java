@@ -13,18 +13,32 @@ import spinbox.commands.SetNameCommand;
 import spinbox.commands.UpdateCommand;
 import spinbox.commands.UpdateMultipleCommand;
 import spinbox.commands.ViewCommand;
+import spinbox.commands.PopulateCommand;
 import spinbox.commands.ExportCommand;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 
 import java.util.ArrayDeque;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Parser {
     private static final String INVALID_COMMAND = "Please provide a valid command:\n"
             + "'<action> <page> / <content>' or 'bye'";
     private static ArrayDeque<String> pageTrace;
+    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
 
+    /**
+     * Static function to update the current page trace to determine context.
+     * @param pageTraceNew An arraydeque of strings to overwrite the page trace with.
+     */
     public static void setPageTrace(ArrayDeque<String> pageTraceNew) {
+        LOGGER.setUseParentHandlers(true);
+        LOGGER.setLevel(Level.WARNING);
+        LOGGER.info("Page trace set");
+        for (String string : pageTraceNew) {
+            LOGGER.fine(string);
+        }
         pageTrace = pageTraceNew;
     }
 
@@ -35,8 +49,8 @@ public class Parser {
      * @throws InputException If the input is invalid.
      */
     private static String commandBuilder(String inputPageData) throws InputException {
+        LOGGER.info("Entering static method commandBuilder");
         String pageData = "";
-
         String[] pageComponent = inputPageData.split(" ");
         ArrayDeque<String> tempPageTrace = pageTrace.clone();
         // append page or page + module from pageTrace
@@ -72,6 +86,7 @@ public class Parser {
                 throw new InputException(INVALID_COMMAND);
             }
         }
+        LOGGER.info("Exiting static method commandBuilder with pageData: " + pageData);
         return pageData;
     }
 
@@ -82,6 +97,7 @@ public class Parser {
      * @throws SpinBoxException Storage errors or input errors.
      */
     public static Command parse(String input) throws SpinBoxException {
+        LOGGER.info("Parsing input into command: " + input);
         Command command = null;
         String content = "";
         String action = "";
@@ -96,6 +112,8 @@ public class Parser {
                 } else if (input.toLowerCase().trim().equals("help")) {
                     action = "help";
                     content = "";
+                } else if (input.toLowerCase().trim().equals("populate")) {
+                    action = "populate";
                 } else {
                     throw new InputException(INVALID_COMMAND);
                 }
@@ -111,12 +129,17 @@ public class Parser {
                 pageDataComponents = pageData.split(" ");
             }
         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+            LOGGER.warning("Invalid command entered, error propagated upwards.");
             throw new InputException(INVALID_COMMAND);
         }
 
+        LOGGER.info("Input: " + input + " associated with action: " + action.toLowerCase());
         switch (action.toLowerCase()) {
         case "bye":
             command = new ExitCommand();
+            break;
+        case "populate":
+            command = new PopulateCommand();
             break;
         case "view":
             command = new ViewCommand(pageDataComponents, content);
@@ -155,6 +178,7 @@ public class Parser {
             command = new HelpCommand(content);
             break;
         default:
+            LOGGER.warning("Invalid command entered, error propagated upwards.");
             throw new InputException(INVALID_COMMAND);
         }
         return command;

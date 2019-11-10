@@ -19,7 +19,6 @@ import java.util.ArrayDeque;
 import java.util.HashMap;
 
 public class SetDateCommand extends Command {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String TASK_SET = "Task date and time details successfully changed.\n";
     private static final String INVALID_INDEX = "Please enter a valid index to be set.";
     private static final String NON_EXISTENT_MODULE = "This module does not exist.";
@@ -105,27 +104,28 @@ public class SetDateCommand extends Command {
                     } else {
                         throw new InputException(DATETIME_ERROR);
                     }
-                    tasks.remove(index);
                     switch (taskType) {
                     case "DEADLINE":
-                        taskChanged = tasks.add(new Deadline(doneStatus, taskDescription, replaceStart));
+                        taskChanged = new Deadline(doneStatus, taskDescription, replaceStart);
                         break;
                     case "EVENT":
-                        taskChanged = tasks.add(new Event(doneStatus, taskDescription, replaceStart, replaceEnd));
+                        taskChanged = new Event(doneStatus, taskDescription, replaceStart, replaceEnd);
                         break;
                     case "EXAM":
-                        taskChanged = tasks.add(new Exam(doneStatus, taskDescription, replaceStart, replaceEnd));
+                        taskChanged = new Exam(doneStatus, taskDescription, replaceStart, replaceEnd);
                         break;
                     case "LAB":
-                        taskChanged = tasks.add(new Lab(doneStatus, taskDescription, replaceStart, replaceEnd));
+                        taskChanged = new Lab(doneStatus, taskDescription, replaceStart, replaceEnd);
                         break;
                     case "LECTURE":
-                        taskChanged = tasks.add(new Lecture(doneStatus, taskDescription, replaceStart, replaceEnd));
+                        taskChanged = new Lecture(doneStatus, taskDescription, replaceStart, replaceEnd);
                         break;
                     default:
-                        taskChanged = tasks.add(new Tutorial(doneStatus, taskDescription, replaceStart, replaceEnd));
+                        taskChanged = new Tutorial(doneStatus, taskDescription, replaceStart, replaceEnd);
                         break;
                     }
+                    tasks.remove(index);
+                    taskChanged = tasks.add(taskChanged);
                     return HORIZONTAL_LINE + "\n" + TASK_SET + "Task " + (index + 1) + CHANGE_FROM
                             + taskSelected.toString() + TO + taskChanged.toString() + "\n" + HORIZONTAL_LINE;
                 } catch (NumberFormatException e) {

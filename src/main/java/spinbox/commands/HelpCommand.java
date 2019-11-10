@@ -50,8 +50,14 @@ public class HelpCommand extends Command {
             case "update-*":
                 helpOutput = helpText.updateMultiple;
                 break;
+            case "score":
+                helpOutput = helpText.score;
+                break;
             case "export":
                 helpOutput = helpText.export;
+                break;
+            case "populate":
+                helpOutput = helpText.populate;
                 break;
             default:
                 throw new InputException(COMMAND_NOT_FOUND);

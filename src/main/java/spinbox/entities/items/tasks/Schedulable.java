@@ -2,8 +2,15 @@ package spinbox.entities.items.tasks;
 
 import spinbox.DateTime;
 import spinbox.exceptions.CorruptedDataException;
+import spinbox.exceptions.ScheduleDateException;
 
 public abstract class Schedulable extends Task {
+    private static final String EXCEPTION_MESSAGE_END_DATE_TIME =
+            "End date and time cannot be earlier or equal to start date and time.";
+    private static final String EXCEPTION_MESSAGE_START_DATE_TIME =
+            "Start Date cannot be earlier than the current date and time.";
+    private static final String TODAY_STRING = "today";
+
     DateTime startDate;
     DateTime endDate;
 
@@ -18,19 +25,45 @@ public abstract class Schedulable extends Task {
     }
 
     public Schedulable() {
+    }
 
+    /**
+     * Check if Start Date is before End Date,
+     * if not, throws exception.
+     * @throws ScheduleDateException Exception of Schedulable.
+     */
+    public void checkValidEndDate() throws ScheduleDateException {
+        if (endDate.before(startDate) || endDate.equals(startDate)) {
+            throw new ScheduleDateException(EXCEPTION_MESSAGE_END_DATE_TIME);
+        }
+    }
+
+    /**
+     * Check if Start Date is before current Date,
+     * and if it is, throw exception.
+     * @throws ScheduleDateException Exception of Schedulable.
+     */
+    public void checkValidStartDate() throws ScheduleDateException {
+        DateTime now = new DateTime(TODAY_STRING);
+        if (startDate.before(now)) {
+            throw new ScheduleDateException(EXCEPTION_MESSAGE_START_DATE_TIME);
+        }
     }
 
     @Override
-    public void fromStoredString(String fromStorage) {
-        String[] arguments = fromStorage.split(DELIMITER_FILTER);
-        this.setStartDate(new DateTime(arguments[3]));
-        if (arguments.length == 5) {
-            this.setEndDate(new DateTime(arguments[4]));
+    public void fromStoredString(String fromStorage) throws CorruptedDataException {
+        try {
+            String[] arguments = fromStorage.split(DELIMITER_FILTER);
+            this.setStartDate(new DateTime(arguments[3]));
+            if (arguments.length == 5) {
+                this.setEndDate(new DateTime(arguments[4]));
+            }
+            int done = Integer.parseInt(arguments[1]);
+            this.updateDone(done == 1);
+            this.setName(arguments[2]);
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new CorruptedDataException();
         }
-        int done = Integer.parseInt(arguments[1]);
-        this.updateDone(done == 1);
-        this.setName(arguments[2]);
     }
 
     public DateTime getStartDate() {
