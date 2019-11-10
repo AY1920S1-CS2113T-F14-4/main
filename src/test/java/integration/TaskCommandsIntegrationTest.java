@@ -35,15 +35,15 @@ public class TaskCommandsIntegrationTest {
     private ArrayDeque<String> pageTrace;
     private Command command;
     private Ui ui;
-  
+
     @Test
     public void loadDataSuccessful_AddTasksThenManualClear_successfulRepopulationOfData() throws
             StorageException, InvalidIndexException, ScheduleDateException {
         Module testModuleOne = new Module("testMod6", "Engineering Principles & Practice IV");
 
         taskList = testModuleOne.getTasks();
-        while (taskList.getList().size() > 0) {
-            taskList.getList().remove(0);
+        while (taskList.size() > 0) {
+            taskList.remove(0);
         }
         Task testTask1 = new Todo("Test 1");
         Task testTask2 = new Deadline("Test 2", new DateTime("01/01/2029 10:00"));
@@ -65,7 +65,7 @@ public class TaskCommandsIntegrationTest {
         taskList.add(testTask5);
         taskList.add(testTask6);
         taskList.add(testTask7);
-        taskList.getList().clear();
+        taskList.clear();
         taskList.loadData();
 
         assertEquals(taskList.get(0).toString(), "[D][NOT DONE] Test 2 (by: 01/01/2029 10:00)");
@@ -90,7 +90,7 @@ public class TaskCommandsIntegrationTest {
         testContainer.addModule(testModule);
 
         taskList = testModule.getTasks();
-        while (taskList.getList().size() > 0) {
+        while (taskList.size() > 0) {
             taskList.getList().remove(0);
         }
         Task testTask1 = new Todo("Test 1");
@@ -158,7 +158,7 @@ public class TaskCommandsIntegrationTest {
         testContainer.addModule(testModule);
 
         taskList = testModule.getTasks();
-        while (taskList.getList().size() > 0) {
+        while (taskList.size() > 0) {
             taskList.getList().remove(0);
         }
         Task testTask1 = new Todo("Test 1");
@@ -188,7 +188,7 @@ public class TaskCommandsIntegrationTest {
         testContainer.addModule(testModule);
 
         taskList = testModule.getTasks();
-        while (taskList.getList().size() > 0) {
+        while (taskList.size() > 0) {
             taskList.getList().remove(0);
         }
         Task testTask1 = new Deadline("Test 1", new DateTime("01/01/2029 10:00"));
@@ -203,7 +203,7 @@ public class TaskCommandsIntegrationTest {
         taskList.add(testTask2);
         taskList.add(testTask3);
         taskList.add(testTask4);
-  
+
         pageTrace = new ArrayDeque<>();
         ui = new Ui(true);
 
@@ -236,7 +236,7 @@ public class TaskCommandsIntegrationTest {
                 + "to 01/02/2031 19:00)");
         testContainer.removeModule(testModule.getModuleCode(),testModule);
     }
-      
+
     @Test
     public void setDateUnsuccessful_invalidIndexUsed_exceptionThrown() throws
             SpinBoxException {
@@ -245,7 +245,7 @@ public class TaskCommandsIntegrationTest {
         testContainer.addModule(testModule);
 
         taskList = testModule.getTasks();
-        while (taskList.getList().size() > 0) {
+        while (taskList.size() > 0) {
             taskList.getList().remove(0);
         }
         Task testTask1 = new Todo("Test 1");
@@ -275,7 +275,7 @@ public class TaskCommandsIntegrationTest {
         testContainer.addModule(testModule);
 
         taskList = testModule.getTasks();
-        while (taskList.getList().size() > 0) {
+        while (taskList.size() > 0) {
             taskList.getList().remove(0);
         }
         Task testTask1 = new Todo("Test 1");
@@ -306,7 +306,7 @@ public class TaskCommandsIntegrationTest {
         testContainer.addModule(testModule);
 
         taskList = testModule.getTasks();
-        while (taskList.getList().size() > 0) {
+        while (taskList.size() > 0) {
             taskList.getList().remove(0);
         }
         Task testTask1 = new Deadline("Test 1", new DateTime("01/01/2029 10:00"));
@@ -355,7 +355,7 @@ public class TaskCommandsIntegrationTest {
         testContainer.addModule(testModule);
 
         taskList = testModule.getTasks();
-        while (taskList.getList().size() > 0) {
+        while (taskList.size() > 0) {
             taskList.getList().remove(0);
         }
         Task testTask1 = new Event("Test 1", new DateTime("01/02/2029 10:00"),
@@ -390,7 +390,7 @@ public class TaskCommandsIntegrationTest {
         testContainer.addModule(testModule);
 
         taskList = testModule.getTasks();
-        while (taskList.getList().size() > 0) {
+        while (taskList.size() > 0) {
             taskList.getList().remove(0);
         }
         Task testTask1 = new Event("Test 1", new DateTime("01/02/2029 10:00"),
@@ -466,7 +466,7 @@ public class TaskCommandsIntegrationTest {
         testContainer.addModule(testModule);
 
         taskList = testModule.getTasks();
-        while (taskList.getList().size() > 0) {
+        while (taskList.size() > 0) {
             taskList.getList().remove(0);
         }
         Task testTask1 = new Event("Test 1", new DateTime("01/02/2029 10:00"),
@@ -497,7 +497,7 @@ public class TaskCommandsIntegrationTest {
         testContainer.addModule(testModule);
 
         taskList = testModule.getTasks();
-        while (taskList.getList().size() > 0) {
+        while (taskList.size() > 0) {
             taskList.getList().remove(0);
         }
         Task testTask1 = new Event("Test 1", new DateTime("01/02/2029 10:00"),
