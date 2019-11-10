@@ -37,6 +37,15 @@ public class FindCommand extends Command {
         this.type = content.split(" ")[0].toLowerCase();
     }
 
+    /**
+     * Finds the keyword for the
+     * @param moduleContainer Container of all the modules.
+     * @param pageTrace Contains informaion on the current page.
+     * @param ui Instance of UI.
+     * @param guiMode Boolean to check if in gui mode.
+     * @return The display once it has been changed.
+     * @throws SpinBoxException
+     */
     @Override
     public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode) throws
             SpinBoxException {
