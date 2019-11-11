@@ -33,7 +33,6 @@ Responsibilities: Documentation
 image::tck1997.png[width="150", align="left"]
 {empty}[https://github.com/TCK1997[github]] [https://github.com/AY1920S1-CS2113T-F14-4/main/blob/master/docs/team/TanChinKhang.pdf[portfolio]]
 
-
 Role: Developer +
 Responsibilities: Testing
 
@@ -42,7 +41,6 @@ Responsibilities: Testing
 === Tanat Tippinyu
 image::ttippinyu.png[width="150", align="left"]
 {empty}[https://github.com/ttippinyu[github]] [https://github.com/AY1920S1-CS2113T-F14-4/main/blob/master/docs/team/TanatTippinyu.pdf[portfolio]]
-
 
 Role: Developer +
 Responsibilities: Scheduling and Tracking
