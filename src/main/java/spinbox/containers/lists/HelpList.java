@@ -21,6 +21,7 @@ public class HelpList {
             + "across modules\n"
             + "\t10. help / score : To score a graded component and mark it as complete\n"
             + "\t11. help / populate : To load SpinBox with sample data for trying it out \n"
+            + "\t12. help / find : To search a list for items containing keyword \n"
             + horizontalLine);
 
     public final String view = helpOutput.concat(horizontalLine + "\n" + "Command: view\n"
@@ -34,7 +35,8 @@ public class HelpList {
             + "\t4. View the list of files under module CG1111: view / modules cg1111 files\n"
             + "\t5. View the list of grade components under module CG1111: view / modules cg1111 grades\n"
             + "\t6. View the list of notes under module CG1111: view / modules cg1111 notes\n"
-            + "\t7. View the list of tasks under module CG1111: view / modules cg1111 tasks\n" + horizontalLine);
+            + "\t7. View the list of tasks under module CG1111: view / modules cg1111 tasks\n"
+            + "\t6. View the specify month and year under calendar: view / calendar 01/2020\n" + horizontalLine);
 
     public final String add = helpOutput.concat(horizontalLine + "\n" + "Command: add\n"
             + "Function: To add a module/task/grade/file/note component\n"
@@ -149,4 +151,15 @@ public class HelpList {
         + "Function: To load SpinBox with sample data if no data is currently available.\n"
         + "Example: populate\n"
         + horizontalLine);
+
+    public final String find = helpOutput.concat(horizontalLine + "\n" + "Command: find\n"
+            + "Function: To find all items in a list containing keyword.\n"
+            + "Format: find <module code> / <item type> <keyword>\n"
+            + "Example:\n"
+            + "\t* Note: omit module code if current page is the specific module *\n"
+            + "\t1. Find tasks containing 'a' in name in CG1111: find CG1111 / task a\n"
+            + "\t2. Find files containing 'a' in name in CG1111: find CG1111 / file a\n"
+            + "\t3. Find graded components containing 'a' in name in CG1111: "
+            + "find CG1111 / grade a \n"
+            + horizontalLine);
 }

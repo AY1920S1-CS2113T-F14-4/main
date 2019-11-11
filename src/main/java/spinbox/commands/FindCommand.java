@@ -2,10 +2,12 @@ package spinbox.commands;
 
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
+import spinbox.containers.lists.GradeList;
 import spinbox.entities.Module;
 import spinbox.exceptions.InputException;
 import spinbox.containers.lists.TaskList;
 import spinbox.Ui;
+import spinbox.exceptions.InvalidIndexException;
 import spinbox.exceptions.SpinBoxException;
 
 import java.util.ArrayDeque;
@@ -37,6 +39,15 @@ public class FindCommand extends Command {
         this.type = content.split(" ")[0].toLowerCase();
     }
 
+    /**
+     * Finds the items in the list containing keyword in the name.
+     * @param moduleContainer Container of all the modules.
+     * @param pageTrace Contains informaion on the current page.
+     * @param ui Instance of UI.
+     * @param guiMode Boolean to check if in gui mode.
+     * @return The display once it has been changed.
+     * @throws SpinBoxException If the item type is unknown.
+     */
     @Override
     public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui, boolean guiMode) throws
             SpinBoxException {
@@ -66,6 +77,17 @@ public class FindCommand extends Command {
                 Module module = modules.get(moduleCode);
                 TaskList tasks = module.getTasks();
                 return ui.showFormatted(tasks.containsKeyword(keyword));
+            } else {
+                return NON_EXISTENT_MODULE;
+            }
+
+        case "grade":
+            checkIfOnModulePage(moduleCode);
+            if (moduleContainer.checkModuleExists(moduleCode)) {
+                HashMap<String, Module> modules = moduleContainer.getModules();
+                Module module = modules.get(moduleCode);
+                GradeList grades = module.getGrades();
+                return ui.showFormatted(grades.containsKeyword(keyword));
             } else {
                 return NON_EXISTENT_MODULE;
             }
