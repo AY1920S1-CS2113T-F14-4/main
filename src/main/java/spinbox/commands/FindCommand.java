@@ -3,15 +3,12 @@ package spinbox.commands;
 import spinbox.containers.ModuleContainer;
 import spinbox.containers.lists.FileList;
 import spinbox.containers.lists.GradeList;
-import spinbox.containers.lists.SpinBoxList;
 import spinbox.entities.Module;
-import spinbox.entities.items.tasks.Task;
 import spinbox.exceptions.InputException;
 import spinbox.containers.lists.TaskList;
 import spinbox.Ui;
 import spinbox.exceptions.SpinBoxException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
